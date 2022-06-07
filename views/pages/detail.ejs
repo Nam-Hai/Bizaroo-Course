@@ -1,0 +1,32 @@
+<div class="detail">
+  <div class="detail__wrapper">
+    <figure class="detail__media">
+      <img src="<%= detail.data.product_image.url %>" alt="<%= detail.data.product_image.alt %>">
+    </figure>
+    <div class="detail__information">
+      <h3 class="detail__information__collection"><%= collection.data.title %></h3>
+      <h2 class="detail__information__title"><%= detail.data.product_name %></h2>
+
+      <div class="detail__information__content">
+        <div class="detail__information__highlights">
+          <% detail.data.highlights.forEach(highlight => { %>
+            <p class="detail__information__highlight">
+              <svg class="detail__information__highlight__icon" href="sprite-<%= highlight.highlights_icon.toLowerCase() %>"></svg>
+              <span class="detail__information__highlight__text"><%= highlight.highlights_text %></span>
+            </p>
+          <% }) %>
+        </div>
+
+        <div class="detail__information__list">
+          <% detail.data.informations.forEach(item => { %>
+           <p class="detail__information__item">
+             <strong class="detail__information__item__title"><%= item.informations_label %></strong>
+             <span class="detail__information__item__description"><%- item.informations_description.replace(/\n/, '<br>') %></span>
+           </p>
+          <% }) %>
+        </div>
+        <a href="<%= detail.data.link_url.url %>" class="detail__information__link" target="_blank"><%= detail.data.link_text %></a>
+      </div>
+    </div>
+  </div>
+</div>

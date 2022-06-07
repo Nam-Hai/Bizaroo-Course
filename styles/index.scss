@@ -1,0 +1,11 @@
+@forward './base/reset.scss';
+@forward './base/fonts.scss';
+@forward './base/base.scss';
+
+
+@forward './components/preloader.scss';
+@forward './layout/navigation.scss';
+@forward './pages/about/about.scss';
+@forward './pages/collections/collections.scss';
+@forward './pages/detail/detail.scss';
+@forward './pages/home/home.scss';

@@ -1,0 +1,16 @@
+@use '../../utils/variables.scss' as *;
+@use '../../utils/responsive.scss' as *;
+
+// @forward "../../import.scss";
+.about{
+  font-family: $font-george-x;
+
+
+  @include respond-to('<medium'){
+    background-color: red;
+  }
+}
+
+.about__wrapper{}
+
+.about__title{}

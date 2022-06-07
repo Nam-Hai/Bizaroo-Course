@@ -1,0 +1,32 @@
+<div class="collections">
+  <div class="collections__wrapper">
+
+    <div class="collections__titles">
+      <% collections.forEach(collection => { %>
+       <div class="collection__titles_title"><%= collection.data.title %></div>
+      <% }) %>
+    </div>
+
+    <div class="collections__gallery">
+      <div class="collections__gallery__wrapper">
+        <% collections.forEach(collection => { %>
+          <% collection.data.products.forEach(product => { %>
+            <a href="<%= ctx.linkHandler(product.products_product) %>" class="collection__gallery__link">
+              <figure class="collections__gallery__media">
+                <img src="<%= product.products_product.data.product_image.url %>" alt="<%= product.products_product.data.product_image.alt %>">
+              </figure>
+            </a>
+          <% }) %>
+        <% }) %>
+      </div>
+    </div>
+    <div class="collection__content">
+      <% collections.forEach(collection => { %>
+       <article class="collections__article">
+         <h2 class="collections__article__title"><%= collection.data.title %></h2>
+         <p class="collections__article__description"><%= collection.data.description %></p>
+       </article>
+      <% }) %>
+    </div>
+  </div>
+</div>

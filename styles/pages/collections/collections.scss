@@ -1,0 +1,29 @@
+@use '../../utils/mixins.scss' as *;
+@use '../../utils/variables.scss' as *;
+
+.collections{
+  @include cover;
+  background-color: $background-sand
+}
+.collections__wrapper{
+  @include cover;
+}
+.collections__titles{
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+.collections__titles__title{}
+
+.collections__gallery{}
+.collections__gallery__link{}
+.collections__gallery__media{
+  img{}
+}
+
+.collections__content{}
+.collections__article{}
+.collections__article__title{}
+.collections__article__description{}

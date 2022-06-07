@@ -1,0 +1,23 @@
+@use '../utils/mixins.scss' as *;
+@use '../utils/variables.scss' as *;
+
+.preloader {
+  @include cover;
+
+  background-color: $background-rose;
+  color: $text-white;
+  text-align: center;
+
+  display: none
+}
+.preloader__text{
+  @include title-53;
+
+  max-width: 66rem
+}
+
+.preloader__number{
+  @include description-14;
+  position: absolute;
+  bottom: 7.3rem;
+}

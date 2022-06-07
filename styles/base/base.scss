@@ -1,0 +1,27 @@
+@use '../utils/variables.scss' as *;
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc((100vw / 1920) *10);
+}
+
+body {
+  font-family: $font-suisse-bp;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
