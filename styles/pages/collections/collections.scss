@@ -3,27 +3,80 @@
 
 .collections{
   @include cover;
-  background-color: $background-sand
+  background-color: $background-sand;
+  color: $text-white
 }
 .collections__wrapper{
   @include cover;
+  overflow: hidden;
 }
 .collections__titles{
   display: flex;
+  align-items: center;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) rotate(-90deg);
 }
-.collections__titles__title{}
+.collections__titles__title{
+  @include title-200;
 
-.collections__gallery{}
-.collections__gallery__link{}
-.collections__gallery__media{
-  img{}
+  padding-top: 2rem;
 }
 
-.collections__content{}
-.collections__article{}
-.collections__article__title{}
-.collections__article__description{}
+.collections__titles__label {
+  @include description-12;
+
+  letter-spacing: 0.1rem;
+  margin: 0 3rem;
+  text-transform: uppercase;
+  transform: rotate(90deg);
+  text-align: center;
+}
+
+.collections__gallery{
+  @include cover;
+}
+.collections__gallery__wrapper{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  column-gap: 10.6rem;
+}
+.collections__gallery__link{}
+.collections__gallery__media{
+  height: 63.1rem;
+  width: 44.7rem;
+  position: relative;
+  // visibility: hidden;
+  // width: 35.76rem;
+  img{
+    height: 100%;
+    object-fit: cover;
+    // width: 100%;
+  }
+}
+
+.collections__content{
+  @include cover;
+}
+.collections__article{
+  position: absolute;
+  bottom: 8.7rem;
+  left: 8rem;
+  visibility: hidden;
+}
+
+.collections__article-active {
+  visibility: visible
+}
+.collections__article__title{
+  @include title-60;
+}
+.collections__article__description{
+  @include description-16;
+  max-width: 44rem;
+}

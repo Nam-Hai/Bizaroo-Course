@@ -39,7 +39,7 @@ const client = Prismic.createClient(endpoint, {
 const linkHandler = (doc) => {
   // console.log(doc);
   if (doc.type == 'product') {
-    return `/detail/${doc.slug}`
+    return `/detail/${doc.uid}`
   }
   if (doc.type == 'about') return '/about'
   if (doc.type == 'collections') return '/collections'
@@ -133,6 +133,7 @@ app.get('/collections', async (req, res) => {
   const graphQuery = `{
       collection {
         title
+        label
         description
         products {
           products_product {

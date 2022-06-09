@@ -2,9 +2,10 @@
   <div class="collections__wrapper">
 
     <div class="collections__titles">
-      <% collections.forEach(collection => { %>
-       <div class="collection__titles_title"><%= collection.data.title %></div>
-      <% }) %>
+      <% for(let collection of collections){ %>
+        <div class="collections__titles__title"><%= collection.data.title %></div>
+        <div class="collections__titles__label"><%= collection.data.label %></div>
+      <% } %>
     </div>
 
     <div class="collections__gallery">
@@ -21,12 +22,12 @@
       </div>
     </div>
     <div class="collection__content">
-      <% collections.forEach(collection => { %>
-       <article class="collections__article">
+      <% for(const [index, collection] of collections.entries()) { %>
+       <article class="collections__article <%= index === 0 ? 'collections__article-active' : '' %>">
          <h2 class="collections__article__title"><%= collection.data.title %></h2>
          <p class="collections__article__description"><%= collection.data.description %></p>
        </article>
-      <% }) %>
+      <% } %>
     </div>
   </div>
 </div>
