@@ -10,7 +10,11 @@
   position: relative;
   margin: auto;
   display: flex;
-  justify-content: center
+  justify-content: center;
+
+  .about__highlight:nth-child(4) & {
+    width: 104rem;
+  }
 }
 .about__highlight__label{
   @include description-12;
@@ -34,6 +38,11 @@
   position: absolute;
   height: 76rem;
   width: 54rem;
+
+  .about__highlight:nth-child(4) & {
+    height: 52.8rem;
+    width: 36rem;
+  }
 
   &:first-child {
     top: 0;
