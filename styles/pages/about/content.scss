@@ -1,10 +1,24 @@
-.about__content{}
-.about__content__wrapper{}
+.about__content{
+  margin: 0 auto;
+  position: relative;
+  width: 125.8rem;
+}
+.about__content__wrapper{
+    display: flex;
 
-.about__content__label{}
+}
 
-.about__content__description{}
+.about__content__label{
+  width: 18rem;
+}
+
+.about__content__description{
+  width: 36.2rem;
+  min-width: 36.2rem;
+}
 .about__content__media{
-  img{}
+  position: relative;
+  // height: 43.7rem;
+  // width: 30.9rem;
 }
 
