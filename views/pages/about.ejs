@@ -1,5 +1,4 @@
 <div class="about">
-  yo la miff en legende
   <div class="about__wrapper">
     <section class="about__gallery">
       <div class="about__gallery__wrapper">
@@ -12,7 +11,7 @@
     </section>
     <% about.data.body.forEach(section => { %>
      <% if (section.slice_type == 'title') { %>
-      <h2 class="about__title"><%= section.primary.title %> </h2>
+      <h2 class="about__title"><%- section.primary.title.replace(/\n/g, '<br>') %> </h2>
      <% } else if (section.slice_type == 'content') {%>
       <section class="about__content">
         <div class="about__content__wrapper">
