@@ -23,6 +23,7 @@
 @mixin title-100 {
   font-family: $font-title;
   font-size: 10rem;
+  line-height: 1;
 }
 
 @mixin title-120 {
