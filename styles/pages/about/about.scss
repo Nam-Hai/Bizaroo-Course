@@ -1,16 +1,31 @@
 @use '../../utils/variables.scss' as *;
 @use '../../utils/responsive.scss' as *;
+@use '../../utils/mixins.scss' as *;
 
-// @forward "../../import.scss";
+@forward './content.scss';
+@forward './gallery.scss';
+@forward './highlight.scss';
+
 .about{
-  font-family: $font-george-x;
-
-
-  @include respond-to('<medium'){
-    background-color: red;
-  }
+  // @include cover;
+  color: $color-bright-grey;
+  background-color: $background-blue;
+  position: absolute;
+  // top: 0;
+  left: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-.about__wrapper{}
+.about__wrapper{
+  display: flex;
+  row-gap: 40rem;
+  flex-direction: column
+}
 
-.about__title{}
+.about__title{
+  @include title-100;
+  margin: auto;
+  max-width: 126rem;
+  text-align: center;
+}
