@@ -1,6 +1,47 @@
-.about__highlight{}
-.about__highlight__label{}
-.about__highlight__title{}
+@use '../../utils/mixins.scss' as *;
+
+.about__highlight{
+
+}
+
+.about__highlight__wrapper {
+  height: 104rem;
+  width: 144rem;
+  position: relative;
+  margin: auto;
+  display: flex;
+  justify-content: center
+}
+.about__highlight__label{
+  @include description-12;
+
+  position: absolute;
+  top: 9rem;
+  width: 9.6rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.about__highlight__title{
+  @include title-200;
+
+  padding-bottom: 2rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg) ;
+}
 .about__highlight__media{
-  img{}
+  position: absolute;
+  height: 76rem;
+  width: 54rem;
+
+  &:first-child {
+    top: 0;
+    left: 0;
+  }
+  &:last-child{
+    bottom: 0;
+    right: 0;
+  }
+
 }
