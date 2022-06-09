@@ -29,3 +29,8 @@ a {
 img {
   vertical-align: middle;
 }
+
+figure > img {
+  object-fit: cover;
+  height: 100%;
+}
