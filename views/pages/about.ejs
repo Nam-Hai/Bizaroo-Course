@@ -13,10 +13,12 @@
      <% if (section.slice_type == 'title') { %>
       <h2 class="about__title"><%- section.primary.title.replace(/\n/g, '<br>') %> </h2>
      <% } else if (section.slice_type == 'content') {%>
-      <section class="about__content">
+      <section class="about__content <%= section.primary.type === 'Left' ? 'about__content--left' : 'about__content--right' %>">
         <div class="about__content__wrapper">
-          <p class="about__content__label"><%= section.primary.label %></p>
-          <div class="about__content__description"><%- ctx.PrismicH.asHTML(section.primary.description) %></div>
+          <div class="about__content__box">
+            <p class="about__content__label"><%= section.primary.label %></p>
+            <div class="about__content__description"><%- ctx.PrismicH.asHTML(section.primary.description) %></div>
+          </div>
           <figure class="about__content__media">
             <img src="<%= section.primary.image.url %>" alt="<%= section.primary.image.alt %>">
           </figure>
