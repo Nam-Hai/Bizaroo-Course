@@ -1,5 +1,7 @@
 @use '../utils/mixins.scss' as *;
 @use '../utils/variables.scss' as *;
+@use '../utils/functions.scss' as *;
+
 
 .preloader {
   @include cover;
@@ -8,11 +10,14 @@
   color: $text-white;
   text-align: center;
 
+  z-index: z('preloader');
+
   display: none
 }
 .preloader__text{
   @include title-53;
 
+  line-height: 1;
   max-width: 66rem
 }
 
@@ -20,4 +25,6 @@
   @include description-14;
   position: absolute;
   bottom: 7.3rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
