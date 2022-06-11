@@ -11,7 +11,7 @@
         <div class="detail__information__highlights">
           <% detail.data.highlights.forEach(highlight => { %>
             <p class="detail__information__highlight">
-              <svg class="detail__information__highlight__icon" href="sprite-<%= highlight.highlights_icon.toLowerCase() %>"></svg>
+              <span class="detail__information__highlight__icon" style="background-image: url('assets/sprite-<%= highlight.highlights_icon.toLowerCase() %>.svg')"></span>
               <span class="detail__information__highlight__text"><%= highlight.highlights_text %></span>
             </p>
           <% }) %>
@@ -25,8 +25,16 @@
            </p>
           <% }) %>
         </div>
-        <a href="<%= detail.data.link_url.url %>" class="detail__information__link" target="_blank"><%= detail.data.link_text %></a>
+        <a href="<%= detail.data.link_url.url %>" class="detail__information__link" target="_blank">
+          <%= detail.data.link_text %>
+        </a>
       </div>
     </div>
+    <button class="detail__button">
+      <svg class="detail__button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="1145.03 971.578 122.991 59">
+        <path d="M0 29.5a62 30 0 1 1 0 1" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="none" transform="matrix(.99194 0 0 .98333 1145.03 971.578)" data-name="Ellisse 2"/>
+      </svg>
+      Close
+    </button>
   </div>
 </div>

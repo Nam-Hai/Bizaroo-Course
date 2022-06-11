@@ -56,6 +56,10 @@
   height: 4rem;
   width: 4rem;
   margin-right: 3.75rem;
+
+  background-size: 3rem 3rem;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .detail__information__highlight__text{
   @include description-16;
@@ -90,4 +94,19 @@
   display: inline-block;
   margin-top: 3rem;
   text-transform: capitalize;
+}
+
+
+.detail__button {
+  @include flex-center;
+
+  height: 6rem;
+  width: 12.4rem;
+  position: absolute;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.detail__button__icon {
+  @include cover
 }
