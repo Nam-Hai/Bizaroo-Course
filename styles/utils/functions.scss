@@ -1,3 +1,5 @@
+@use './variables.scss' as *;
+
 @function z($name) {
   @if index($z-indexes, $name) {
     @return (length($list: ($z-indexes) - index($z-indexes, $name)) + 1);
