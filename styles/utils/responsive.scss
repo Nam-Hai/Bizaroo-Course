@@ -11,8 +11,8 @@ $breakpoints: (
   '>x-large' : (min-width:$x-large),
   '<small': (max-width: $small),
   '<medium': (max-width: $medium),
-  '<large': (max-width: $large)
-  '<large': (max-width: $x-large)
+  '<large': (max-width: $large),
+  '<x-large': (max-width: $x-large)
 ) !default;
 
 /// Responsive breakpoint manager
