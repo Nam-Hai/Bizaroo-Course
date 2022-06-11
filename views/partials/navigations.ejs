@@ -1,16 +1,14 @@
 <nav class="navigation">
-    <div class="navigation__wrapper">
-        <a href="/" class="navigation__link">Floema
-            <svg class="navigation__link__icon"></svg>
-        </a>
-        <ul class="navigation__list">
+  <a href="/" class="navigation__link">
+    <img class="navigation__link__icon" src="../assets/logo-white.png" alt="icon"></img>
+  </a>
+  <ul class="navigation__list">
 
-          <% ctx.navigation.data.list.forEach(item => { %>
-            <li class="navigation__list_item">
-                <a href="<%= ctx.linkHandler(item.link) %>" class="navigatio__list__link"><%= item.text %></a>
-            </li>
-          <% }) %>
+    <% ctx.navigation.data.list.forEach(item => { %>
+      <li class="navigation__list__item">
+          <a href="<%= ctx.linkHandler(item.link) %>" class="navigation__list__link"><%= item.text %></a>
+      </li>
+    <% }) %>
 
-        </ul>
-    </div>
+  </ul>
 </nav>

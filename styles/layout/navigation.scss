@@ -1,7 +1,36 @@
-.navigation{}
-.navigation__wrapper{}
-.navigation__link{}
+@use '../utils/mixins.scss' as *;
+@use '../utils/functions.scss' as *;
+@use '../utils/variables.scss' as *;
+
+.navigation{
+  @include cover;
+
+  color: $color-white;
+  z-index: z('navigation');
+  pointer-events: none;
+}
+.navigation__link{
+  position: absolute;
+  left: 4rem;
+  top: 4rem;
+  width: 12.8rem;
+  height: 2rem;
+  pointer-events: auto;
+}
 .navigation__link__icon{}
+
 .navigation__list{}
-.navigation__list__item{}
-.navigation__list__link{}
+
+.navigation__list__item{
+  pointer-events: auto;
+  position: absolute;
+  right: 4rem;
+  top: 4rem;
+}
+
+.navigation__list__link{
+  font-family: "George X";
+  font-size: 2.4rem;
+  letter-spacing: .1rem;
+  line-height: 1;
+}
