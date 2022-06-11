@@ -1,12 +1,76 @@
+@use '../../utils/mixins.scss' as *;
+@use '../../utils/variables.scss' as *;
+
 .home {
+  @include cover;
+
+  background-color: $background-rose;
+  color: $text-white;
+  text-align: center;
 }
 
 .home__wrapper {
+  @include cover;
+  overflow: hidden;
 
+  &::before, &::after {
+    content: '';
+    display: block;
+
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    height: 40rem;
+    width: 100%;
+    pointer-events: none;
+    background:  $background-rose;
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(0deg,  rgba($background-rose, 0) 0%, rgba($background-rose, 100) 100%);
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(180deg, rgba($background-rose, 0) 0%, rgba($background-rose, 100) 100%);
+  }
+}
+
+.home__titles{
+  @include vertical-title
+}
+.home__titles__title{
+  @include vertical-titles__title
+}
+
+.home__titles__label {
+  @include vertical-titles__label
+}
+
+.home__gallery {
+  @include cover;
+  visibility: hidden;
 }
 
 .home__gallery__media {
+  position: absolute;
   img{}
 }
 
-.home__button {}
+.home__link {
+  @include description-14;
+  width: 28rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  position: absolute;
+  letter-spacing: 0.05;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 2;
+}

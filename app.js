@@ -81,8 +81,6 @@ app.use(async (req, res, next) => {
 app.get('/', async (req, res) => {
   const home = await client.getSingle('home')
 
-  console.log(home);
-
   res.render('template', {
     route: 'pages/home',
     home,
@@ -91,8 +89,6 @@ app.get('/', async (req, res) => {
 
 app.get('/about', async (req, res) => {
   const [about] = await client.getAllByType('about')
-  // const meta = await client.getAllByType('meta')
-  // console.log(about.data);
 
   res.render('template', {
     route: 'pages/about',
@@ -132,9 +128,7 @@ app.get('/collections', async (req, res) => {
 
   const graphQuery = `{
       collection {
-        title
-        label
-        description
+        ...collectionFields
         products {
           products_product {
             ...on product {
@@ -144,7 +138,13 @@ app.get('/collections', async (req, res) => {
         }
       }
     }`
-  const collections = await client.getAllByType('collection', { "graphQuery": graphQuery })
+  const collections = await client.getAllByType('collection',
+    {
+      "graphQuery": graphQuery,
+      orderings: {
+        field: 'my.collection.order',
+      }
+    })
   const home = await client.getSingle('home')
   // console.log(collections, collections[0].data.products[0].products_product.data);
 
