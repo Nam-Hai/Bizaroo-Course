@@ -12,6 +12,7 @@ body {
   font-family: $font-suisse-bp;
   font-size: 16px;
   font-weight: 300;
+  line-height: 1;
 }
 
 .flex-center {
@@ -33,4 +34,12 @@ img {
 figure > img {
   object-fit: cover;
   height: 100%;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  outline: none;
 }
