@@ -1,5 +1,6 @@
 @use '../../utils/mixins.scss' as *;
 @use '../../utils/variables.scss' as *;
+@use '../../utils/responsive.scss' as *;
 
 .collections{
   @include cover;
@@ -38,6 +39,10 @@
   height: 63.1rem;
   width: 44.7rem;
   position: relative;
+
+  // @include respond-to('>large'){
+  //   height: 44rem;
+  // }
   // visibility: hidden;
   // width: 35.76rem;
   img{
