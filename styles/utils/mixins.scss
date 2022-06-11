@@ -1,5 +1,6 @@
 @forward './mixins/description.scss';
 @forward './mixins/title.scss';
+@forward './mixins/vertical-titles.scss';
 
 @mixin cover {
   height: 100%;

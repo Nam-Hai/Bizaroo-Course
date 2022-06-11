@@ -11,27 +11,14 @@
   overflow: hidden;
 }
 .collections__titles{
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  @include vertical-title
 }
 .collections__titles__title{
-  @include title-200;
-
-  padding-top: 2rem;
+  @include vertical-titles__title
 }
 
 .collections__titles__label {
-  @include description-12;
-
-  letter-spacing: 0.1rem;
-  margin: 0 3rem;
-  text-transform: uppercase;
-  transform: rotate(90deg);
-  text-align: center;
+  @include vertical-titles__label
 }
 
 .collections__gallery{
