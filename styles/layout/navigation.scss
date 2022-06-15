@@ -1,6 +1,7 @@
 @use '../utils/mixins.scss' as *;
 @use '../utils/functions.scss' as *;
 @use '../utils/variables.scss' as *;
+@use '../utils/responsive.scss' as *;
 
 .navigation{
   @include cover;
@@ -16,6 +17,13 @@
   width: 12.8rem;
   height: 2rem;
   pointer-events: auto;
+
+  @include respond-to('<small'){
+    left: 5rem;
+    top: 5rem;
+    width: 27.9rem;
+    height: 4.3rem;
+  }
 }
 .navigation__link__icon{}
 
@@ -26,11 +34,14 @@
   position: absolute;
   right: 4rem;
   top: 4rem;
+
+  @include respond-to('<small'){
+    right: 5rem;
+    top: 5rem;
+  }
 }
 
 .navigation__list__link{
-  font-family: "George X";
-  font-size: 2.4rem;
-  letter-spacing: .1rem;
-  line-height: 1;
+  @include title-20;
+  display: block;
 }
