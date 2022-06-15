@@ -20,7 +20,11 @@
 .about__wrapper{
   display: flex;
   row-gap: 20rem;
-  flex-direction: column
+  flex-direction: column;
+
+  @include respond-to('<small'){
+    row-gap: 10rem
+  }
 }
 
 .about__title{
@@ -28,4 +32,8 @@
   margin: auto;
   max-width: 126rem;
   text-align: center;
+
+  @include respond-to('<small'){
+    max-width: 67.7rem;
+  }
 }

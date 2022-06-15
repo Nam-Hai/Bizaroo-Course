@@ -1,4 +1,5 @@
 @use '../../utils/mixins.scss' as *;
+@use '../../utils/responsive.scss' as *;
 
 .about__content{
   margin: 0 auto;
@@ -16,25 +17,78 @@
     justify-content: flex-start;
     margin: unset;
   }
+
+  @include respond-to('<small'){
+    &:nth-child(5) {
+      justify-content: unset;
+      margin: auto;
+    }
+    &:nth-child(8) {
+      justify-content: unset;
+      margin: auto;
+    }
+  }
+
 }
 .about__content__wrapper{
   display: flex;
 
+
   .about__content--right & {
     flex-direction: row-reverse;
+
   }
 
+  @include respond-to('<small'){
+    width: 60.9rem;
 
+    .about__content:nth-child(3) &{
+      flex-direction: column-reverse;
+    }
+
+    .about__content:nth-child(5) &{
+      flex-direction: column;
+    }
+
+    .about__content:nth-child(8) &{
+      flex-direction: column-reverse;
+    }
+    .about__content:nth-child(9) &{
+      flex-direction: column-reverse;
+    }
+  }
 }
 
 .about__content__box {
   display: flex;
+
+  @include respond-to('<small'){
+    .about__content:nth-child(3) &{
+      margin-top: 10rem
+    }
+    .about__content:nth-child(5) &{
+      margin-bottom: 10rem
+    }
+    .about__content:nth-child(8) &{
+      margin-top: 10rem
+    }
+    .about__content:nth-child(9) &{
+      margin-top: 10rem
+    }
+  }
 }
 
 .about__content__label{
   @include description-12;
   width: 18rem;
   text-transform: uppercase;
+  flex-shrink: 0;
+
+  @include respond-to('<small'){
+    word-break: break-all;
+    width: 15rem;
+    padding-right: 2.5rem;
+  }
 }
 
 .about__content__description{
@@ -44,18 +98,26 @@
   display: flex;
   flex-direction: column;
   row-gap: 2.5rem;
+
+  @include respond-to('<small'){
+    width: 100%;
+  }
 }
 .about__content__media{
   position: relative;
   // height: 43.7rem;
   // width: 30.9rem;
 
+
+
   .about__content:nth-child(3) & {
     position: relative;
     height: 80.8rem;
     width: 53.8rem;
     margin-left: 17.8rem;
-   }
+
+
+  }
   .about__content:nth-child(5) & {
     height: 60rem;
     width: 96rem;
@@ -73,6 +135,29 @@
     width: 60.8rem;
     margin-left: 22rem;
     transform: rotate(1deg);
+  }
+
+  @include respond-to('<small'){
+
+    .about__content:nth-child(3) & {
+      width: 100%;
+      height: auto;
+      margin-left: 0;
+    }
+
+    .about__content:nth-child(5) &, .about__content:nth-child(8) &  {
+      width: 100vw;
+      height: auto;
+      margin-left: 0;
+      margin-right: 0;
+      align-self: center;
+    }
+    .about__content:nth-child(9) & {
+      width: 100%;
+      height: auto;
+      margin-left: 0;
+
+    }
   }
 }
 

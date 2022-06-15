@@ -19,13 +19,7 @@ body {
   font-weight: 300;
   line-height: 1;
 
-  body {
-  padding:
-    env(safe-area-inset-top)
-    env(safe-area-inset-right)
-    env(safe-area-inset-bottom)
-    env(safe-area-inset-left);
-  }
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .flex-center {
@@ -46,7 +40,7 @@ img {
 
 figure > img {
   object-fit: cover;
-  height: 100%;
+  width: 100%;
 }
 
 button {
