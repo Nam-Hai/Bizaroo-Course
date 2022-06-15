@@ -1,13 +1,21 @@
 @use '../variables.scss' as *;
+@use '../responsive.scss' as *;
 
 @mixin title-20 {
   font-family: $font-title;
   font-size: 2rem;
+  @include respond-to('<small'){
+    font-size:  5.2rem;
+  }
 }
 
 @mixin title-30 {
   font-family: $font-title;
   font-size: 3rem;
+
+  @include respond-to('<small'){
+    font-size:  5.2rem;
+  }
 }
 
 @mixin title-53 {
@@ -24,12 +32,20 @@
   font-family: $font-title;
   font-size: 10rem;
   line-height: 1;
+
+  @include respond-to('<small'){
+    font-size: 12rem;
+  }
 }
 
 @mixin title-120 {
   font-family: $font-title;
   font-size: 12rem;
   line-height: 0.82;
+
+  @include respond-to('<small'){
+    font-size: 18rem;
+  }
 }
 
 @mixin title-200 {

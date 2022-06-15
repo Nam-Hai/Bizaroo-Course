@@ -122,8 +122,8 @@ module.exports = {
         test: /fonts\/.*\.(woff|woff2|eot|ttf|svg)$/,
         loader: 'file-loader',
         options: {
-          outputPath: 'fonts',
-          // outputPath: 'http://localhost:3000/fonts', // Development
+          // outputPath: 'fonts',
+          outputPath: 'http://localhost:3000/fonts', // Development
           name(file) {
             return '[hash].[ext]'
           }

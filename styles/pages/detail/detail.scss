@@ -1,21 +1,41 @@
 @use '../../utils/mixins.scss' as *;
 @use '../../utils/variables.scss' as *;
+@use '../../utils/responsive.scss' as *;
 
 .detail{
   @include cover;
   @include flex-center;
   background-color: $background-sand;
   color: $color-white;
+
+  @include respond-to('<small'){
+    height: auto;
+  }
 }
 
 .detail__wrapper{
   display: flex;
   align-items: center;
+
+  @include respond-to('<small'){
+    margin: auto;
+    flex-direction: column;
+    width: 66.1rem;
+
+    padding: 15rem 0 33rem;
+  }
 }
 .detail__media{
   position: relative;
   height: 78.2rem;
   width: 55.4rem;
+
+  @include respond-to('<small'){
+    margin: 0 auto 7.8rem;
+    width: 66.1rem;
+    height: 93.4rem;
+  }
+
   img {
     @include cover;
     object-fit: cover;
@@ -24,6 +44,11 @@
 
 .detail__information{
   padding-left: 8.2rem;
+
+  @include respond-to('<small'){
+    padding-left: 0;
+    width: 100%;
+  }
 }
 .detail__information__collection{
   @include description-12;
@@ -37,6 +62,10 @@
 }
 .detail__information__content{
   padding-left: 18rem;
+
+  @include respond-to('<small'){
+    padding-left: 0;
+  }
 }
 
 .detail__information__highlights{
@@ -60,6 +89,13 @@
   background-size: 3rem 3rem;
   background-repeat: no-repeat;
   background-position: center;
+
+  @include respond-to('<small'){
+    height: 9.2rem;
+    width: 9.2rem;
+    background-size: 5.5rem;
+    margin-right: 5.2rem;
+  }
 }
 .detail__information__highlight__text{
   @include description-16;
@@ -81,7 +117,13 @@
   text-transform: uppercase;
   padding-right: 2.5rem;
   width: 15rem;
-  margin-top: 0.5rem
+  margin-top: 0.5rem;
+
+  @include respond-to('<small'){
+    padding-right: 5rem;
+    width: 15rem;
+
+  }
 }
 .detail__information__item__description{
   @include description-16;
@@ -106,6 +148,13 @@
   bottom: 5rem;
   left: 50%;
   transform: translateX(-50%);
+
+  @include respond-to('<small'){
+    font-size: 3rem;
+    width: 26.8rem;
+    height: 13rem;
+    bottom: 12rem;
+  }
 }
 .detail__button__icon {
   @include cover
