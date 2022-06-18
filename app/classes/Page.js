@@ -17,6 +17,7 @@ export default class Page {
   create() {
     this.element = N.Select.el(this.selector);
     this.elements = {};
+    N.O(this.element, 0)
 
     console.log('this.selectorChildren', this.selectorChildren);
 
@@ -24,30 +25,37 @@ export default class Page {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
         this.elements[key] = entry;
       } else {
-        this.elements[key] = N.get(entry, this.element);
+        let r = N.get(entry, this.element);
 
-        if (this.elements[key].length === 1) {
-          this.elements[key] = this.elements[key][0];
-        } else if (this.elements[key].length === 0) {
-          this.elements[key] = null;
-        }
+        // r.length === 1 ? (r = r[0]) : r.length === 0 && (r = null)
+        this.elements[key] = r
       }
     }
     console.log('this.element', this.elements);
   }
 
-  show() {
-    anime({
-      targets: this.element,
-      opacity: [0, 1],
-      delay: 500
+  async show() {
+    console.log('this.element promise', this.elements);
+    return new Promise(resolve => {
+      anime({
+        targets: this.element,
+        opacity: 1,
+        duration: 1000,
+        easing: 'easeInOutExpo',
+        complete: resolve
+      })
     })
   }
 
-  hide() {
-    anime({
-      targets: this.element,
-      opacity: 0
+  async hide() {
+    return new Promise(resolve => {
+      anime({
+        targets: this.element,
+        opacity: 0,
+        duration: 1000,
+        easing: 'easeInOutExpo',
+        complete: resolve
+      })
     })
   }
 }

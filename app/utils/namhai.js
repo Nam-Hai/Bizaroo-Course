@@ -91,7 +91,10 @@ N.map = function (x, start1, end1, start2, end2) {
 
 N.get = function (tag, context) {
   const e = context || document;
-  return e["querySelectorAll"](tag)
+  let r = e["querySelectorAll"](tag)
+  r.length === 1 ? (r = r[0]) : r.length === 0 && (r = null)
+  // console.log('n.get', r);
+  return r
 }
 
 N.Cr = t => document.createElement(t);
@@ -185,12 +188,13 @@ N.T = (el, x, y, unite) => {
   el.style.transform = "translate3d(" + x + unite + "," + y + unite + ",0)"
 };
 
-/** BindManager */
-// N.BM = (context, methodArray) => {
-//   const n = methodArray.length;
-//   // for (let i = 0; i < n; i++) context[methodArray[i]] = context[methodArray[i]].bind(context)
-//   for (const method of methodArray) method = method.bind(context)
-// };
+/** BindManan.r */
+N.BM = (context, methodArray) => {
+  // const n = methodArray.length;
+  // for (let i = 0; i < n; i++) context[methodArray[i]] = context[methodArray[i]].bind(context)
+  console.log('bind', context, methodArray);
+  for (const method of methodArray) context[method] = context[method].bind(context)
+};
 
 
 //  si t == this.delay ou > alors callback()

@@ -17,9 +17,9 @@ export default class Home extends Page {
     super.create();
 
     this.elements.link.addEventListener('click', (e) => {
-      N.PD(e)
-      console.log('click');
-      this.hide()
+      // N.PD(e)
+      // console.log('click');
+      // this.hide()
     })
   }
 
