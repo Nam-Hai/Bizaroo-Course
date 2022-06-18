@@ -12,7 +12,11 @@
   overflow: hidden;
 }
 .collections__titles{
-  @include vertical-title
+  @include vertical-title;
+
+  @include respond-to('<small'){
+    display: none;
+  }
 }
 .collections__titles__title{
   @include vertical-titles__title
@@ -54,8 +58,15 @@
 
 .collections__content{
   @include cover;
+
+  pointer-events: none;
+
+  @include respond-to('<small'){
+    display: none;
+  }
 }
 .collections__article{
+  pointer-events: auto;
   position: absolute;
   bottom: 8.7rem;
   left: 8rem;
@@ -71,4 +82,31 @@
 .collections__article__description{
   @include description-16;
   max-width: 44rem;
+}
+
+.collections__mobile {
+  display: flex;
+  position: absolute;
+  bottom: 5rem;
+
+  @include respond-to('>small'){
+    display: none;
+  }
+}
+
+.collections__mobile__item{
+  padding-left: 5rem;
+  width: 100vh ;
+}
+
+.collections__mobile__item__label{
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  margin-bottom: 5rem;
+}
+
+.collections__mobile__item__title{
+  font-family: $font-title;
+  font-size: 12rem;
 }

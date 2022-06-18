@@ -21,12 +21,21 @@
         <% }) %>
       </div>
     </div>
-    <div class="collection__content">
+    <div class="collections__content">
       <% for(const [index, collection] of collections.entries()) { %>
        <article class="collections__article <%= index === 0 ? 'collections__article-active' : '' %>">
          <h2 class="collections__article__title"><%= collection.data.title %></h2>
          <p class="collections__article__description"><%= collection.data.description %></p>
        </article>
+      <% } %>
+    </div>
+
+    <div class="collections__mobile">
+      <% for(let collection of collections){ %>
+        <div class="collections__mobile__item">
+          <div class="collections__mobile__item__label"><%- collection.data.label.replace(' ', '<br>') %></div>
+          <div class="collections__mobile__item__title"><%= collection.data.title %></div>
+        </div>
       <% } %>
     </div>
   </div>
