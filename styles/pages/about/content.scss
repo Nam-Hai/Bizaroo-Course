@@ -85,8 +85,9 @@
   flex-shrink: 0;
 
   @include respond-to('<small'){
-    word-break: break-all;
+    font-size: 2.4rem;
     width: 15rem;
+    line-height: 3.3rem;
     padding-right: 2.5rem;
   }
 }

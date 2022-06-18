@@ -86,7 +86,7 @@
   width: 4rem;
   margin-right: 3.75rem;
 
-  background-size: 3rem 3rem;
+  background-size: 2.5rem;
   background-repeat: no-repeat;
   background-position: center;
 
@@ -140,6 +140,7 @@
 
 
 .detail__button {
+  @include description-14;
   @include flex-center;
 
   height: 6rem;
@@ -150,7 +151,6 @@
   transform: translateX(-50%);
 
   @include respond-to('<small'){
-    font-size: 3rem;
     width: 26.8rem;
     height: 13rem;
     bottom: 12rem;

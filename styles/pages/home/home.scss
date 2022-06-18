@@ -1,5 +1,6 @@
 @use '../../utils/mixins.scss' as *;
 @use '../../utils/variables.scss' as *;
+@use '../../utils/responsive.scss' as *;
 
 .home {
   @include cover;
@@ -72,6 +73,12 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
+
+  @include respond-to('<small'){
+    bottom: 7.5rem;
+    height: 13.7rem;
+    width: 55rem;
+  }
 }
 
 .home__link__icon {
