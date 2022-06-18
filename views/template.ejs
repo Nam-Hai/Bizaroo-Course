@@ -33,8 +33,10 @@
     <header>
         <%- include('./partials/navigations.ejs'); %>
     </header>
-    <main>
+    <main data-template="<%= route.substring(6) %>">
         <%- include(route)  %>
     </main>
+
+    <script src="main.js"></script>
 </body>
 </html>
