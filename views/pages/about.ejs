@@ -16,7 +16,7 @@
       <section class="about__content <%= section.primary.type === 'Left' ? 'about__content--left' : 'about__content--right' %>">
         <div class="about__content__wrapper">
           <div class="about__content__box">
-            <p class="about__content__label"><%= section.primary.label %></p>
+            <p class="about__content__label"><%- section.primary.label %></p>
             <div class="about__content__description"><%- ctx.PrismicH.asHTML(section.primary.description) %></div>
           </div>
           <figure class="about__content__media">
