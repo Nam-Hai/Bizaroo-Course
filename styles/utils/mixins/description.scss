@@ -10,6 +10,10 @@
 
 @mixin description-14 {
   font-size: 1.4rem;
+
+  @include respond-to('<small'){
+    font-size: 3rem;
+  }
 }
 
 @mixin description-16 {

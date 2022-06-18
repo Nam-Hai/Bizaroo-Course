@@ -1,5 +1,6 @@
 @use './description.scss' as *;
 @use './title.scss' as *;
+@use '../responsive.scss' as *;
 
 @mixin vertical-title {
   display: flex;
@@ -25,4 +26,8 @@
   text-transform: uppercase;
   transform: rotate(90deg);
   text-align: center;
+
+  @include respond-to('<small'){
+    font-size: 1.8rem;
+  }
 }
