@@ -1,0 +1,27 @@
+{
+  "short_name": "Floema",
+  "name": "Floema",
+  "icons": [
+    {
+      "src": "/assets/favicon/favicon-32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/assets/favicon/favicon-16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/assets/favicon/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#C97164",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#C97164",
+  "description": "Jewlery"
+}
