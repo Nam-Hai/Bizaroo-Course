@@ -1,4 +1,5 @@
 @use '../utils/mixins.scss' as *;
+@use '../utils/responsive.scss' as *;
 @use '../utils/variables.scss' as *;
 @use '../utils/functions.scss' as *;
 
@@ -27,4 +28,8 @@
   bottom: 7.3rem;
   left: 50%;
   transform: translateX(-50%);
+
+  @include respond-to('<small'){
+    font-size: 2.5rem;
+  }
 }
