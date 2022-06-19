@@ -10,7 +10,7 @@
     <div class="home__gallery">
       <% home.data.gallery.forEach(media => { %>
        <figure class="home__gallery__media">
-         <img src="<%= media.image.url %>" alt="<%= media.image.alt %>">
+         <img data-src="<%= media.image.url %>" alt="<%= media.image.alt %>">
        </figure>
       <% }) %>
     </div>

@@ -14,9 +14,10 @@ $font-suisse-bp: 'Suise BP';
 $ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
 $z-indexes: (
-  'preloader',
-  'navigation',
-  'content'
+  'preloader': 3,
+  'navigation': 2,
+  'content' : 1,
+
 );
 
 $font-title: $font-george-x;

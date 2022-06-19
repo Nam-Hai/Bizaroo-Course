@@ -8,25 +8,32 @@ import { N } from 'utils/namhai.js'
 class App {
   constructor() {
     this.createPreloader()
-    this.createContent()
-    this.createPages()
 
-    this.addLinkListener(N.get('header'))
   }
 
   createPreloader() {
     this.preloader = new Preloader()
-    this.preloader.once('completed', this.onPreloaded)
+    console.log('preloader');
+
+    this.preloader.once('completed', this.onPreloaded.bind(this))
   }
 
-  onPreloaded() {
-    console.log('preloaderd');
+  async onPreloaded() {
+    this.createContent();
+
+    this.createPages()
+
+    this.addLinkListener(N.get('header'))
+    // N.O(this.preloader.element, 0)
+    // N.pe(this.preloader.element, 'none')
+
+    await this.preloader.hide()
+    this.preloader.destroy()
   }
 
   createContent() {
     this.content = N.Select.el('main')
     this.template = this.content.getAttribute('data-template')
-    console.log('template', this.template, this.content);
   }
 
   createPages() {

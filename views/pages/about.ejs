@@ -4,7 +4,7 @@
       <div class="about__gallery__wrapper">
         <% about.data.gallery.forEach(el => { %>
           <figure class="about__gallery__media">
-            <img src="<%= el.image.url %>" alt="<%= el.image.alt %>">
+            <img data-src="<%= el.image.url %>" alt="<%= el.image.alt %>">
           </figure>
         <% }) %>
       </div>
@@ -20,7 +20,7 @@
             <div class="about__content__description"><%- ctx.PrismicH.asHTML(section.primary.description) %></div>
           </div>
           <figure class="about__content__media">
-            <img src="<%= section.primary.image.url %>" alt="<%= section.primary.image.alt %>">
+            <img data-src="<%= section.primary.image.url %>" alt="<%= section.primary.image.alt %>">
           </figure>
         </div>
       </section>
@@ -35,7 +35,7 @@
           <div class="about__highlight__medias">
             <% section.items.forEach(image => { %>
               <figure class="about__highlight__media">
-                <img src="<%= image.image.url %>" alt="<% image.image.alt %>">
+                <img data-src="<%= image.image.url %>" alt="<% image.image.alt %>">
               </figure>
             <% }) %>
           </div>
@@ -46,7 +46,7 @@
         <div class="about__gallery__wrapper">
           <% section.items.forEach(media => { %>
             <figure class="about__gallery__media">
-              <img src="<%= media.image.url %>" alt="<%= media.image.url %>">
+              <img data-src="<%= media.image.url %>" alt="<%= media.image.url %>">
             </figure>
           <% })%>
         </div>

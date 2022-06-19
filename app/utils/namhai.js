@@ -190,10 +190,10 @@ N.T = (el, x, y, unite) => {
 
 /** BindManan.r */
 N.BM = (context, methodArray) => {
-  // const n = methodArray.length;
-  // for (let i = 0; i < n; i++) context[methodArray[i]] = context[methodArray[i]].bind(context)
-  console.log('bind', context, methodArray);
-  for (const method of methodArray) context[method] = context[method].bind(context)
+  const n = methodArray.length;
+  for (let i = 0; i < n; i++) context[methodArray[i]] = context[methodArray[i]].bind(context)
+  // console.log('bind', context, methodArray);
+  // for (const method of methodArray) context[method] = context[method].bind(context)
 };
 
 

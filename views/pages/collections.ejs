@@ -14,7 +14,7 @@
           <% collection.data.products.forEach(product => { %>
             <a href="<%= ctx.linkHandler(product.products_product) %>" class="collection__gallery__link">
               <figure class="collections__gallery__media">
-                <img src="<%= product.products_product.data.product_image.url %>" alt="<%= product.products_product.data.product_image.alt %>">
+                <img data-src="<%= product.products_product.data.product_image.url %>" alt="<%= product.products_product.data.product_image.alt %>">
               </figure>
             </a>
           <% }) %>
