@@ -24,11 +24,12 @@ class App {
     this.createPages()
 
     this.addLinkListener(N.get('header'))
-    // N.O(this.preloader.element, 0)
-    // N.pe(this.preloader.element, 'none')
+    this.addLinkListener(this.content)
 
     await this.preloader.hide()
     this.preloader.destroy()
+    // garbage collection
+    this.preloader = null
   }
 
   createContent() {
@@ -66,12 +67,12 @@ class App {
   }
 
   async onChange(url, button) {
+    await this.page.hide()
 
     N.pe(button, 'none')
     const request = await window.fetch(url)
 
     if (request.ok) {
-      await this.page.hide()
       const html = await request['text']()
 
 
@@ -87,12 +88,15 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
       this.addLinkListener(this.content)
-      await this.page.show()
+      window.history.pushState(this.template, '', url)
 
 
     } else {
       console.error('error fetch not found');
+
+      // faire une 404
     }
+    await this.page.show()
     N.pe(button, 'auto')
   }
 }

@@ -18,8 +18,19 @@
   @include title-53;
 
   line-height: 1;
-  max-width: 66rem
+  max-width: 66rem;
+  opacity: 0;
+
+  > span {
+    overflow: hidden;
+    display: inline-block;
+    > span {
+      display: inline-block;
+      transform: translateY(100%)
+    }
+  }
 }
+
 
 .preloader__number{
   @include description-14;
