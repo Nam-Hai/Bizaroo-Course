@@ -3,6 +3,7 @@
 @use '../../utils/responsive.scss' as *;
 
 .detail{
+  @include page;
   @include cover;
   @include flex-center;
   background-color: $background-sand;

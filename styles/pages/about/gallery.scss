@@ -5,6 +5,10 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 10rem;
+
+  &:first-child {
+    margin-top: 10rem;
+  }
 }
 
 .about__gallery__wrapper{

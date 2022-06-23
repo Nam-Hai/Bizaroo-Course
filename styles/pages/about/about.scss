@@ -8,6 +8,7 @@
 
 .about{
   // @include cover;
+  @include page;
   color: $color-bright-grey;
   background-color: $background-blue;
   position: absolute;
@@ -15,6 +16,7 @@
   left: 0;
   width: 100%;
   overflow: hidden;
+  opacity: 0;
 
   @include respond-to('<small'){
     padding-top: 10rem;

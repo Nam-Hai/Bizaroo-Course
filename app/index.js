@@ -9,6 +9,8 @@ class App {
   constructor() {
     this.createPreloader()
 
+    this.timeStamp;
+    this.update()
   }
 
   createPreloader() {
@@ -25,6 +27,7 @@ class App {
 
     this.addLinkListener(N.get('header'))
     this.addLinkListener(this.content)
+    this.addEventListener()
 
     await this.preloader.hide()
     this.preloader.destroy()
@@ -37,6 +40,7 @@ class App {
     this.template = this.content.getAttribute('data-template')
   }
 
+
   createPages() {
     this.pages = {
       'home': new Home(),
@@ -47,11 +51,16 @@ class App {
     this.page = this.pages[this.template]
 
     this.page.create()
+    this.onResize()
     this.page.show()
   }
 
+  onResize() {
+    if (this.page && this.page.onResize) this.page.onResize()
+  }
+
   // recuppere tout les link de la page les prevent default et leur donne onChange,
-  // c.a.d comportement SPA JSON fetch
+  // c.a.d comportement SPA JSON fetch + pointer-event none pendant l'animation sur tout les liens
   addLinkListener(context) {
     let links = N.get('a', context)
     if (!links) return
@@ -87,6 +96,7 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
       this.addLinkListener(this.content)
+      this.onResize()
       window.history.pushState(this.template, '', url)
 
 
@@ -97,6 +107,21 @@ class App {
     }
     await this.page.show()
     N.pe(button, 'auto')
+  }
+
+  addEventListener() {
+    window.addEventListener('resize', this.onResize.bind(this))
+  }
+
+
+  update(t) {
+    if (!this.timeStamp) this.timeStamp = t
+    const deltaT = (t - this.timeStamp) / (1000 / 60)
+    this.timeStamp = t
+    if (this.page && this.page.update) {
+      this.page.update(deltaT)
+    }
+    window.requestAnimationFrame(this.update.bind(this))
   }
 }
 

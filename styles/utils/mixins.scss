@@ -17,6 +17,15 @@
   align-items: center;
 }
 
+@mixin page {
+  @include cover;
+
+}
+
+@mixin page__wrapper {
+
+}
+
 @mixin placeholder {
   &.placeholder { @content; }
   &::-webkit-input-placeholder { @content; }

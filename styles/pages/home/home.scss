@@ -3,7 +3,7 @@
 @use '../../utils/responsive.scss' as *;
 
 .home {
-  @include cover;
+  @include page;
 
   background-color: $background-rose;
   color: $text-white;

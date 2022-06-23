@@ -70,7 +70,9 @@ N.complexEase = {
 }
 
 // on peut utiliser les fonction de easing avec Lerp : N.Lerp(y_start, y_target, N.Ease.ease(time/duration))
-/** Interpolation Lineaire */
+/** Interpolation Lineaire
+ * xi, xf, t
+ */
 N.Lerp = function (xi, xf, t) {
   return (1 - t) * xi + t * xf
 };

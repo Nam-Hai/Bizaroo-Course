@@ -3,6 +3,7 @@
 @use '../../utils/responsive.scss' as *;
 
 .collections{
+  @include page;
   @include cover;
   background-color: $background-sand;
   color: $text-white

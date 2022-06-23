@@ -53,7 +53,6 @@ export default class Preloader extends Components {
   onAssetsLoaded() {
     this.imageCount++
     this.elements.number.innerHTML = `${N.Round(this.imageCount / this.elements.images.length * 100, 1)}%`
-    console.log(this.imageCount);
     if (this.imageCount == this.elements.images.length) {
       if (this.animationCompleted) this.emit('completed')
     }

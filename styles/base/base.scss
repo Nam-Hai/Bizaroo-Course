@@ -1,5 +1,6 @@
 @use '../utils/variables.scss' as *;
 @use '../utils/responsive.scss' as *;
+@use '../utils/mixins.scss' as *;
 
 *, *::after, *::before {
   box-sizing: border-box;
@@ -7,10 +8,15 @@
 
 html {
   font-size: calc((100vw / 1920) *10);
+  @include cover;
+  position: fixed;
+
+  overflow: hidden;
 
   @include respond-to('<small'){
     font-size: calc((100vw / 750) *10);
   }
+
 }
 
 body {
