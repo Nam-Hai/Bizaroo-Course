@@ -50,14 +50,13 @@ class App {
     this.page.show()
   }
 
+  // recuppere tout les link de la page les prevent default et leur donne onChange,
+  // c.a.d comportement SPA JSON fetch
   addLinkListener(context) {
     let links = N.get('a', context)
-    console.log('contentlinks', links);
     if (!links) return
     if (!(links instanceof window.NodeList)) links = [links]
-    console.log('links', links);
     for (const link of links) {
-      console.log(link);
       link.addEventListener('click', (e) => {
         const href = link.href
         N.PD(e)
@@ -67,8 +66,8 @@ class App {
   }
 
   async onChange(url, button) {
-    await this.page.hide()
 
+    await this.page.hide()
     N.pe(button, 'none')
     const request = await window.fetch(url)
 

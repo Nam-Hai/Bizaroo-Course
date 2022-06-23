@@ -17,7 +17,7 @@ export default class Page {
   create() {
     this.element = N.Select.el(this.selector);
     this.elements = {};
-    N.O(this.element, 0)
+    // N.O(this.element, 0)
 
     console.log('this.selectorChildren', this.selectorChildren);
 
@@ -40,7 +40,7 @@ export default class Page {
       anime({
         targets: this.element,
         opacity: 1,
-        duration: 1000,
+        duration: 200,
         easing: 'easeInOutExpo',
         complete: resolve
       })
@@ -49,13 +49,11 @@ export default class Page {
 
   async hide() {
     return new Promise(resolve => {
-      anime({
-        targets: this.element,
-        opacity: 0,
-        duration: 1000,
-        easing: 'easeInOutExpo',
-        complete: resolve
-      })
+      setTimeout(() => {
+        N.O(this.element, 0);
+        resolve()
+      }, 1000)
+
     })
   }
 }

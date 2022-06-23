@@ -17,21 +17,19 @@ export default class Preloader extends Components {
       element: this.elements.title,
       expression: '<br>'
     })
-    console.log('tjois.element double span', this.elements.titleSpans);
     this.elements.titleSpans = [...this.elements.titleSpans].map(element => element = doubleSpan(element))
 
-    console.log('tjois.element double span', this.elements.titleSpans);
     N.O(this.elements.title, 1)
     anime({
       targets: this.elements.titleSpans,
       translateY: ['100%', '0%'],
       easing: 'easeInOutExpo',
-      duration: 700,
+      duration: 600,
       delay: anime.stagger(200)
     })
 
     this.imageCount = 0
-    console.log('components;', this.element, N.get(this.selector), this.elements);
+
 
     this.createLoader()
   }
@@ -43,7 +41,7 @@ export default class Preloader extends Components {
       if (this.imageCount == this.elements.images.length) {
         this.emit('completed')
       }
-    }, 1200)
+    }, 1000)
     for (let el of this.elements.images) {
 
       el.onload = () => this.onAssetsLoaded()
@@ -62,6 +60,26 @@ export default class Preloader extends Components {
   }
 
 
+  async hide() {
+    this.elements.titleSpans.push(N.get('.preloader__number'))
+    return new Promise(resolve => {
+      anime({
+        targets: this.elements.titleSpans,
+        translateY: '-115%',
+        easing: 'easeInOutExpo',
+        duration: 700,
+        delay: anime.stagger(200),
+      })
+      anime({
+        targets: this.element,
+        translateY: '-100%',
+        easing: 'easeInOutExpo',
+        delay: 1500,
+        duration: 900,
+        complete: resolve
+      })
+    })
+  }
 
   destroy() {
     this.element.parentNode.removeChild(this.element)

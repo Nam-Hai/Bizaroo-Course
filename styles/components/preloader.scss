@@ -32,12 +32,17 @@
 }
 
 
-.preloader__number{
+.preloader__number__wrapper{
   @include description-14;
   position: absolute;
   bottom: 7.3rem;
   left: 50%;
   transform: translateX(-50%);
+  overflow: hidden;
+  display: inline-block;
+  span {
+    display: inline-block;
+  }
 
   @include respond-to('<small'){
     font-size: 2.5rem;
