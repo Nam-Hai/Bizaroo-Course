@@ -3,8 +3,8 @@ import anime from "animejs";
 
 export default class Title extends Animation {
 
-  constructor() {
-
+  constructor({ element, elements }) {
+    super({ element, elements })
   }
 
   animateIn() {

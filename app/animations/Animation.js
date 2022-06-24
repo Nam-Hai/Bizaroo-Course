@@ -16,7 +16,8 @@ export default class Animation {
   }
 
   create() {
-    this.element = N.Select.el(this.selector);
+    !(this.selector instanceof window.HTMLElement) ? this.element = N.Select.el(this.selector) : this.element = this.selector
+
     this.elements = {};
 
     for (const [key, entry] of Object.entries(this.selectorChildren)) {
@@ -38,6 +39,8 @@ export default class Animation {
         else this.animateOut()
       }
     })
+
+    console.log('this.observer', this.observer);
 
     this.observer.observe(this.element)
   }

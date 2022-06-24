@@ -40,9 +40,9 @@ export default class Page {
   }
 
   createAnimations() {
-    console.log('animationTitle', this.animationTitles);
-    this.animationTitles = Object.entries(this.elements.animationTitles).map(element => {
-      return new Title({ element })
+    console.log('animationTitle', this.elements.animationTitles);
+    this.animationTitles = Object.entries(this.elements.animationTitles).map(([key, el]) => {
+      return new Title({ element: el })
     })
     console.log('animationTitle', this.animationTitles);
   }
