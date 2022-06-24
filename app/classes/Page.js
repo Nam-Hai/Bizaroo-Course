@@ -1,5 +1,6 @@
-import { N } from 'utils/namhai.js'
+import { N, normalizeWheel } from 'utils/namhai.js'
 import anime from 'animejs';
+import Title from 'animations/Title'
 
 export default class Page {
   constructor({
@@ -9,7 +10,8 @@ export default class Page {
   }) {
     this.selector = element;
     this.selectorChildren = {
-      ...elements
+      ...elements,
+      animationTitles: '[data-animation="title"]'
     };
     this.id = id;
 
@@ -34,7 +36,15 @@ export default class Page {
         this.elements[key] = r
       }
     }
-    console.log('this.element', this.elements);
+    this.createAnimations()
+  }
+
+  createAnimations() {
+    console.log('animationTitle', this.animationTitles);
+    this.animationTitles = Object.entries(this.elements.animationTitles).map(element => {
+      return new Title({ element })
+    })
+    console.log('animationTitle', this.animationTitles);
   }
 
   onResize() {
@@ -72,6 +82,8 @@ export default class Page {
 
   onMouseWheel(event) {
     const deltaY = event.deltaY;
+    const pixelY = normalizeWheel(event)
+
     this.scroll.targetY += deltaY
     this.scroll.targetY = N.Clamp(this.scroll.targetY, 0, this.scroll.limit)
   }
