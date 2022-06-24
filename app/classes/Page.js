@@ -32,7 +32,7 @@ export default class Page {
     }
     this.elements = this.querySelectRec(this.selectorChildren)
     console.log('this.elements', this.elements);
-    this.createAnimations()
+    // this.createAnimations()
   }
 
   querySelectRec(selectorObject) {

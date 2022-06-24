@@ -38,6 +38,9 @@
   margin: auto;
   max-width: 126rem;
   text-align: center;
+  height: 25rem;
+  opacity: 0;
+  // display: flex;
 
   @include respond-to('<small'){
     max-width: 67.7rem;

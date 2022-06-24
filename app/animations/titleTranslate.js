@@ -1,6 +1,7 @@
 import Animation from "./Animation";
 import { doubleSpan, split } from '../utils/text'
 import anime from "animejs";
+import { N } from "../utils/namhai";
 
 
 export default class Title_Translate extends Animation {
@@ -13,9 +14,10 @@ export default class Title_Translate extends Animation {
       expression: '<br>'
     })
 
-    console.log('titlespan', this.titleSpans);
     this.titleSpans = [...this.titleSpans].map(element => element = doubleSpan(element))
 
+    N.O(this.element, 1)
+    this.createObserver()
     this.animateOut()
   }
 
@@ -24,13 +26,13 @@ export default class Title_Translate extends Animation {
     for (const el of this.titleSpans) {
       el.style.visiblilty = 'unset'
     }
-
-    console.log('this.tuitlespans animein', this.titleSpans);
+    if (this.firstTime) return
+    this.firstTime = true
     anime({
       targets: this.titleSpans,
       translateY: ['100%', '0%'],
       easing: 'easeInOutExpo',
-      duration: 1500,
+      duration: 600,
       delay: anime.stagger(200)
     })
   }
