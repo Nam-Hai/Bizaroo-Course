@@ -56,3 +56,12 @@ button {
   cursor: pointer;
   outline: none;
 }
+
+.span__wrapper {
+  display: inline-block;
+  overflow: hidden;
+
+  .title-translate {
+    display: inline-block;
+  }
+}

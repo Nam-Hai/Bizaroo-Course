@@ -1,6 +1,7 @@
 import { N, normalizeWheel } from 'utils/namhai.js'
 import anime from 'animejs';
 import Title from 'animations/Title'
+import Title_Translate from '../animations/titleTranslate';
 
 export default class Page {
   constructor({
@@ -11,7 +12,10 @@ export default class Page {
     this.selector = element;
     this.selectorChildren = {
       ...elements,
-      animationTitles: '[data-animation="title"]'
+      title: {
+        animationTitles: '[data-animation="title"]',
+        animationTitlesTranslate: '[data-animation="title-translate"]'
+      }
     };
     this.id = id;
 
@@ -26,25 +30,33 @@ export default class Page {
       lastY: 0,
       limit: 0
     }
-    for (const [key, entry] of Object.entries(this.selectorChildren)) {
-      if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
-        this.elements[key] = entry;
-      } else {
-        let r = N.get(entry, this.element);
-
-        // r.length === 1 ? (r = r[0]) : r.length === 0 && (r = null)
-        this.elements[key] = r
-      }
-    }
+    this.elements = this.querySelectRec(this.selectorChildren)
+    console.log('this.elements', this.elements);
     this.createAnimations()
   }
 
+  querySelectRec(selectorObject) {
+    let elements = {}
+    for (const [key, entry] of Object.entries(selectorObject)) {
+      if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
+        elements[key] = entry;
+      } else {
+        let r;
+        if (Object.prototype.toString.call(entry) === '[object Object]') r = this.querySelectRec(entry)
+        else r = N.get(entry, this.element);
+        elements[key] = r
+      }
+    }
+    return elements
+  }
+
   createAnimations() {
-    console.log('animationTitle', this.elements.animationTitles);
-    this.animationTitles = Object.entries(this.elements.animationTitles).map(([key, el]) => {
-      return new Title({ element: el })
+    this.animationTitles = Object.entries(this.elements.title.animationTitles).map(([key, element]) => {
+      return new Title({ element })
     })
-    console.log('animationTitle', this.animationTitles);
+    this.animationTitlesTranslate = Object.entries(this.elements.title.animationTitlesTranslate).map(([key, element]) => {
+      return new Title_Translate({ element })
+    })
   }
 
   onResize() {

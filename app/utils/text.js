@@ -1,12 +1,12 @@
 import { N } from './namhai'
 
-export function doubleSpan(element) {
+export function doubleSpan(element, className = 'title-translate') {
   const node = element
-  node.innerHTML = `<span class='preloader__text__animation'>${node.innerHTML}</span>`
+  node.innerHTML = `<span class='${className}'>${node.innerHTML}</span>`
   return N.get('span', node)
 }
 
-export function split({ element, expression = ' ', append = true }) {
+export function split({ element, expression = ' ', append = true, className = 'span__wrapper' }) {
   const words = splitText(element.innerHTML.toString().trim(), expression)
 
   let innerHTML = ''
@@ -25,7 +25,8 @@ export function split({ element, expression = ' ', append = true }) {
 
   element.innerHTML = innerHTML
 
-  const spans = N.get('span', element)
+  const spans = element.querySelectorAll('span')
+
 
   if (append) {
     for (const span of spans) {
@@ -37,6 +38,7 @@ export function split({ element, expression = ' ', append = true }) {
       if (isSingleLetter && isNotEmpty && isNotAndCharacter && isNotDashCharacter) {
         span.innerHTML = `${span.textContent}&nbsp`
       }
+      span.classList.add(className)
     }
   }
   return spans
