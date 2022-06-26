@@ -17,7 +17,9 @@ export default class Title_Translate extends Animation {
     this.titleSpans = [...this.titleSpans].map(element => element = doubleSpan(element))
 
     N.O(this.element, 1)
-    this.createObserver()
+    this.createObserver({
+      rootMargin: "-30px 0px"
+    })
     this.animateOut()
   }
 

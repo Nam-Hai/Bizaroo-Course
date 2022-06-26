@@ -33,6 +33,7 @@ class App {
     this.preloader.destroy()
     // garbage collection
     this.preloader = null
+    console.log('createAnimaiton');
     this.page.createAnimations()
   }
 

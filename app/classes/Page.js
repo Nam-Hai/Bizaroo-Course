@@ -51,12 +51,17 @@ export default class Page {
   }
 
   createAnimations() {
-    this.animationTitles = Object.entries(this.elements.title.animationTitles).map(([key, element]) => {
-      return new Title({ element })
-    })
-    this.animationTitlesTranslate = Object.entries(this.elements.title.animationTitlesTranslate).map(([key, element]) => {
-      return new Title_Translate({ element })
-    })
+    const titles = this.elements.title
+    if (titles.animationTitles) {
+      this.animationTitles = Object.entries(titles.animationTitles).map(([key, element]) => {
+        return new Title({ element })
+      })
+    }
+    if (titles.animationTitlesTranslate) {
+      this.animationTitlesTranslate = Object.entries(titles.animationTitlesTranslate).map(([key, element]) => {
+        return new Title_Translate({ element })
+      })
+    }
   }
 
   onResize() {

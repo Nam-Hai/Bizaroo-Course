@@ -5,7 +5,6 @@ export default class Title extends Animation {
 
   constructor({ element, elements }) {
     super({ element, elements })
-
     this.createObserver()
     this.animateOut()
   }
