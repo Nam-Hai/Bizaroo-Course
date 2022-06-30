@@ -57,12 +57,23 @@ button {
   outline: none;
 }
 
-.span__wrapper {
-  display: inline-block;
-  overflow: hidden;
-
-  .title-translate {
+[data-animation="title-translate"]{
+  > span {
     display: inline-block;
-    transform: translateY(100%);
+    overflow: hidden;
+    > span {
+      display: inline-block;
+      // transform: translateY(100%);
+    }
   }
 }
+
+// .span__wrapper {
+//   display: inline-block;
+//   overflow: hidden;
+
+//   .title-translate {
+//     display: inline-block;
+//     transform: translateY(100%);
+//   }
+// }

@@ -37,7 +37,6 @@ const client = Prismic.createClient(endpoint, {
 })
 
 const linkHandler = (doc) => {
-  // console.log(doc);
   if (doc.type == 'product') {
     return `/detail/${doc.uid}`
   }
@@ -146,10 +145,7 @@ app.get('/collections', async (req, res) => {
       }
     })
   const home = await client.getSingle('home')
-  // console.log(collections, collections[0].data.products[0].products_product.data);
 
-
-  // console.log(collections[0].data.products[0].products_product);
   res.render('template', {
     route: 'pages/collections',
     collections,

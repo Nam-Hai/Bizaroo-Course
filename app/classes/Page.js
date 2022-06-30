@@ -17,6 +17,7 @@ export default class Page {
         animationTitlesTranslate: '[data-animation="title-translate"]'
       }
     };
+
     this.id = id;
 
   }
@@ -31,8 +32,9 @@ export default class Page {
       limit: 0
     }
     this.elements = this.querySelectRec(this.selectorChildren)
-    console.log('this.elements', this.elements);
-    // this.createAnimations()
+
+    this.createAnimations()
+
   }
 
   querySelectRec(selectorObject) {
@@ -50,29 +52,47 @@ export default class Page {
     return elements
   }
 
+  // attention a ne pas call createAnimation plusieur fois sur la meme page
   createAnimations() {
     const titles = this.elements.title
+    this.animations = {}
     if (titles.animationTitles) {
-      this.animationTitles = Object.entries(titles.animationTitles).map(([key, element]) => {
+      this.animations.animationTitles = Object.entries(titles.animationTitles).map(([key, element]) => {
         return new Title({ element })
       })
     }
     if (titles.animationTitlesTranslate) {
-      this.animationTitlesTranslate = Object.entries(titles.animationTitlesTranslate).map(([key, element]) => {
+      this.animations.animationTitlesTranslate = Object.entries(titles.animationTitlesTranslate).map(([key, element]) => {
         return new Title_Translate({ element })
       })
+    }
+    let animationsConcat = []
+    for (const animation of Object.values(this.animations)) {
+      animationsConcat = animationsConcat.concat(Object.values(animation))
+    }
+    this.animationsConcat = animationsConcat
+  }
+
+  createAnimationObserver() {
+    if (!this.animationsConcat) return
+    for (const animation of this.animationsConcat) {
+      animation.createObserver(animation.observerOption)
     }
   }
 
   onResize() {
-    console.log('page onresize');
+    if (this.animationsConcat.length) {
+      for (const animation of this.animationsConcat) {
+        animation.onResize()
+      }
+    }
+
     if (!this.elements || !this.elements.wrapper) return
     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
   }
 
   async show() {
     return new Promise(resolve => {
-      console.log('SHOWWW');
       anime.timeline({
         duration: 200,
         easing: 'easeInOutExpo',
@@ -99,9 +119,9 @@ export default class Page {
 
   onMouseWheel(event) {
     const deltaY = event.deltaY;
-    const pixelY = normalizeWheel(event)
+    const normalizeScroll = normalizeWheel(event)
 
-    this.scroll.targetY += deltaY
+    this.scroll.targetY += normalizeScroll.pixelY
     this.scroll.targetY = N.Clamp(this.scroll.targetY, 0, this.scroll.limit)
   }
 

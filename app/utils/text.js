@@ -1,12 +1,24 @@
 import { N } from './namhai'
 
-export function doubleSpan(element, className = 'title-translate') {
+export function doubleSpan(element, className = 'spanContainer') {
   const node = element
-  node.innerHTML = `<span class='${className}'>${node.innerHTML}</span>`
+  node.innerHTML = `<span>${node.innerHTML}</span>`
   return N.get('span', node)
 }
 
-export function split({ element, expression = ' ', append = true, className = 'span__wrapper' }) {
+export function lineSpaning(spans) {
+  const node1 = N.Cr('span')
+  const node2 = N.Cr('span')
+  let spanText = ''
+  for (const span of spans) {
+    spanText += span.innerText + ' '
+  }
+  node2.innerText = spanText
+  node1.appendChild(node2)
+  return node1
+}
+
+export function split({ element, expression = ' ', append = true }) {
   const words = splitText(element.innerHTML.toString().trim(), expression)
 
   let innerHTML = ''
@@ -38,7 +50,6 @@ export function split({ element, expression = ' ', append = true, className = 's
       if (isSingleLetter && isNotEmpty && isNotAndCharacter && isNotDashCharacter) {
         span.innerHTML = `${span.textContent}&nbsp`
       }
-      span.classList.add(className)
     }
   }
   return spans
@@ -50,28 +61,42 @@ export function calculate(spans) {
 
   let position = spans[0].offsetTop
 
-  for (const span of spans) {
-    if (span.offsetTop === position) words.push(span)
-    else {
+  for (const [index, span] of spans.entries()) {
+
+    if (span.offsetTop === position) {
+      words.push(span)
+    }
+
+    if (span.offsetTop !== position) {
       lines.push(words)
+
       words = []
       words.push(span)
+
       position = span.offsetTop
     }
 
-    if (index + 1 === spans.length) lines.push(words)
+    if (index + 1 === spans.length) {
+      lines.push(words)
+    }
   }
+
   return lines
 }
 
 
 function splitText(text, expression) {
   const splits = text.split('<br>')
+
   let words = []
+
   for (const [index, item] of splits.entries()) {
-    if (index > 0) words.push('<br>')
+    if (index > 0) {
+      words.push('<br>')
+    }
 
     words = words.concat(item.split(expression))
+
     let isLink = false
     let link = ''
 
@@ -80,23 +105,34 @@ function splitText(text, expression) {
     for (const word of words) {
       if (!isLink && (word.includes('<a') || word.includes('<strong'))) {
         link = ''
+
         isLink = true
       }
-      if (isLink) link += ` ${word}`
+
+      if (isLink) {
+        link += ` ${word}`
+      }
+
       if (isLink && (word.includes('/a>') || word.includes('/strong>'))) {
         innerHTML.push(link)
+
         link = ''
       }
-      if (!isLink && link === '') innerHTML.push(word)
-      if (isLink && (word.includes('/a>') || word.includes('/strong>'))) isLink = false
 
+      if (!isLink && link === '') {
+        innerHTML.push(word)
+      }
+
+      if (isLink && (word.includes('/a>') || word.includes('/strong>'))) {
+        isLink = false
+      }
     }
+
     words = innerHTML
   }
 
   return words
 }
-
 function parseLine(line) {
   line = line.trim()
 

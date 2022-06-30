@@ -1,5 +1,5 @@
 import Animation from "./Animation";
-import { doubleSpan, split } from '../utils/text'
+import { calculate, doubleSpan, lineSpaning, split } from '../utils/text'
 import anime from "animejs";
 import { N } from "../utils/namhai";
 
@@ -7,31 +7,34 @@ import { N } from "../utils/namhai";
 export default class Title_Translate extends Animation {
   constructor({ element }) {
     super({ element })
+    this.elementTemplate = this.element.cloneNode(true)
+    console.log('this.element ', this.element, this.elementTemplate);
+
+    // backElement est une copie de element tel qu'elle est dans le back avant transformation
 
     this.titleSpans = []
-    this.titleSpans = split({
-      element: this.element,
-      expression: '<br>'
-    })
-
-    this.titleSpans = [...this.titleSpans].map(element => element = doubleSpan(element))
+    this.titleLines = []
+    this.observerOption = {
+      rootMargin: "-30px 0px"
+    }
 
     N.O(this.element, 1)
-    this.createObserver({
-      rootMargin: "-30px 0px"
-    })
+
+    this.initSize()
     this.animateOut()
   }
 
 
+
   animateIn() {
-    for (const el of this.titleSpans) {
-      el.style.visiblilty = 'unset'
-    }
+    // for (const el of this.titleSpans) {
+    //   el.style.visiblilty = 'unset'
+    // }
+    N.O(this.element, 1)
     if (this.firstTime) return
     this.firstTime = true
     anime({
-      targets: this.titleSpans,
+      targets: this.titleLines,
       translateY: ['100%', '0%'],
       easing: 'easeInOutExpo',
       duration: 600,
@@ -40,8 +43,39 @@ export default class Title_Translate extends Animation {
   }
 
   animateOut() {
-    for (const el of this.titleSpans) {
-      el.style.visiblilty = 'hidden'
+    N.O(this.element, 0)
+    // console.log('this.titleSpan', this.titleSpans);
+    // for (const el of this.titleSpans) {
+    //   el.style.visiblilty = 'hidden'
+    // }
+  }
+
+
+  initSize() {
+    this.element.innerHTML = this.elementTemplate.cloneNode(true).innerHTML
+    this.titleLines = []
+    this.titleSpans = split({ element: this.element })
+    let nodeLines = calculate(this.titleSpans)
+    nodeLines = nodeLines.map(line => lineSpaning(line))
+    this.element.innerHTML = ''
+    for (const line of nodeLines) {
+      this.element.appendChild(line)
+      this.titleLines.push(N.get('span', line))
     }
+  }
+
+
+  // ici dans le CSS la font size scale avec vw donc de toute facon les titres vont toujours garder la meme taille relative. Eventuellement besoin en version mobile lors d'un changement
+  onResize() {
+    // this.element.innerHTML = this.elementTemplate.cloneNode(true).innerHTML
+    // this.titleLines = []
+    // this.titleSpans = split({ element: this.element })
+    // let nodeLines = calculate(this.titleSpans)
+    // nodeLines = nodeLines.map(line => lineSpaning(line))
+    // this.element.innerHTML = ''
+    // for (const line of nodeLines) {
+    //   this.element.appendChild(line)
+    //   this.titleLines.push(N.get('span', line))
+    // }
   }
 }

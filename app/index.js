@@ -22,7 +22,6 @@ class App {
 
   async onPreloaded() {
     this.createContent();
-
     this.createPages()
 
     this.addLinkListener(N.get('header'))
@@ -30,11 +29,11 @@ class App {
     this.addEventListener()
 
     await this.preloader.hide()
+    this.page.createAnimationObserver()
+
     this.preloader.destroy()
     // garbage collection
     this.preloader = null
-    console.log('createAnimaiton');
-    this.page.createAnimations()
   }
 
   createContent() {
@@ -43,7 +42,7 @@ class App {
   }
 
 
-  createPages() {
+  async createPages() {
     this.pages = {
       'home': new Home(),
       'collections': new Collections(),
@@ -54,7 +53,8 @@ class App {
 
     this.page.create()
     this.onResize()
-    this.page.show()
+
+    await this.page.show()
   }
 
   onResize() {

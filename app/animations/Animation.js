@@ -3,9 +3,8 @@ export default class Animation {
     element,
   }) {
     this.element = element;
-    this.firstTime = false
-
-
+    this.firstTime = false;
+    this.observerOption = {}
   }
 
   createObserver(option) {
@@ -24,6 +23,10 @@ export default class Animation {
   }
 
   animateIn() {
+
+  }
+
+  onResize() {
 
   }
 }
