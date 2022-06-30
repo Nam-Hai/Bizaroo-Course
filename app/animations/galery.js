@@ -34,4 +34,4 @@ export default class Galery extends Animation {
 
 }
 
-const transX = 1
+const transX = 100

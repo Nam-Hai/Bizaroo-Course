@@ -2,7 +2,8 @@ import About from 'pages/About/about';
 import Home from 'pages/Home/home.js';
 import Collections from 'pages/Collections/collections';
 import Detail from 'pages/Detail/detail.js';
-import Preloader from 'components/preloader'
+import Preloader from 'components/preloader';
+import Clock from 'classes/Clock.js';
 import { N } from 'utils/namhai.js'
 
 class App {
@@ -10,7 +11,9 @@ class App {
     this.createPreloader()
 
     this.timeStamp;
+    this.clock = new Clock()
     this.update()
+
   }
 
   createPreloader() {
@@ -116,10 +119,9 @@ class App {
   }
 
 
-  update(t) {
-    if (!this.timeStamp) this.timeStamp = t
-    const deltaT = (t - this.timeStamp) / (1000 / 60)
-    this.timeStamp = t
+  update() {
+    const deltaT = this.clock.getDelta()
+
     if (this.page && this.page.update) {
       this.page.update(deltaT)
     }

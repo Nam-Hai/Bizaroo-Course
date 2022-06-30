@@ -69,12 +69,13 @@ export default class Page {
       })
     }
     if (this.elements.updatables) {
-      this.animations.updatables = Object.values(this.elements.updatables.galery).map((element) => {
+      this.animations.updatables = []
+      this.animations.updatables.push(...Object.values(this.elements.updatables.galery).map((element) => {
         return new Galery({ element })
-      })
-      this.animations.updatables = Object.values(this.elements.updatables.leftText).map((element) => {
+      }))
+      this.animations.updatables.push(...Object.values(this.elements.updatables.leftText).map((element) => {
         return new LeftTextAnimation({ element })
-      })
+      }))
     }
 
     let animationsConcat = []
@@ -144,7 +145,7 @@ export default class Page {
         updatable.tick(deltaT)
       }
     }
-    this.scroll.currentY = N.Lerp(this.scroll.currentY, this.scroll.targetY, 0.05 * deltaT)
+    this.scroll.currentY = N.Lerp(this.scroll.currentY, this.scroll.targetY, 5 * deltaT)
 
     Math.abs(this.scroll.currentY - this.scroll.targetY) < 0.8 && (this.scroll.currentY = this.scroll.targetY)
 
