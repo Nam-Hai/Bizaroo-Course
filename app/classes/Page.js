@@ -2,7 +2,6 @@ import { N, normalizeWheel } from 'utils/namhai.js'
 import anime from 'animejs';
 import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
-import Galery from '../animations/galery';
 import LeftTextAnimation from '../animations/LeftTextAnimation';
 
 export default class Page {
@@ -70,9 +69,7 @@ export default class Page {
     }
     if (this.elements.updatables) {
       this.animations.updatables = []
-      this.animations.updatables.push(...Object.values(this.elements.updatables.galery).map((element) => {
-        return new Galery({ element })
-      }))
+
       this.animations.updatables.push(...Object.values(this.elements.updatables.leftText).map((element) => {
         return new LeftTextAnimation({ element })
       }))
