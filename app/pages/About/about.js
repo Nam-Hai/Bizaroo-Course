@@ -1,4 +1,5 @@
 import Page from "classes/Page";
+import Galery from "../../animations/galery";
 import { N } from "../../utils/namhai";
 
 export default class About extends Page {
@@ -10,7 +11,12 @@ export default class About extends Page {
         wrapper: '.about__wrapper',
         navigation: N.Select.el(".navigation"),
         title: '.about__title',
+        updatables: {
+          galery: '.about__gallery__wrapper',
+          leftText: '[data-animation="text--left"]'
+        }
       },
+
     })
   }
 }

@@ -2,6 +2,8 @@ import { N, normalizeWheel } from 'utils/namhai.js'
 import anime from 'animejs';
 import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
+import Galery from '../animations/galery';
+import LeftTextAnimation from '../animations/LeftTextAnimation';
 
 export default class Page {
   constructor({
@@ -66,11 +68,21 @@ export default class Page {
         return new Title_Translate({ element })
       })
     }
+    if (this.elements.updatables) {
+      this.animations.updatables = Object.values(this.elements.updatables.galery).map((element) => {
+        return new Galery({ element })
+      })
+      this.animations.updatables = Object.values(this.elements.updatables.leftText).map((element) => {
+        return new LeftTextAnimation({ element })
+      })
+    }
+
     let animationsConcat = []
     for (const animation of Object.values(this.animations)) {
       animationsConcat = animationsConcat.concat(Object.values(animation))
     }
     this.animationsConcat = animationsConcat
+    console.log('animatationconcat', this.animations, this.animationsConcat);
   }
 
   createAnimationObserver() {
@@ -126,8 +138,16 @@ export default class Page {
   }
 
   update(deltaT) {
+
+    if (this.animations.updatables) {
+      for (const updatable of this.animations.updatables) {
+        updatable.tick(deltaT)
+      }
+    }
     this.scroll.currentY = N.Lerp(this.scroll.currentY, this.scroll.targetY, 0.05 * deltaT)
+
     Math.abs(this.scroll.currentY - this.scroll.targetY) < 0.8 && (this.scroll.currentY = this.scroll.targetY)
+
     if (this.elements.wrapper) N.T(this.elements.wrapper, 0, -this.scroll.currentY, 'px')
   }
 
