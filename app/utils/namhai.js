@@ -95,7 +95,6 @@ N.get = function (tag, context) {
   const e = context || document;
   let r = e["querySelectorAll"](tag)
   r.length === 1 ? (r = r[0]) : r.length === 0 && (r = null)
-  // console.log('n.get', r);
   return r
 }
 
@@ -194,7 +193,6 @@ N.T = (el, x, y, unite) => {
 N.BM = (context, methodArray) => {
   const n = methodArray.length;
   for (let i = 0; i < n; i++) context[methodArray[i]] = context[methodArray[i]].bind(context)
-  // console.log('bind', context, methodArray);
   // for (const method of methodArray) context[method] = context[method].bind(context)
 };
 

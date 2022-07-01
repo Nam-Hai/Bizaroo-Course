@@ -8,7 +8,6 @@ export default class Title_Translate extends Animation {
   constructor({ element }) {
     super({ element })
     this.elementTemplate = this.element.cloneNode(true)
-    console.log('this.element ', this.element, this.elementTemplate);
 
     // backElement est une copie de element tel qu'elle est dans le back avant transformation
 
@@ -44,7 +43,6 @@ export default class Title_Translate extends Animation {
 
   animateOut() {
     N.O(this.element, 0)
-    // console.log('this.titleSpan', this.titleSpans);
     // for (const el of this.titleSpans) {
     //   el.style.visiblilty = 'hidden'
     // }

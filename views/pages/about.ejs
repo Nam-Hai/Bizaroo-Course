@@ -19,7 +19,7 @@
             <p class="about__content__label"><%- section.primary.label %></p>
             <div class="about__content__description"><%- ctx.PrismicH.asHTML(section.primary.description) %></div>
           </div>
-          <figure class="about__content__media">
+          <figure class="about__content__media" data-animation="<%= section.primary.type === 'Left' ? 'text--right' : 'text--left' %>">
             <img data-src="<%= section.primary.image.url %>" alt="<%= section.primary.image.alt %>">
           </figure>
         </div>

@@ -21,6 +21,8 @@ export default class Title extends Animation {
     anime({
       targets: this.element,
       opacity: [0, 1],
+      translateY: ['-30%', '-50%'],
+      rotate: ['-90deg', '-90deg'],
       duration: 700,
       easing: 'easeInExpo'
     })
