@@ -99,7 +99,6 @@ class App {
       const divContent = N.get('main', div)
 
       this.template = divContent.getAttribute('data-template')
-
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
