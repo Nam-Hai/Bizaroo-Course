@@ -130,7 +130,11 @@ export default class Page {
   async hide() {
     return new Promise(resolve => {
       setTimeout(() => {
-        N.O(this.element, 0);
+        anime({
+          targets: this.element,
+          opacity: 0,
+          duration: 1000
+        })
         this.removeEventListener()
         resolve()
       }, 1000)
