@@ -4,6 +4,7 @@ import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
 import SideTextAnimation from '../animations/SideTextAnimation';
 import { ColorsManager } from './Colors';
+import AsyncLoad from './AsyncLoad';
 
 export default class Page {
   constructor({
@@ -17,7 +18,8 @@ export default class Page {
       title: {
         animationTitles: '[data-animation="title"]',
         animationTitlesTranslate: '[data-animation="title-translate"]'
-      }
+      },
+      preloaders: '[data-src]'
     };
 
     this.id = id;
@@ -37,7 +39,7 @@ export default class Page {
     this.elements = this.querySelectRec(this.selectorChildren)
 
     this.createAnimations()
-
+    this.createPreloader()
   }
 
   querySelectRec(selectorObject) {
@@ -53,6 +55,13 @@ export default class Page {
       }
     }
     return elements
+  }
+
+  createPreloader() {
+    this.preloaders = Object.values(this.elements.preloaders).map(element => {
+      return new AsyncLoad({ element })
+    })
+
   }
 
   // attention a ne pas call createAnimation plusieur fois sur la meme page

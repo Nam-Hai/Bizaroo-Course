@@ -45,7 +45,12 @@ a {
 }
 
 img {
+  opacity: 0;
   vertical-align: middle;
+  transition: opacity 0.4 ease;
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 figure > img {
