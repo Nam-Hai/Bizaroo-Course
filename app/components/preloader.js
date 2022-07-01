@@ -73,8 +73,8 @@ export default class Preloader extends Components {
         targets: this.element,
         translateY: '-100%',
         easing: 'easeInOutExpo',
-        delay: 1500,
-        duration: 900,
+        delay: 900,
+        duration: 800,
         complete: resolve
       })
     })
