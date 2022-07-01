@@ -9,15 +9,12 @@ export default class Title_Translate extends Animation {
     super({ element })
     this.elementTemplate = this.element.cloneNode(true)
 
-    // backElement est une copie de element tel qu'elle est dans le back avant transformation
-
     this.titleSpans = []
     this.titleLines = []
     this.observerOption = {
-      rootMargin: "-30px 0px"
+      rootMargin: "0px 0px -30px 0px"
     }
 
-    N.O(this.element, 1)
 
     this.initSize()
     this.animateOut()
@@ -26,9 +23,6 @@ export default class Title_Translate extends Animation {
 
 
   animateIn() {
-    // for (const el of this.titleSpans) {
-    //   el.style.visiblilty = 'unset'
-    // }
     N.O(this.element, 1)
     if (this.firstTime) return
     this.firstTime = true
@@ -42,10 +36,7 @@ export default class Title_Translate extends Animation {
   }
 
   animateOut() {
-    N.O(this.element, 0)
-    // for (const el of this.titleSpans) {
-    //   el.style.visiblilty = 'hidden'
-    // }
+
   }
 
 

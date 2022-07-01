@@ -14,9 +14,9 @@ export default class SideTextAnimation extends Animation {
 
     this.animationDuration = 1.25
     this.observerOption = {
-      rootMargin: "-35px 0px"
+      rootMargin: "0px 0px -35px 0px"
     }
-    // N.O(this.element, 0)
+    N.O(this.element, 0)
     // this.onResize()
     // this.createObserver()
     this.animateOut()
@@ -29,7 +29,7 @@ export default class SideTextAnimation extends Animation {
   }
 
   animateOut() {
-    N.O(this.element, 0)
+    // N.O(this.element, 0)
   }
 
   tick(detla) {

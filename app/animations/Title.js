@@ -13,9 +13,7 @@ export default class Title extends Animation {
   }
 
   animateIn() {
-    this.element.style.visiblilty = 'unset'
     N.O(this.element, 1)
-
     if (this.firstTime) return
     this.firstTime = true
     anime({
@@ -29,8 +27,7 @@ export default class Title extends Animation {
   }
 
   animateOut() {
-    this.element.style.visiblilty = 'hidden'
-    N.O(this.element, 0)
+
   }
 
 
