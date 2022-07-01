@@ -4,7 +4,7 @@ import { N } from "../utils/namhai";
 
 export default class SideTextAnimation extends Animation {
 
-  constructor({ element, side}) {
+  constructor({ element, side }) {
     super({ element })
 
     this.dX = 0
@@ -35,9 +35,8 @@ export default class SideTextAnimation extends Animation {
   tick(detla) {
     if (!this.animateOn || this.t > this.animationDuration) return
     this.t += detla
-    // console.log('t', this.t, detla);
-    this.dX = N.Lerp(this.X0, 0, N.Ease.io5(this.t / this.animationDuration))
-    if (this.t < 1) N.O(this.element, N.Lerp(0, 1, N.Ease.linear(this.t / 0.75)))
+    this.dX = N.Lerp(this.X0, 0, N.Clamp(N.Ease.io5(this.t / this.animationDuration), 0, 1))
+    if (this.t < 1) N.O(this.element, N.Clamp(N.Lerp(0, 1, N.Ease.linear(this.t / 0.75)), 0, 1))
     N.T(this.element, this.dX, 0, 'px')
   }
 
