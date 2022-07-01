@@ -67,6 +67,7 @@ export default class Page {
   }
 
   async createLoader() {
+    if (this.elements.preloaders instanceof HTMLElement) this.elements.preloaders = [this.elements.preloaders]
     return new Promise(resolve => {
       this.imgLoader = new ImgLoad({ elements: this.elements.preloaders })
       this.imgLoader.once('completed', resolve)
@@ -116,17 +117,6 @@ export default class Page {
     }
   }
 
-  onResize() {
-    if (this.animationsConcat.length) {
-      for (const animation of this.animationsConcat) {
-        animation.onResize()
-      }
-    }
-
-    if (!this.elements || !this.elements.wrapper) return
-    this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
-  }
-
   async show() {
     return new Promise(resolve => {
       ColorsManager.change({
@@ -153,11 +143,22 @@ export default class Page {
           opacity: 0,
           duration: 1000
         })
-        this.removeEventListener()
+        this.destroy()
         resolve()
       }, 1000)
 
     })
+  }
+
+  onResize() {
+    if (this.animationsConcat.length) {
+      for (const animation of this.animationsConcat) {
+        animation.onResize()
+      }
+    }
+
+    if (!this.elements || !this.elements.wrapper) return
+    this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
   }
 
   onMouseWheel(event) {
@@ -187,5 +188,9 @@ export default class Page {
   }
   removeEventListener() {
     window.removeEventListener('mousewheel', this.onMouseWheel.bind(this))
+  }
+
+  destroy() {
+    this.removeEventListener()
   }
 }

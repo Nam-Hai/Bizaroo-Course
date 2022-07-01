@@ -1,4 +1,5 @@
 import Page from "classes/Page";
+import Button from "../../classes/Button";
 import { N } from "../../utils/namhai";
 
 export default class Home extends Page {
@@ -16,10 +17,14 @@ export default class Home extends Page {
   create() {
     super.create();
 
-    this.elements.link.addEventListener('click', (e) => {
-      // N.PD(e)
-      // this.hide()
+    this.link = new Button({
+      element: this.elements.link
     })
+  }
+
+  destroy() {
+    super.destroy()
+    this.link.removeEventListener()
   }
 
 }

@@ -108,9 +108,7 @@ class App {
       this.page.create()
       this.page.createAnimationObserver()
 
-      console.log('pre');
       await this.page.createLoader()
-      console.log('post');
 
       this.addLinkListener(this.content)
       this.onResize()
