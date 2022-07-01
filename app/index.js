@@ -105,6 +105,7 @@ class App {
       this.navigation.onChange(this.template)
       this.page = this.pages[this.template]
       this.page.create()
+      this.page.createAnimationObserver()
 
 
       this.addLinkListener(this.content)

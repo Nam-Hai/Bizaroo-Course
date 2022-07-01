@@ -13,10 +13,12 @@ export default class Navigation extends Components {
 
     this.navMap = {
       show: {
+        'home': 1,
         'collections': 1,
         'about': 0
       },
       hide: {
+        'home': 0,
         'collections': 0,
         'about': 1
       }
