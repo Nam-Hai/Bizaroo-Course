@@ -14,8 +14,8 @@
   position: absolute;
   left: 4rem;
   top: 4rem;
-  width: 12.8rem;
-  height: 2rem;
+  // width: 12.8rem;
+  height: 3rem;
   pointer-events: auto;
 
   @include respond-to('<small'){
@@ -45,5 +45,6 @@
 
 .navigation__list__link{
   @include title-20;
+  font-size: 4rem;
   display: block;
 }
