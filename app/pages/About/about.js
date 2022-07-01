@@ -11,7 +11,8 @@ export default class About extends Page {
         navigation: N.Select.el(".navigation"),
         title: '.about__title',
         updatables: {
-          leftText: '[data-animation="text--left"]'
+          leftText: '[data-animation="text--left"]',
+          rightText: '[data-animation="text--right"]'
         }
       },
 

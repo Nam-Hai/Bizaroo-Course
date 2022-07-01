@@ -2,7 +2,7 @@ import { N, normalizeWheel } from 'utils/namhai.js'
 import anime from 'animejs';
 import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
-import LeftTextAnimation from '../animations/LeftTextAnimation';
+import SideTextAnimation from '../animations/LeftTextAnimation';
 
 export default class Page {
   constructor({
@@ -21,8 +21,9 @@ export default class Page {
 
     this.id = id;
 
+    
   }
-
+  
   create() {
     this.element = N.Select.el(this.selector);
     this.elements = {};
@@ -33,7 +34,8 @@ export default class Page {
       limit: 0
     }
     this.elements = this.querySelectRec(this.selectorChildren)
-
+    
+    console.log('this.elements', this.elements);
     this.createAnimations()
 
   }
@@ -70,8 +72,14 @@ export default class Page {
     if (this.elements.updatables) {
       this.animations.updatables = []
 
+      if(this.elements.updatables.leftText instanceof window.HTMLElement) this.elements.updatables.leftText = [this.elements.updatables.leftText]
       this.animations.updatables.push(...Object.values(this.elements.updatables.leftText).map((element) => {
-        return new LeftTextAnimation({ element })
+        return new SideTextAnimation({ element, side: 'left' })
+      }))
+
+      if(this.elements.updatables.rightText instanceof window.HTMLElement) this.elements.updatables.rightText = [this.elements.updatables.rightText]
+      this.animations.updatables.push(...Object.values(this.elements.updatables.rightText).map((element) => {
+        return new SideTextAnimation({ element, side: 'right' })
       }))
     }
 

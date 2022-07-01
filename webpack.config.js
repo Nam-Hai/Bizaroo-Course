@@ -14,12 +14,13 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev'
 const dirApp = path.join(__dirname, 'app')
 const dirShared = path.join(__dirname, 'shared')
 const dirStyles = path.join(__dirname, 'styles')
+const dirFonts = path.join(__dirname, 'fonts')
 const dirImages = path.join(__dirname, 'images')
 
 
 const dirNode = 'node_modules'
 
-console.log(dirApp, dirShared, dirStyles);
+console.log(dirApp, dirShared, dirStyles, dirFonts);
 
 module.exports = {
   entry: [
@@ -33,6 +34,7 @@ module.exports = {
       dirShared,
       dirStyles,
       dirImages,
+      dirFonts,
       dirNode
     ]
   },
@@ -41,7 +43,9 @@ module.exports = {
       IS_DEVELOPMENT
     }),
     // permet d'import dans tout tes js les lib que tu veux
-    // new webpack.ProvidePlugin({}),
+    // new webpack.ProvidePlugin({
+      
+    // }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -113,22 +117,23 @@ module.exports = {
         loader: 'file-loader',
         options: {
           outputPath: 'http://localhost:3000/assets',
+          // outputPath: 'assets',
           name(file) {
             return '[hash].[ext]'
           }
         }
       },
-      {
-        test: /fonts\/.*\.(woff|woff2|eot|ttf|svg)$/,
-        loader: 'file-loader',
-        options: {
-          // outputPath: 'fonts',
-          outputPath: 'http://localhost:3000/fonts', // Development
-          name(file) {
-            return '[hash].[ext]'
-          }
-        }
-      },
+      // {
+      //   test: /fonts\/.*\.(woff|woff2|eot|ttf|svg)$/,
+      //   loader: 'file-loader',
+      //   options: {
+      //     outputPath: 'fonts',
+      //     // outputPath: 'localhost:3000/fonts', // Development
+      //     name(file) {
+      //       return '[hash].[ext]'
+      //     }
+      //   }
+      // },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
