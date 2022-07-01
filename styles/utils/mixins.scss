@@ -1,6 +1,7 @@
 @forward './mixins/description.scss';
 @forward './mixins/title.scss';
 @forward './mixins/vertical-titles.scss';
+@forward './mixins/links.scss';
 
 @mixin cover {
   height: 100%;
@@ -20,6 +21,7 @@
 @mixin page {
   @include cover;
 
+  opacity: 0;
 }
 
 @mixin page__wrapper {
