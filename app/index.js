@@ -5,26 +5,30 @@ import Detail from 'pages/Detail/detail.js';
 import Preloader from 'components/preloader';
 import Clock from 'classes/Clock.js';
 import { N } from 'utils/namhai.js'
+import Navigation from './components/navigation';
 
 class App {
   constructor() {
     this.createPreloader()
 
-    this.timeStamp;
     this.clock = new Clock()
     this.update()
+  }
 
+  createNavigation() {
+    this.navigation = new Navigation(
+      { template: this.template }
+    )
   }
 
   createPreloader() {
     this.preloader = new Preloader()
-    console.log('preloader');
-
     this.preloader.once('completed', this.onPreloaded.bind(this))
   }
 
   async onPreloaded() {
     this.createContent();
+    this.createNavigation()
     this.createPages()
 
     this.addLinkListener(N.get('header'))
@@ -98,8 +102,11 @@ class App {
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
+      this.navigation.onChange(this.template)
       this.page = this.pages[this.template]
       this.page.create()
+
+
       this.addLinkListener(this.content)
       this.onResize()
       window.history.pushState(this.template, '', url)
