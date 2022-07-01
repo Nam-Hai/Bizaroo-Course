@@ -3,6 +3,7 @@ import anime from 'animejs';
 import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
 import SideTextAnimation from '../animations/SideTextAnimation';
+import { ColorsManager } from './Colors';
 
 export default class Page {
   constructor({
@@ -110,9 +111,12 @@ export default class Page {
 
   async show() {
     return new Promise(resolve => {
+      ColorsManager.change({
+        backgroundColor: this.element.getAttribute('data-background'),
+        color: this.element.getAttribute('data-color')
+      })
       anime.timeline({
-        duration: 200,
-        easing: 'easeInOutExpo',
+
       }).add({
         opacity: [0, 1],
         targets: this.element

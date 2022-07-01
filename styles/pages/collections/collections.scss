@@ -5,8 +5,9 @@
 .collections{
   @include page;
   @include cover;
-  background-color: $background-sand;
-  color: $text-white
+
+  // background-color: $background-sand;
+  // color: $text-white
 }
 .collections__wrapper{
   @include cover;

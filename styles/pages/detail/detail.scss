@@ -6,8 +6,9 @@
   @include page;
   @include cover;
   @include flex-center;
-  background-color: $background-sand;
-  color: $color-white;
+
+  // background-color: $background-sand;
+  // color: $color-white;
 
   @include respond-to('<small'){
     height: auto;

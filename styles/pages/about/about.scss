@@ -9,8 +9,10 @@
 .about{
   // @include cover;
   @include page;
-  color: $color-bright-grey;
-  background-color: $background-blue;
+
+  // color: $color-bright-grey;
+  // background-color: $background-blue;
+
   position: absolute;
   // top: 0;
   left: 0;
