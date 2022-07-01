@@ -102,11 +102,15 @@ class App {
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
+
       this.navigation.onChange(this.template)
       this.page = this.pages[this.template]
       this.page.create()
       this.page.createAnimationObserver()
 
+      console.log('pre');
+      await this.page.createLoader()
+      console.log('post');
 
       this.addLinkListener(this.content)
       this.onResize()

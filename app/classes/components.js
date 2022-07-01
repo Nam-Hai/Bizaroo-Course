@@ -18,7 +18,6 @@ export default class Components extends EventEmiter {
   }
 
   create() {
-    console.log('this.selector', this.selector);
     this.element = this.selector instanceof window.HTMLElement ? this.selector : N.Select.el(this.selector);
     this.elements = {};
 

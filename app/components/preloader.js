@@ -44,7 +44,7 @@ export default class Preloader extends Components {
     }, 1000)
     for (let el of this.elements.images) {
 
-      el.onload = () => this.onAssetsLoaded()
+      el.onload = () => (this.onAssetsLoaded(), el.classList.add('loaded'))
       el.src = el.getAttribute('data-src')
 
     }
