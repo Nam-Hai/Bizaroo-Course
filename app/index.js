@@ -6,10 +6,12 @@ import Preloader from 'components/preloader';
 import Clock from 'classes/Clock.js';
 import { N } from 'utils/namhai.js'
 import Navigation from './components/navigation';
+import Canvas from './components/Canvas/Canvas';
 
 class App {
   constructor() {
     this.createPreloader()
+
 
     this.clock = new Clock()
     this.update()
@@ -26,8 +28,14 @@ class App {
     this.preloader.once('completed', this.onPreloaded.bind(this))
   }
 
+  createCanvas() {
+    this.canvas = new Canvas()
+
+  }
+
   async onPreloaded() {
     this.createContent();
+    this.createCanvas()
     this.createNavigation()
     this.createPages()
 
@@ -66,6 +74,7 @@ class App {
 
   onResize() {
     if (this.page && this.page.onResize) this.page.onResize()
+    if (this.canvas && this.canvas.onResize) this.canvas.onResize()
   }
 
   // recuppere tout les link de la page les prevent default et leur donne onChange,
@@ -139,6 +148,10 @@ class App {
 
   update() {
     const deltaT = this.clock.getDelta()
+
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update(deltaT)
+    }
 
     if (this.page && this.page.update) {
       this.page.update(deltaT)
