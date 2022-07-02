@@ -44,7 +44,7 @@ module.exports = {
     }),
     // permet d'import dans tout tes js les lib que tu veux
     // new webpack.ProvidePlugin({
-      
+
     // }),
     new CopyWebpackPlugin({
       patterns: [

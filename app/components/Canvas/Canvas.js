@@ -1,11 +1,13 @@
 import { Camera, Renderer, Transform, Box, Program, Mesh } from 'ogl';
 
+import Home from './HomeCanvas'
+
 export default class Canvas {
   constructor() {
     this.createRenderer()
     this.createCamera()
     this.createScene()
-    this.createCube()
+    this.createHome()
   }
 
   createRenderer() {
@@ -26,30 +28,8 @@ export default class Canvas {
     this.scene = new Transform();
   }
 
-  createCube() {
-    this.geometry = new Box(this.gl);
-
-    this.program = new Program(this.gl, {
-      vertex: `
-        attribute vec3 position;
-
-        uniform mat4 modelViewMatrix;
-        uniform mat4 projectionMatrix;
-
-        void main() {
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragment: `
-        void main() {
-          gl_FragColor = vec4(1.0);
-        }
-      `
-    })
-
-    this.mesh = new Mesh(this.gl, { geometry: this.geometry, program: this.program })
-
-    this.mesh.setParent(this.scene)
+  createHome() {
+    this.home = new Home({ gl: this.gl, scene: this.scene })
   }
 
   onResize() {
@@ -61,8 +41,8 @@ export default class Canvas {
   }
 
   update(dT) {
-    this.mesh.rotation.x += 0.7 * dT
-    this.mesh.rotation.y += 1.9 * dT
+    // this.mesh.rotation.x += 0.7 * dT
+    // this.mesh.rotation.y += 1.9 * dT
 
     this.renderer.render({
       camera: this.camera,
