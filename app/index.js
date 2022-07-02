@@ -73,10 +73,6 @@ class App {
     await this.page.show()
   }
 
-  onResize() {
-    if (this.page && this.page.onResize) this.page.onResize()
-    if (this.canvas && this.canvas.onResize) this.canvas.onResize()
-  }
 
   // recuppere tout les link de la page les prevent default et leur donne onChange,
   // c.a.d comportement SPA JSON fetch + pointer-event none pendant l'animation sur tout les liens
@@ -91,6 +87,11 @@ class App {
         this.onChange({ url: href, button: link })
       })
     }
+  }
+
+  onResize() {
+    if (this.page && this.page.onResize) this.page.onResize()
+    if (this.canvas && this.canvas.onResize) this.canvas.onResize()
   }
 
   async onChange({ url, button, push = true }) {
@@ -134,6 +135,18 @@ class App {
     if (button) N.pe(button, 'auto')
   }
 
+  onTouchDown(event) {
+    if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
+  }
+
+  onTouchMove(event) {
+    if (this.canvas && this.canvas.onTouchMove) this.canvas.onTouchMove(event)
+  }
+
+  onTouchUp(event) {
+    if (this.canvas && this.canvas.onTouchUp) this.canvas.onTouchUp(event)
+  }
+
   onPopState() {
     this.onChange({
       url: window.location.pathname,
@@ -142,6 +155,14 @@ class App {
   }
 
   addEventListener() {
+    window.addEventListener('mousedown', this.onTouchDown.bind(this))
+    window.addEventListener('mousemove', this.onTouchMove.bind(this))
+    window.addEventListener('mouseup', this.onTouchUp.bind(this))
+
+    window.addEventListener('touchstart', this.onTouchDown.bind(this))
+    window.addEventListener('touchmove', this.onTouchMove.bind(this))
+    window.addEventListener('touchend', this.onTouchUp.bind(this))
+
     window.addEventListener('popstate', this.onPopState.bind(this))
     window.addEventListener('resize', () => {
       if (!this.resizeThrottle) {

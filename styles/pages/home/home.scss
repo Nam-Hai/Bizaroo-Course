@@ -41,7 +41,8 @@
 }
 
 .home__titles{
-  @include vertical-title
+  @include vertical-title;
+  pointer-events: none;
 }
 .home__titles__title{
   @include vertical-titles__title
@@ -53,7 +54,7 @@
 
 .home__gallery {
   @include cover;
-  // visibility: hidden;
+  visibility: hidden;
   height: 172.5rem;
   width: 241.8rem;
 }
@@ -152,14 +153,17 @@
     top: 128.6rem;
   }
   &:nth-child(n+ 16){
+    display: none;
     visibility: hidden;
     height: 41.8rem;
     width: 27.8rem;
+    // left: -30rem;
   }
 
 
   img{
-    opacity: 1;
+    // visibility: hidden
+    opacity: 0;
   }
 }
 

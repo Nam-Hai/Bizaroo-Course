@@ -18,6 +18,8 @@ export default class {
     this.createTexture()
     this.createProgram()
     this.createMesh()
+
+    this.getBounds()
   }
 
   createTexture() {
@@ -70,23 +72,36 @@ export default class {
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
 
-    console.log('this', this.mesh.scale.y, this.sizes, this.height, this.width);
-
     // put images at "(0,0)" le centre de chaque image
-    this.mesh.position.x = -this.sizes.width / 2
-    this.mesh.position.y = this.sizes.height / 2
+    // this.mesh.position.x = -this.sizes.width / 2
+    // this.mesh.position.y = this.sizes.height / 2
 
     // put images at "(0,0)" la postion "(0,0)" de chaque image
-    this.mesh.position.x += this.mesh.scale.x / 2
-    this.mesh.position.y -= this.mesh.scale.y / 2
-  }
-
-  updateX() {
+    // this.mesh.position.x += this.mesh.scale.x / 2
+    // this.mesh.position.y -= this.mesh.scale.y / 2
 
   }
 
-  updateY() {
+  updateX(dT, x = 0) {
+    // (0,0) of the screen
+    this.mesh.position.x = -this.sizes.width / 2 + this.mesh.scale.x / 2
+    // the actual x value + conversion pixel en [-1, 1]
+    this.mesh.position.x += ((this.bounds.left + x) / this.screenAspectRatio.width) * this.sizes.width
 
+  }
+
+  updateY(dT, y = 0) {
+    this.mesh.position.y = this.sizes.height / 2 - this.mesh.scale.y / 2
+
+
+    this.mesh.position.y -= ((this.bounds.top + y) / this.screenAspectRatio.height) * this.sizes.height
+
+  }
+
+  update(dT, scroll) {
+    if (!this.bounds) return
+    this.updateX(dT, scroll.x)
+    this.updateY(dT, scroll.y)
   }
 
   onResize({ sizes, screenAspectRatio }) {
