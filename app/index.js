@@ -86,8 +86,8 @@ class App {
   async onChange({ url, button, push = true }) {
 
     await this.page.hide()
-    if (button)
-      const request = await window.fetch(url)
+    if (button) N.pe(button, 'none')
+    const request = await window.fetch(url)
 
     if (request.ok) {
       const html = await request['text']()
