@@ -12,7 +12,8 @@ class App {
   constructor() {
     this.createPreloader()
 
-
+    this.resizeThrottle = false
+    this.resizeDelay = 50
     this.clock = new Clock()
     this.update()
   }
@@ -142,7 +143,16 @@ class App {
 
   addEventListener() {
     window.addEventListener('popstate', this.onPopState.bind(this))
-    window.addEventListener('resize', this.onResize.bind(this))
+    window.addEventListener('resize', () => {
+      if (!this.resizeThrottle) {
+        this.resizeThrottle = true
+        this.onResize.bind(this)()
+        setTimeout(() => {
+          // this.resizeThrottle.bind(this);
+          this.resizeThrottle = false
+        }, this.resizeDelay)
+      }
+    })
   }
 
 

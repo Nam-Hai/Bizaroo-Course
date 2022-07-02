@@ -22,7 +22,8 @@
     position: absolute;
     left: 0;
     z-index: 1;
-    height: 40rem;
+    // height: 40rem;
+    height: 200px;
     width: 100%;
     pointer-events: none;
     background:  $background-rose;
@@ -52,12 +53,114 @@
 
 .home__gallery {
   @include cover;
-  visibility: hidden;
+  // visibility: hidden;
+  height: 172.5rem;
+  width: 241.8rem;
 }
 
 .home__gallery__media {
   position: absolute;
-  img{}
+
+  &:nth-child(1){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 9.4rem;
+    top: 16.4rem;
+  }
+  &:nth-child(2){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 54.1rem;
+    top: 19.2rem;
+  }
+  &:nth-child(3){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 106.3rem;
+    top: 10.7rem;
+  }
+  &:nth-child(4){
+    height: 60.8rem;
+    width: 40.6rem;
+    left: 154.1rem;
+    top: 0;
+  }
+  &:nth-child(5){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 207rem;
+    top: 10.7rem;
+  }
+  &:nth-child(6){
+    height: 52.3rem;
+    width: 37.5rem;
+    left: 0;
+    top: 69.1rem;
+  }
+  &:nth-child(7){
+    height: 60.8rem;
+    width: 40.6rem;
+    top: 66.2rem;
+    left: 46.7rem;
+  }
+  &:nth-child(8){
+    height: 58.2rem;
+    width: 39.7rem;
+    left: 101.5rem;
+    top: 64.7rem;
+  }
+  &:nth-child(9){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 160rem;
+    top: 63.5rem;
+  }
+  &:nth-child(10){
+    height: 58.2rem;
+    width: 39.7rem;
+    left: 202.1rem;
+    top: 64.7rem;
+  }
+  &:nth-child(11){
+    height: 41.8rem;
+    width: 27.8rem;
+    top: 128.9rem;
+    left: 13.1rem;
+  }
+  &:nth-child(12){
+    height: 41.8rem;
+    width: 27.8rem;
+    top: 130.4rem;
+    left: 54.1rem;
+  }
+  &:nth-child(13){
+    height: 41.8rem;
+    width: 27.8rem;
+    top: 128.6rem;
+    left: 105.7rem;
+  }
+  &:nth-child(14){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 164.7rem;
+    top: 110.9rem;
+  }
+  &:nth-child(15){
+    height: 41.8rem;
+    width: 27.8rem;
+    left: 206.3rem;
+    top: 128.6rem;
+  }
+  &:nth-child(n+ 16){
+    visibility: hidden;
+    height: 41.8rem;
+    width: 27.8rem;
+  }
+
+
+  img{
+    opacity: 1;
+  }
 }
 
 .home__link {

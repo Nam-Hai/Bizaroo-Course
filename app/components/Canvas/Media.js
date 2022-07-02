@@ -5,7 +5,9 @@ import fragment from '../../shaders/plane-fragment.glsl'
 import { Mesh, Program, Texture } from 'ogl'
 
 export default class {
-  constructor({ element, gl, geometry, scene, index }) {
+  constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
+    this.screenAspectRatio = screenAspectRatio
+    this.sizes = sizes
     this.gl = gl
     this.geometry = geometry
     this.element = element
@@ -50,6 +52,46 @@ export default class {
 
     this.mesh.setParent(this.scene)
 
-    this.mesh.position.x += this.index * this.mesh.scale.x
+  }
+
+  getBounds() {
+    this.bounds = this.element.getBoundingClientRect();
+
+    this.updateScale()
+    this.updateX()
+    this.updateY()
+  }
+
+  updateScale() {
+    // la nouvelle taille l'image
+    this.width = this.bounds.width / this.screenAspectRatio.width
+    this.height = this.bounds.height / this.screenAspectRatio.height
+
+    this.mesh.scale.x = this.sizes.width * this.width
+    this.mesh.scale.y = this.sizes.height * this.height
+
+    console.log('this', this.mesh.scale.y, this.sizes, this.height, this.width);
+
+    // put images at "(0,0)" le centre de chaque image
+    this.mesh.position.x = -this.sizes.width / 2
+    this.mesh.position.y = this.sizes.height / 2
+
+    // put images at "(0,0)" la postion "(0,0)" de chaque image
+    this.mesh.position.x += this.mesh.scale.x / 2
+    this.mesh.position.y -= this.mesh.scale.y / 2
+  }
+
+  updateX() {
+
+  }
+
+  updateY() {
+
+  }
+
+  onResize({ sizes, screenAspectRatio }) {
+    this.screenAspectRatio = screenAspectRatio
+    this.sizes = sizes
+    this.getBounds()
   }
 }
