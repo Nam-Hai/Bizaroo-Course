@@ -78,16 +78,16 @@ class App {
       link.addEventListener('click', (e) => {
         const href = link.href
         N.PD(e)
-        this.onChange(href, link)
+        this.onChange({ url: href, button: link })
       })
     }
   }
 
-  async onChange(url, button) {
+  async onChange({ url, button, push = true }) {
 
     await this.page.hide()
-    N.pe(button, 'none')
-    const request = await window.fetch(url)
+    if (button)
+      const request = await window.fetch(url)
 
     if (request.ok) {
       const html = await request['text']()
@@ -112,7 +112,7 @@ class App {
 
       this.addLinkListener(this.content)
       this.onResize()
-      window.history.pushState(this.template, '', url)
+      if (push) window.history.pushState(this.template, 'Floema - ' + this.template, url)
 
 
     } else {
@@ -121,10 +121,18 @@ class App {
       // faire une 404
     }
     await this.page.show()
-    N.pe(button, 'auto')
+    if (button) N.pe(button, 'auto')
+  }
+
+  onPopState() {
+    this.onChange({
+      url: window.location.pathname,
+      push: false,
+    })
   }
 
   addEventListener() {
+    window.addEventListener('popstate', this.onPopState.bind(this))
     window.addEventListener('resize', this.onResize.bind(this))
   }
 

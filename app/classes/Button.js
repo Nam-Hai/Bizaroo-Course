@@ -11,14 +11,18 @@ export default class Button extends Components {
     this.pathLength = this.path.getTotalLength()
 
     this.timeline = anime.timeline({
-      easing: 'linear',
+      easing: 'easeInExpo',
+      direction: 'normal',
+      autoplay: false
     })
     this.timeline.add({
       targets: this.path,
-      strokeDashoffset: [anime.setDashoffset, 0],
+      strokeDashoffset: [0, anime.setDashoffset],
       duration: 700,
     })
 
+    this.path.style.strokeDashoffset = anime.setDashoffset(this.path)
+    this.first = false
   }
 
   addEventListener() {
@@ -32,11 +36,21 @@ export default class Button extends Components {
 
 
   onMouseEnter() {
+    console.log('enter');
+    if (!this.first) {
+      this.timeline.play()
+      this.timeline.reverse()
+      this.timeline.restart()
+      this.first = true
+      return
+    }
+    this.timeline.reverse()
     this.timeline.play()
   }
 
   onMouseLeave() {
     console.log('leave');
     this.timeline.reverse()
+    this.timeline.restart()
   }
 }
