@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const path = require('path')
 const port = 3000
+const UAParser = require('ua-parser-js')
 
 // const bodyParser = require('body-parser')
 // const methodOverride = require('method-override')
@@ -57,6 +58,13 @@ app.set('view engine', 'ejs')
 // }
 
 app.use(async (req, res, next) => {
+  const ua = UAParser(req.headers['user-agent'])
+  res.locals.isDesktop = void 0 === ua.device.type
+  res.locals.isPhone = ua.device.type === 'mobile'
+  res.locals.isTablet = ua.device.type === 'tablet'
+
+
+
   const preloader = await client.getSingle('preload')
   const meta = await client.getSingle('meta')
   const navGraphQuery = `{

@@ -1,4 +1,5 @@
 import Page from "classes/Page";
+import DetectionManager from "../../classes/Detection";
 import { N } from "../../utils/namhai";
 
 export default class About extends Page {
@@ -15,7 +16,8 @@ export default class About extends Page {
           rightText: '[data-animation="text--right"]'
         }
       },
-
     })
+
+    const galerySpeedRotation = DetectionManager.isPhone() ? 10 : 40
   }
 }
