@@ -2,7 +2,7 @@
 
 import vertex from '../../shaders/plane-vertex.glsl'
 import fragment from '../../shaders/plane-fragment.glsl'
-import { Mesh, Program, Texture } from 'ogl'
+import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../utils/namhai'
 import { galeryRotationBound } from '../../utils/constant';
 
@@ -47,10 +47,13 @@ export default class {
   }
 
   createProgram() {
+    const resolution = { value: new Vec2() }
+    resolution.value.set(this.gl.canvas.width, this.gl.canvas.height)
     this.program = new Program(this.gl, {
       fragment,
       vertex,
       uniforms: {
+        uResolution: resolution,
         tMap: {
           value: this.texture
         }
