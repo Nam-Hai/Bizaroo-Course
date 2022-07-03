@@ -1,10 +1,10 @@
 
 
-import vertex from '../../shaders/plane-vertex.glsl'
-import fragment from '../../shaders/plane-fragment.glsl'
+import vertex from '../../../shaders/plane-vertex.glsl'
+import fragment from '../../../shaders/plane-fragment.glsl'
 import { Mesh, Program, Texture, Vec2 } from 'ogl'
-import { N } from '../../utils/namhai'
-import { galeryRotationBound } from '../../utils/constant';
+import { N } from '../../../utils/namhai'
+import { galeryRotationBound } from '../../../utils/constant';
 
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
