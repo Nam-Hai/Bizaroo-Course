@@ -19,8 +19,6 @@ export default class {
       height: 0
     }
 
-    console.log('mediads,', this.mediasElement);
-
     this.createGeometry()
     this.createGallery()
 
@@ -49,7 +47,6 @@ export default class {
 
     this.onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
 
-    console.log(this.galleryDimension.width, this.galleryBounds);
   }
 
   createGeometry() {
@@ -96,7 +93,6 @@ export default class {
       }
       media.onResize({ ...event, galleryDimension: this.galleryDimension })
     })
-    console.log(this.galleryDimension.width);
   }
 
   onTouchDown({ x, y }) {

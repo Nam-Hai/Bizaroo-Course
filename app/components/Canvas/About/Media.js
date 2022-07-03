@@ -80,6 +80,7 @@ export default class {
 
   updateScale() {
     // la nouvelle taille l'image
+
     this.width = this.bounds.width / this.screenAspectRatio.width
     this.height = this.bounds.height / this.screenAspectRatio.height
 
