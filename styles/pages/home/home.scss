@@ -9,6 +9,8 @@
   // color: $text-white;
 
   text-align: center;
+  user-select: none;
+
 }
 
 .home__wrapper {
@@ -43,7 +45,6 @@
 .home__titles{
   @include vertical-title;
   pointer-events: none;
-  user-select: none;
 }
 .home__titles__title{
   @include vertical-titles__title

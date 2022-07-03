@@ -3,6 +3,8 @@
 import vertex from '../../shaders/plane-vertex.glsl'
 import fragment from '../../shaders/plane-fragment.glsl'
 import { Mesh, Program, Texture } from 'ogl'
+import { N } from '../../utils/namhai'
+import { galeryRotationBound } from '../../utils/constant';
 
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
@@ -64,6 +66,7 @@ export default class {
 
     this.mesh.setParent(this.scene)
 
+    this.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
   }
 
   getBounds() {

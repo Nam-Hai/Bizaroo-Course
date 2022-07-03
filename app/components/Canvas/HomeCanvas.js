@@ -1,6 +1,7 @@
 import Media from './Media'
 import { N } from '../../utils/namhai'
 import { Plane, Transform } from 'ogl'
+import { galeryRotationBound } from '../../utils/constant';
 
 export default class {
   constructor({ gl, scene, sizes, screenAspectRatio }) {
@@ -136,13 +137,17 @@ export default class {
       const y = media.mesh.position.y + media.mesh.scale.y / 2;
       if (this.x.direction == 'right' && x < -this.sizes.width / 2) {
         media.extra.xCounter++;
+        media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       } else if (this.x.direction == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
         media.extra.xCounter--;
+        media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       }
       if (this.y.direction == 'up' && y < -this.sizes.height / 2) {
         media.extra.yCounter--;
+        media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       } else if (this.y.direction == 'down' && y - media.mesh.scale.y > this.sizes.height / 2) {
         media.extra.yCounter++;
+        media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       }
       media.update(dT, this.scroll)
     }
