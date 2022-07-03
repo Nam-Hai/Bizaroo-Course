@@ -43,6 +43,7 @@
 .home__titles{
   @include vertical-title;
   pointer-events: none;
+  user-select: none;
 }
 .home__titles__title{
   @include vertical-titles__title

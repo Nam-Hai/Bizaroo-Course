@@ -56,7 +56,6 @@ export default class {
         screenAspectRatio: this.screenAspectRatio
       })
     )
-    console.log(this.medias);
   }
 
   onResize(event) {
