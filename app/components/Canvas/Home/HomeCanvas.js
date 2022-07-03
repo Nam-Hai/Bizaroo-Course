@@ -1,7 +1,7 @@
 import Media from './Media'
-import { N } from '../../utils/namhai'
+import { N } from '../../../utils/namhai'
 import { Plane, Transform } from 'ogl'
-import { galeryRotationBound } from '../../utils/constant';
+import { galeryRotationBound } from '../../../utils/constant';
 
 export default class {
   constructor({ gl, scene, sizes, screenAspectRatio }) {

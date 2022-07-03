@@ -1,6 +1,6 @@
 import { Camera, Renderer, Transform, Box, Program, Mesh } from 'ogl';
 
-import Home from './HomeCanvas'
+import Home from './Home/HomeCanvas'
 
 export default class Canvas {
   constructor() {
