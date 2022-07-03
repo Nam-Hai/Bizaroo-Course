@@ -1,4 +1,4 @@
-import { N } from 'utils/namhai.js'
+import { N } from '../utils/namhai.js'
 import anime from 'animejs';
 import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
@@ -25,7 +25,7 @@ export default class Page {
 
     this.id = id;
 
-
+    this.scrollOn = false
   }
 
   create() {
@@ -37,6 +37,7 @@ export default class Page {
       lastY: 0,
       limit: 0
     }
+    console.log('createPAge', this.scroll);
     this.elements = this.querySelectRec(this.selectorChildren)
 
     this.createAnimations()
@@ -162,7 +163,8 @@ export default class Page {
   }
 
   onWheel({ pixelY }) {
-    this.scroll.targetY = pixelY
+    if (!this.scrollOn) return
+    this.scroll.targetY += pixelY
     this.scroll.targetY = N.Clamp(this.scroll.targetY, 0, this.scroll.limit)
   }
 
@@ -173,14 +175,14 @@ export default class Page {
       }
     }
     this.scroll.currentY = N.Lerp(this.scroll.currentY, this.scroll.targetY, 5 * deltaT)
-
     Math.abs(this.scroll.currentY - this.scroll.targetY) < 0.8 && (this.scroll.currentY = this.scroll.targetY)
 
     if (this.elements.wrapper) N.T(this.elements.wrapper, 0, -this.scroll.currentY, 'px')
   }
 
   addEventListener() {
-    window.addEventListener('wheel', this.onWheel.bind(this))
+    this.scrollOn = true
+    // window.addEventListener('wheel', this.onWheel.bind(this))
   }
   removeEventListener() {
     window.removeEventListener('wheel', this.onWheel.bind(this))
