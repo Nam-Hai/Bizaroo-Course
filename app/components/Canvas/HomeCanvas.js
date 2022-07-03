@@ -9,12 +9,19 @@ export default class {
     this.scene = scene
     this.group = new Transform()
     this.gl = gl
-    this.mediasElement = N.get('.home__gallery__media img')
+
+    this.galleryElement = N.get('.home__gallery')
+    this.mediasElement = N.get('.home__gallery__media img', this.galleryElement)
+
+    this.galleryDimension = {
+      width: 0,
+      height: 0
+    }
 
     console.log('mediads,', this.mediasElement);
 
     this.createGeometry()
-    this.createGalery()
+    this.createGallery()
 
 
     this.group.setParent(scene)
@@ -38,13 +45,17 @@ export default class {
       x: 0,
       y: 0
     }
+
+    this.onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
+
+    console.log(this.galleryDimension.width, this.galleryBounds);
   }
 
   createGeometry() {
     this.geometry = new Plane(this.gl)
   }
 
-  createGalery() {
+  createGallery() {
     this.medias = Object.entries(this.mediasElement).map(([index, element]) =>
       new Media({
         element,
@@ -59,9 +70,32 @@ export default class {
   }
 
   onResize(event) {
-    Object.values(this.medias).map(media => media.onResize(event))
+
+    this.galleryBounds = this.galleryElement.getBoundingClientRect()
 
     this.sizes = event.sizes
+    this.screenAspectRatio = event.screenAspectRatio
+    if (this.galleryBounds) {
+      this.galleryDimension.width = (this.galleryBounds.width / this.screenAspectRatio.width) * this.sizes.width
+      this.galleryDimension.height = (this.galleryBounds.height / this.screenAspectRatio.height) * this.sizes.height
+    }
+
+    Object.values(this.medias).map(media => {
+      const x = media.mesh.position.x + media.mesh.scale.x / 2;
+      const y = media.mesh.position.y + media.mesh.scale.y / 2;
+      if (x < -this.sizes.width / 2) {
+        media.extra.xCounter++;
+      } else if (x - media.mesh.scale.x > this.sizes.width / 2) {
+        media.extra.xCounter--;
+      }
+      if (y < -this.sizes.height / 2) {
+        media.extra.yCounter--;
+      } else if (y - media.mesh.scale.y > this.sizes.height / 2) {
+        media.extra.yCounter++;
+      }
+      media.onResize({ ...event, galleryDimension: this.galleryDimension })
+    })
+    console.log(this.galleryDimension.width);
   }
 
   onTouchDown({ x, y }) {
@@ -79,28 +113,38 @@ export default class {
   }
 
   update(dT) {
-    // if(Math.abs(this.x.current - this.x.target) < 0.1)
     this.x.current = N.Lerp(this.x.current, this.x.target, this.x.lerp)
     this.y.current = N.Lerp(this.y.current, this.y.target, this.y.lerp)
+    if (Math.abs(this.x.current - this.x.target) < 0.01) {
+      this.x.current = this.x.target
+    }
+    if (Math.abs(this.y.current - this.y.target) < 0.01) {
+      this.y.current = this.y.target
+    }
 
     this.x.direction = this.scroll.x > this.x.current ? 'right' : this.scroll.x < this.x.current ? 'left' : null;
+    this.y.direction = this.scroll.y < this.y.current ? 'up' : this.scroll.y > this.y.current ? 'down' : null;
 
-
+    // console.log('direction', this.x.direction);
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
 
-    Object.entries(this.medias).map(([index, media]) => {
-      if (index == 0) {
-        // console.log('object', media.mesh.position.x, this.sizes.width);
-        const x = media.mesh.position.x + media.mesh.scale.x / 2;
-        const y = media.mesh.position.y + media.mesh.scale.y / 2;
-        if (x < -this.sizes.width / 2) {
-          // console.log('outside of screen');
+    for (let media of Object.values(this.medias)) {
 
-        }
+      // console.log('object', media.mesh.position.x, this.sizes.width);
+      const x = media.mesh.position.x + media.mesh.scale.x / 2;
+      const y = media.mesh.position.y + media.mesh.scale.y / 2;
+      if (this.x.direction == 'right' && x < -this.sizes.width / 2) {
+        media.extra.xCounter++;
+      } else if (this.x.direction == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
+        media.extra.xCounter--;
       }
-
-      return media.update(dT, this.scroll)
-    })
+      if (this.y.direction == 'up' && y < -this.sizes.height / 2) {
+        media.extra.yCounter--;
+      } else if (this.y.direction == 'down' && y - media.mesh.scale.y > this.sizes.height / 2) {
+        media.extra.yCounter++;
+      }
+      media.update(dT, this.scroll)
+    }
   }
 }

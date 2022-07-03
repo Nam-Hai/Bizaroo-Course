@@ -13,11 +13,21 @@ export default class {
     this.element = element
     this.scene = scene
     this.index = index
-
+    this.extra = {
+      width: 0,
+      height: 0,
+      xCounter: 0,
+      yCounter: 0
+    }
+    this.pos = {
+      x: 0,
+      y: 0
+    }
 
     this.createTexture()
     this.createProgram()
     this.createMesh()
+
 
     this.getBounds()
   }
@@ -60,8 +70,8 @@ export default class {
     this.bounds = this.element.getBoundingClientRect();
 
     this.updateScale()
-    this.updateX()
-    this.updateY()
+    this.updateX({ x: this.pos.x })
+    this.updateY({ y: this.pos.y })
   }
 
   updateScale() {
@@ -82,31 +92,35 @@ export default class {
 
   }
 
-  updateX(dT, x = 0) {
+  updateX({ dT, x = 0 }) {
     // (0,0) of the screen
     this.mesh.position.x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     // the actual x value + conversion pixel en [-1, 1]
-    this.mesh.position.x += ((this.bounds.left + x) / this.screenAspectRatio.width) * this.sizes.width
+    this.mesh.position.x += ((this.bounds.left + x) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
 
+    this.pos.x = x
   }
 
-  updateY(dT, y = 0) {
+  updateY({ dT, y = 0 }) {
     this.mesh.position.y = this.sizes.height / 2 - this.mesh.scale.y / 2
 
 
-    this.mesh.position.y -= ((this.bounds.top + y) / this.screenAspectRatio.height) * this.sizes.height
+    this.mesh.position.y -= ((this.bounds.top + y) / this.screenAspectRatio.height) * this.sizes.height + this.extra.yCounter * this.extra.height
 
+    this.pos.y = y
   }
 
   update(dT, scroll) {
     if (!this.bounds) return
-    this.updateX(dT, scroll.x)
-    this.updateY(dT, scroll.y)
+    this.updateX({ dT, x: scroll.x })
+    this.updateY({ dT, y: scroll.y })
   }
 
-  onResize({ sizes, screenAspectRatio }) {
+  onResize({ sizes, screenAspectRatio, galleryDimension }) {
     this.screenAspectRatio = screenAspectRatio
     this.sizes = sizes
+    this.extra.width = galleryDimension.width
+    this.extra.height = galleryDimension.height
     this.getBounds()
   }
 }
