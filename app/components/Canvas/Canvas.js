@@ -31,7 +31,7 @@ export default class Canvas {
   createRenderer() {
     this.renderer = new Renderer({
       alpha: true,
-      antialias: true
+      // antialias: true
     })
 
     this.gl = this.renderer.gl
