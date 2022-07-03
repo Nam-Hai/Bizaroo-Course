@@ -12,14 +12,10 @@ export default class Canvas {
       home: this.createHome,
       about: this.createAbout
     };
-    this.createRenderer()
-    this.createCamera()
-    this.createScene()
-
-    this.onResize()
-
-    this.onChange(route)
-
+    this.screenAspectRatio = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
     this.x = {
       start: 0,
       distance: 0,
@@ -31,10 +27,13 @@ export default class Canvas {
       end: 0
     }
 
-    this.screenAspectRatio = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    }
+    this.createRenderer()
+    this.createCamera()
+    this.createScene()
+
+    this.onResize()
+    this.onChange(route)
+
   }
 
   createRenderer() {
@@ -68,15 +67,26 @@ export default class Canvas {
   }
 
   createAbout() {
-    this.about = new About({})
+    this.about = new About({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes,
+      screenAspectRatio: this.screenAspectRatio
+    })
   }
 
   onChange(route) {
     this.route = route
-    if (this.home) this.home.destroy()
-    if (this.about) this.about.destroy()
-    this.home = null
-    this.about = null
+    for (const route of Object.values(this.mapRouteObject)) {
+      if (this[route]) {
+        this[route].destroy()
+        this[route] = null
+      }
+    }
+    // if (this.home) this.home.destroy()
+    // if (this.about) this.about.destroy()
+    // this.home = null
+    // this.about = null
 
     if (this.mapRouteObject.hasOwnProperty(route)) {
       const createNewObject = this.mapRouteObject[route].bind(this)
@@ -106,7 +116,7 @@ export default class Canvas {
       width
     }
 
-    if (this.home && this.home.onResize) this.home.onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
+    if (this[this.route] && this[this.route].onResize) this[this.route].onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
   }
 
   onTouchDown(event) {
@@ -148,7 +158,7 @@ export default class Canvas {
     // this.mesh.rotation.x += 0.7 * dT
     // this.mesh.rotation.y += 1.9 * dT
 
-    if (this.home) this.home.update(dT)
+    if (this[this.route]) this[this.route].update(dT)
 
     this.renderer.render({
       camera: this.camera,
