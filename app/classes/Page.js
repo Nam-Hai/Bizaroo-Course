@@ -170,7 +170,6 @@ export default class Page {
   }
 
   update(deltaT) {
-
     if (this.animations.updatables) {
       for (const updatable of this.animations.updatables) {
         updatable.tick(deltaT)

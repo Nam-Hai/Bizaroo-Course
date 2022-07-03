@@ -60,6 +60,8 @@ export default class {
 
   onResize(event) {
     Object.values(this.medias).map(media => media.onResize(event))
+
+    this.sizes = event.sizes
   }
 
   onTouchDown({ x, y }) {
@@ -81,9 +83,24 @@ export default class {
     this.x.current = N.Lerp(this.x.current, this.x.target, this.x.lerp)
     this.y.current = N.Lerp(this.y.current, this.y.target, this.y.lerp)
 
+    this.x.direction = this.scroll.x > this.x.current ? 'right' : this.scroll.x < this.x.current ? 'left' : null;
+
+
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
 
-    Object.values(this.medias).map(media => media.update(dT, this.scroll))
+    Object.entries(this.medias).map(([index, media]) => {
+      if (index == 0) {
+        // console.log('object', media.mesh.position.x, this.sizes.width);
+        const x = media.mesh.position.x + media.mesh.scale.x / 2;
+        const y = media.mesh.position.y + media.mesh.scale.y / 2;
+        if (x < -this.sizes.width / 2) {
+          // console.log('outside of screen');
+
+        }
+      }
+
+      return media.update(dT, this.scroll)
+    })
   }
 }
