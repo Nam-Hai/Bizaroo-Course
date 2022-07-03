@@ -1,5 +1,5 @@
 import vertex from '../../../shaders/plane-vertex.glsl'
-import fragment from '../../../shaders/plane-fragment.glsl'
+import fragment from '../../../shaders/plane-fragment-no-opacity.glsl'
 import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import { galeryRotationBound } from '../../../utils/constant';
@@ -11,6 +11,7 @@ export default class {
     this.gl = gl
     this.geometry = geometry
     this.element = element
+    console.log('element', this.element);
     this.scene = scene
     this.index = index
     this.extra = {
@@ -38,7 +39,9 @@ export default class {
     this.image = new window.Image();
     this.image.crossOrigin = 'anonymous'
     this.image.src = this.element.getAttribute('data-src')
+    console.log('image.src', this.image.src);
     this.image.onload = () => {
+      console.log('object');
       this.texture.image = this.image
     }
 
@@ -67,7 +70,6 @@ export default class {
 
     this.mesh.setParent(this.scene)
 
-    this.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
   }
 
   getBounds() {
@@ -86,15 +88,6 @@ export default class {
 
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
-
-    // put images at "(0,0)" le centre de chaque image
-    // this.mesh.position.x = -this.sizes.width / 2
-    // this.mesh.position.y = this.sizes.height / 2
-
-    // put images at "(0,0)" la postion "(0,0)" de chaque image
-    // this.mesh.position.x += this.mesh.scale.x / 2
-    // this.mesh.position.y -= this.mesh.scale.y / 2
-
   }
 
   updateX({ dT, x = 0 }) {
@@ -102,7 +95,6 @@ export default class {
     this.mesh.position.x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     // the actual x value + conversion pixel en [-1, 1]
     this.mesh.position.x += ((this.bounds.left + x) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
-
     this.pos.x = x
   }
 

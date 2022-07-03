@@ -1,3 +1,4 @@
+import { Transform } from "ogl";
 import { N } from "../../../utils/namhai";
 import Media from "./Media";
 
@@ -16,6 +17,8 @@ export default class {
     this.index = index;
     this.gl = gl;
     this.scene = scene;
+    this.group = new Transform()
+    this.group.setParent(scene)
     this.sizes = sizes;
     this.screenAspectRatio = screenAspectRatio
 
@@ -34,7 +37,7 @@ export default class {
   }
 
   createMedias() {
-    const mediasElement = N.get('.about__gallery__media', this.element)
+    const mediasElement = N.get('.about__gallery__media img', this.element)
     this.medias = Object.entries(mediasElement).map(([index, element]) =>
       new Media({
         element,

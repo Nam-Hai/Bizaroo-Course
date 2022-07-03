@@ -83,10 +83,6 @@ export default class Canvas {
         this[route] = null
       }
     }
-    // if (this.home) this.home.destroy()
-    // if (this.about) this.about.destroy()
-    // this.home = null
-    // this.about = null
 
     if (this.mapRouteObject.hasOwnProperty(route)) {
       const createNewObject = this.mapRouteObject[route].bind(this)

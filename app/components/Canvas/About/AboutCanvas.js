@@ -7,7 +7,7 @@ export default class {
     this.screenAspectRatio = screenAspectRatio
     this.sizes = sizes
     this.scene = scene
-    this.group = new Transform()
+    // this.group = new Transform()
     this.gl = gl
 
     this.galleries = N.get('.about__gallery')
@@ -15,7 +15,7 @@ export default class {
     this.createGeometry()
     this.createGalleries()
 
-    this.group.setParent(scene)
+    // this.group.setParent(scene)
 
     this.onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
   }
