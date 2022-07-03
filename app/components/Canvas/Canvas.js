@@ -112,6 +112,12 @@ export default class Canvas {
     if (this.home) this.home.onTouchUp({ x: this.x, y: this.y })
   }
 
+  onWheel(event) {
+    if (this.home) {
+      this.home.onWheel(event)
+    }
+  }
+
   update(dT) {
     // this.mesh.rotation.x += 0.7 * dT
     // this.mesh.rotation.y += 1.9 * dT

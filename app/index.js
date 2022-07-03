@@ -4,7 +4,7 @@ import Collections from 'pages/Collections/collections';
 import Detail from 'pages/Detail/detail.js';
 import Preloader from 'components/preloader';
 import Clock from 'classes/Clock.js';
-import { N } from 'utils/namhai.js'
+import { N, normalizeWheel } from 'utils/namhai.js'
 import Navigation from './components/navigation';
 import Canvas from './components/Canvas/Canvas';
 
@@ -147,6 +147,7 @@ class App {
     if (this.canvas && this.canvas.onTouchUp) this.canvas.onTouchUp(event)
   }
 
+
   onPopState() {
     this.onChange({
       url: window.location.pathname,
@@ -154,7 +155,18 @@ class App {
     })
   }
 
+  onWheel(event) {
+    const normalizeWheelValue = normalizeWheel(event)
+
+
+    if (this.canvas && this.canvas.onWheel) this.canvas.onWheel(normalizeWheelValue)
+    if (this.page && this.page.onWheel) this.page.onWheel(normalizeWheelValue.pixelY)
+
+  }
+
   addEventListener() {
+    window.addEventListener('wheel', this.onWheel.bind(this))
+
     window.addEventListener('mousedown', this.onTouchDown.bind(this))
     window.addEventListener('mousemove', this.onTouchMove.bind(this))
     window.addEventListener('mouseup', this.onTouchUp.bind(this))

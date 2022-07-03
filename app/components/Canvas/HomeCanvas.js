@@ -113,6 +113,11 @@ export default class {
 
   }
 
+  onWheel({ pixelX, pixelY }) {
+    this.x.target += pixelX;
+    this.y.target += pixelY;
+  }
+
   update(dT) {
     this.x.current = N.Lerp(this.x.current, this.x.target, this.x.lerp)
     this.y.current = N.Lerp(this.y.current, this.y.target, this.y.lerp)

@@ -1,4 +1,4 @@
-import { N, normalizeWheel } from 'utils/namhai.js'
+import { N } from 'utils/namhai.js'
 import anime from 'animejs';
 import Title from 'animations/Title'
 import Title_Translate from '../animations/titleTranslate';
@@ -161,11 +161,8 @@ export default class Page {
     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
   }
 
-  onMouseWheel(event) {
-    const deltaY = event.deltaY;
-    const normalizeScroll = normalizeWheel(event)
-
-    this.scroll.targetY += normalizeScroll.pixelY
+  onWheel({ pixelY }) {
+    this.scroll.targetY = pixelY
     this.scroll.targetY = N.Clamp(this.scroll.targetY, 0, this.scroll.limit)
   }
 
@@ -183,10 +180,10 @@ export default class Page {
   }
 
   addEventListener() {
-    window.addEventListener('mousewheel', this.onMouseWheel.bind(this))
+    window.addEventListener('wheel', this.onWheel.bind(this))
   }
   removeEventListener() {
-    window.removeEventListener('mousewheel', this.onMouseWheel.bind(this))
+    window.removeEventListener('wheel', this.onWheel.bind(this))
   }
 
   destroy() {
