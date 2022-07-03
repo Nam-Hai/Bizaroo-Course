@@ -69,8 +69,8 @@ class App {
 
     this.page.create()
     this.onResize()
+    this.page.show()
 
-    await this.page.show()
   }
 
 
@@ -158,9 +158,8 @@ class App {
   onWheel(event) {
     const normalizeWheelValue = normalizeWheel(event)
 
-
     if (this.canvas && this.canvas.onWheel) this.canvas.onWheel(normalizeWheelValue)
-    if (this.page && this.page.onWheel) this.page.onWheel(normalizeWheelValue.pixelY)
+    if (this.page && this.page.onWheel) this.page.onWheel({ pixelY: normalizeWheelValue.pixelY })
 
   }
 
