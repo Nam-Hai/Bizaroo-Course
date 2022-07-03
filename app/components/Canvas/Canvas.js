@@ -1,15 +1,24 @@
 import { Camera, Renderer, Transform, Box, Program, Mesh } from 'ogl';
+import About from './About/AboutCanvas';
 
 import Home from './Home/HomeCanvas'
 
+
+
 export default class Canvas {
-  constructor() {
+  constructor({ route }) {
+    this.route = route
+    this.mapRouteObject = {
+      home: this.createHome,
+      about: this.createAbout
+    };
     this.createRenderer()
     this.createCamera()
     this.createScene()
 
     this.onResize()
-    this.createHome()
+
+    this.onChange(route)
 
     this.x = {
       start: 0,
@@ -56,6 +65,23 @@ export default class Canvas {
       sizes: this.sizes,
       screenAspectRatio: this.screenAspectRatio
     })
+  }
+
+  createAbout() {
+    this.about = new About({})
+  }
+
+  onChange(route) {
+    this.route = route
+    if (this.home) this.home.destroy()
+    if (this.about) this.about.destroy()
+    this.home = null
+    this.about = null
+
+    if (this.mapRouteObject.hasOwnProperty(route)) {
+      const createNewObject = this.mapRouteObject[route].bind(this)
+      createNewObject()
+    }
   }
 
   onResize() {
@@ -126,7 +152,7 @@ export default class Canvas {
 
     this.renderer.render({
       camera: this.camera,
-      scene: this.scene
+      scene: this.scene,
     })
   }
 }

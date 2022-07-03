@@ -30,7 +30,7 @@ class App {
   }
 
   createCanvas() {
-    this.canvas = new Canvas()
+    this.canvas = new Canvas({ route: this.template })
 
   }
 
@@ -120,7 +120,7 @@ class App {
       this.page.createAnimationObserver()
 
       await this.page.createLoader()
-
+      this.canvas.onChange(this.template)
       this.addLinkListener(this.content)
       this.onResize()
       if (push) window.history.pushState(this.template, 'Floema - ' + this.template, url)

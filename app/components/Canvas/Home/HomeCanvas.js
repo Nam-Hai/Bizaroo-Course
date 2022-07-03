@@ -63,7 +63,7 @@ export default class {
         geometry: this.geometry,
         gl: this.gl,
         index,
-        scene: this.scene,
+        scene: this.group,
         sizes: this.sizes,
         screenAspectRatio: this.screenAspectRatio
       })
@@ -156,5 +156,15 @@ export default class {
       }
       media.update(dT, this.scroll)
     }
+  }
+
+  destroy() {
+    for (let media of Object.values(this.medias)) {
+      this.group.removeChild(media.mesh)
+      media.mesh = null;
+      media = null
+    }
+    this.medias = null
+    this.scene.removeChild(this.group)
   }
 }
