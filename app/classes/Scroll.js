@@ -28,12 +28,18 @@ class Scroll {
       xAxis: null,
       yAxis: null
     }
+
+    this.limit = {
+      xAxis: 0,
+      yAxis: 0
+    }
   }
 
   resetScroll() {
     this.x = {
       current: 0,
       target: 0,
+      limit: 0,
       lerp: 0.1,
       touch: {
         currentOnStart: 0,
@@ -45,6 +51,7 @@ class Scroll {
     this.y = {
       current: 0,
       target: 0,
+      limit: 0,
       lerp: 0.1,
       touch: {
         currentOnStart: 0,
@@ -54,6 +61,12 @@ class Scroll {
       }
     }
   }
+
+  setLimit(value) {
+    this.limit.yAxis = value ? value : 0
+    console.log('SWET LIMIT', value);
+  }
+
 
   onTouchDown(event) {
     this.touchDown = true
@@ -84,6 +97,9 @@ class Scroll {
   onWheel(normalizeWheelValue) {
     this.x.target += normalizeWheelValue.pixelX;
     this.y.target += normalizeWheelValue.pixelY;
+
+    if (this.limit.yAxis != 0)
+      this.y.target = N.Clamp(this.y.target, 0, this.limit.yAxis)
   }
 
   update(dt) {

@@ -31,13 +31,6 @@ export default class Page {
   create() {
     this.element = N.Select.el(this.selector);
     this.elements = {};
-    this.scroll = {
-      currentY: 0,
-      targetY: 0,
-      lastY: 0,
-      limit: 0
-    }
-    console.log('createPAge', this.scroll);
     this.elements = this.querySelectRec(this.selectorChildren)
 
     this.createAnimations()
@@ -108,7 +101,6 @@ export default class Page {
       animationsConcat = animationsConcat.concat(Object.values(animation))
     }
     this.animationsConcat = animationsConcat
-    // console.log('animatationconcat', this.animations, this.animationsConcat);
   }
 
   createAnimationObserver() {
@@ -159,25 +151,22 @@ export default class Page {
     }
 
     if (!this.elements || !this.elements.wrapper) return
-    this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+    this.scrollLimit = this.elements.wrapper.clientHeight - window.innerHeight
   }
 
   onWheel({ pixelY }) {
     if (!this.scrollOn) return
     this.scroll.targetY += pixelY
-    this.scroll.targetY = N.Clamp(this.scroll.targetY, 0, this.scroll.limit)
   }
 
-  update(deltaT) {
+  update(deltaT, scrollY) {
     if (this.animations.updatables) {
       for (const updatable of this.animations.updatables) {
         updatable.tick(deltaT)
       }
     }
-    this.scroll.currentY = N.Lerp(this.scroll.currentY, this.scroll.targetY, 5 * deltaT)
-    Math.abs(this.scroll.currentY - this.scroll.targetY) < 0.8 && (this.scroll.currentY = this.scroll.targetY)
 
-    if (this.elements.wrapper) N.T(this.elements.wrapper, 0, -this.scroll.currentY, 'px')
+    if (this.elements.wrapper) N.T(this.elements.wrapper, 0, -scrollY, 'px')
   }
 
   addEventListener() {

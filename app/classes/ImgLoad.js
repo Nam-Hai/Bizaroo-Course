@@ -9,13 +9,11 @@ export default class ImgLoad extends EventEmiter {
     this.preloadLenght = this.elements.length
     this.count = 0
 
-    console.log('LOADER', this.count, this.preloadLenght, this.elements);
     this.createLoader()
   }
 
   createLoader() {
     for (let el of this.elements) {
-      console.log('createLoader');
       el.onload = () => (this.onAssetLoad(), el.classList.add('loaded'));
       el.src = el.getAttribute('data-src')
     }
@@ -24,7 +22,6 @@ export default class ImgLoad extends EventEmiter {
   onAssetLoad() {
     this.count++;
     if (this.count == this.preloadLenght) {
-      console.log('completed');
       this.emit('completed')
     }
   }

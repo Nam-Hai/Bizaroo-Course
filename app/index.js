@@ -17,7 +17,6 @@ class App {
     this.resizeDelay = 50
     this.clock = new Clock()
     this.scroll = ScrollManager
-    console.log("this.scroll", this.scroll);
     this.update()
   }
 
@@ -93,7 +92,11 @@ class App {
   }
 
   onResize() {
-    if (this.page && this.page.onResize) this.page.onResize()
+    if (this.page && this.page.onResize) {
+      this.page.onResize()
+      console.log('this.template', this.template, this.page.scrollLimit, this.scroll, this.scroll.setLimit);
+      if (this.template != 'home') this.scroll.setLimit(this.page.scrollLimit)
+    }
     if (this.canvas && this.canvas.onResize) this.canvas.onResize()
   }
 
@@ -200,13 +203,12 @@ class App {
 
     this.scroll.update(deltaT)
 
-    console.log('croll', this.scroll.x.current);
     if (this.canvas && this.canvas.update) {
       this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current })
     }
 
     if (this.page && this.page.update) {
-      this.page.update(deltaT)
+      this.page.update(deltaT, this.scroll.y.current)
     }
     window.requestAnimationFrame(this.update.bind(this))
   }

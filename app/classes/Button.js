@@ -36,7 +36,6 @@ export default class Button extends Components {
 
 
   onMouseEnter() {
-    console.log('enter');
     if (!this.first) {
       this.timeline.play()
       this.timeline.reverse()
@@ -49,7 +48,6 @@ export default class Button extends Components {
   }
 
   onMouseLeave() {
-    console.log('leave');
     this.timeline.reverse()
     this.timeline.restart()
   }

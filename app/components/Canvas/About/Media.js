@@ -11,7 +11,6 @@ export default class {
     this.gl = gl
     this.geometry = geometry
     this.element = element
-    console.log('element', this.element);
     this.scene = scene
     this.index = index
     this.extra = {
@@ -39,9 +38,7 @@ export default class {
     this.image = new window.Image();
     this.image.crossOrigin = 'anonymous'
     this.image.src = this.element.getAttribute('data-src')
-    console.log('image.src', this.image.src);
     this.image.onload = () => {
-      console.log('object');
       this.texture.image = this.image
     }
 
