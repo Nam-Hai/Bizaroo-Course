@@ -204,7 +204,7 @@ class App {
     this.scroll.update(deltaT)
 
     if (this.canvas && this.canvas.update) {
-      this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current })
+      this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current, direction: this.scroll.direction })
     }
 
     if (this.page && this.page.update) {

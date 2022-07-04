@@ -132,8 +132,6 @@ export default class Canvas {
     // this.mesh.rotation.x += 0.7 * dT
     // this.mesh.rotation.y += 1.9 * dT
 
-
-
     if (this[this.route]) this[this.route].update(dT, scroll)
 
     this.renderer.render({

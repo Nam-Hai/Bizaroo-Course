@@ -25,11 +25,6 @@ export default class {
 
     this.group.setParent(scene)
 
-    this.direction = {
-      xAxis: null,
-      yAxis: null
-    }
-
     this.onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
 
   }
@@ -93,23 +88,21 @@ export default class {
 
   update(dT, scroll) {
 
-
     for (let media of Object.values(this.medias)) {
 
-      // console.log('object', media.mesh.position.x, this.sizes.width);
       const x = media.mesh.position.x + media.mesh.scale.x / 2;
       const y = media.mesh.position.y + media.mesh.scale.y / 2;
-      if (this.direction.xAxis == 'right' && x < -this.sizes.width / 2) {
+      if (scroll.direction.xAxis == 'right' && x < -this.sizes.width / 2) {
         media.extra.xCounter++;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
-      } else if (this.direction.xAxis == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
+      } else if (scroll.direction.xAxis == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
         media.extra.xCounter--;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       }
-      if (this.direction.yAxis == 'up' && y < -this.sizes.height / 2) {
+      if (scroll.direction.yAxis == 'up' && y < -this.sizes.height / 2) {
         media.extra.yCounter--;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
-      } else if (this.direction.yAxis == 'down' && y - media.mesh.scale.y > this.sizes.height / 2) {
+      } else if (scroll.direction.yAxis == 'down' && y - media.mesh.scale.y > this.sizes.height / 2) {
         media.extra.yCounter++;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       }

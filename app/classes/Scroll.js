@@ -60,6 +60,10 @@ class Scroll {
         end: 0,
       }
     }
+    this.limit = {
+      yAxis: 0,
+      xAxis: 0
+    }
   }
 
   setLimit(value) {
@@ -105,7 +109,6 @@ class Scroll {
   update(dt) {
     this.direction.xAxis = this.x.target < this.x.current ? 'right' : this.x.target > this.x.current ? 'left' : null;
     this.direction.yAxis = this.y.target > this.y.current ? 'up' : this.y.target < this.y.current ? 'down' : null;
-    // console.log('direction', this.direction.xAxis, this.direction.yAxis);
 
     this.x.current = N.Lerp(this.x.current, this.x.target, this.x.lerp)
     this.y.current = N.Lerp(this.y.current, this.y.target, this.y.lerp)
