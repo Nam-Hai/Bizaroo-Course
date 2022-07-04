@@ -7,6 +7,7 @@ import Clock from 'classes/Clock.js';
 import { N, normalizeWheel } from 'utils/namhai.js'
 import Navigation from './components/navigation';
 import Canvas from './components/Canvas/Canvas';
+import { ScrollManager } from './classes/Scroll'
 
 class App {
   constructor() {
@@ -15,6 +16,8 @@ class App {
     this.resizeThrottle = false
     this.resizeDelay = 50
     this.clock = new Clock()
+    this.scroll = ScrollManager
+    console.log("this.scroll", this.scroll);
     this.update()
   }
 
@@ -136,14 +139,17 @@ class App {
   }
 
   onTouchDown(event) {
+    this.scroll.onTouchDown(event)
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
   }
 
   onTouchMove(event) {
+    this.scroll.onTouchMove(event)
     if (this.canvas && this.canvas.onTouchMove) this.canvas.onTouchMove(event)
   }
 
   onTouchUp(event) {
+    this.scroll.onTouchUp(event)
     if (this.canvas && this.canvas.onTouchUp) this.canvas.onTouchUp(event)
   }
 
@@ -158,8 +164,9 @@ class App {
   onWheel(event) {
     const normalizeWheelValue = normalizeWheel(event)
 
-    if (this.canvas && this.canvas.onWheel) this.canvas.onWheel(normalizeWheelValue)
-    if (this.page && this.page.onWheel) this.page.onWheel({ pixelY: normalizeWheelValue.pixelY })
+    this.scroll.onWheel(normalizeWheelValue)
+
+    // if (this.page && this.page.onWheel) this.page.onWheel({ pixelY: this.scroll.y.current })
 
   }
 
@@ -191,8 +198,11 @@ class App {
   update() {
     const deltaT = this.clock.getDelta()
 
+    this.scroll.update(deltaT)
+
+    console.log('croll', this.scroll.x.current);
     if (this.canvas && this.canvas.update) {
-      this.canvas.update(deltaT)
+      this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current })
     }
 
     if (this.page && this.page.update) {

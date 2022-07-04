@@ -1,8 +1,7 @@
 import { Camera, Renderer, Transform, Box, Program, Mesh } from 'ogl';
 import About from './About/AboutCanvas';
-
-import Home from './Home/HomeCanvas'
-
+import Home from './Home/HomeCanvas';
+import { N } from '../../utils/namhai'
 
 
 export default class Canvas {
@@ -15,16 +14,6 @@ export default class Canvas {
     this.screenAspectRatio = {
       width: window.innerWidth,
       height: window.innerHeight
-    }
-    this.x = {
-      start: 0,
-      distance: 0,
-      end: 0
-    }
-    this.y = {
-      start: 0,
-      distance: 0,
-      end: 0
     }
 
     this.createRenderer()
@@ -76,14 +65,20 @@ export default class Canvas {
   }
 
   onChange(route) {
-    this.route = route
-    for (const route of Object.values(this.mapRouteObject)) {
-      if (this[route]) {
-        this[route].destroy()
-        this[route] = null
-      }
+    // destroy canvas before assign this.route, and creating new canvas
+    // for (const [key, route] of Object.entries(this.mapRouteObject)) {
+    //   console.log("this.route", route);
+    //   if (this[key]) {
+    //     this[key].destroy()
+    //     this[key] = null
+    //   }
+    // }
+    if (this[this.route]) {
+      this[this.route].destroy()
+      this[this.route] = null
     }
 
+    this.route = route
     if (this.mapRouteObject.hasOwnProperty(route)) {
       const createNewObject = this.mapRouteObject[route].bind(this)
       createNewObject()
@@ -116,45 +111,30 @@ export default class Canvas {
   }
 
   onTouchDown(event) {
-    this.isDown = true
-    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
-    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
-    this.x.end = event.touches ? event.touches[0].clientX : event.clientX
-    this.y.end = event.touches ? event.touches[0].clientY : event.clientY
 
-    if (this.home) this.home.onTouchDown({ x: this.x, y: this.y })
   }
 
   onTouchMove(event) {
-    if (!this.isDown) return
-    this.x.end = event.touches ? event.touches[0].clientX : event.clientX
-    this.y.end = event.touches ? event.touches[0].clientY : event.clientY
 
-    // this.x.distance = this.x.end - this.x.start
-    // this.y.distance = this.y.end - this.y.start
-
-    if (this.home) this.home.onTouchMove({ x: this.x, y: this.y })
   }
 
   onTouchUp(event) {
-    this.isDown = false
-    this.x.end = event.touches ? event.touches[0].clientX : event.clientX
-    this.y.end = event.touches ? event.touches[0].clientY : event.clientY
 
-    if (this.home) this.home.onTouchUp({ x: this.x, y: this.y })
   }
 
-  onWheel(event) {
-    if (this.home) {
-      this.home.onWheel(event)
+  onWheel({ pixelX, pixelY }) {
+    if (this[this.route]) {
+      this[this.route].onWheel({ pixelX, pixelY })
     }
   }
 
-  update(dT) {
+  update(dT, scroll) {
     // this.mesh.rotation.x += 0.7 * dT
     // this.mesh.rotation.y += 1.9 * dT
 
-    if (this[this.route]) this[this.route].update(dT)
+
+
+    if (this[this.route]) this[this.route].update(dT, scroll)
 
     this.renderer.render({
       camera: this.camera,

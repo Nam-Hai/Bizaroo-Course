@@ -74,11 +74,11 @@ export default class {
 
   destroy() {
     for (let gallery of this.galleries) {
-      this.group.removeChild(gallery.mesh)
+      this.scene.removeChild(gallery.group)
       gallery.mesh = null;
       gallery = null
     }
     this.galleries = null
-    this.scene.removeChild(this.group)
+    // this.scene.removeChild(this.group)
   }
 }

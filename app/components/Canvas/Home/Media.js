@@ -116,8 +116,8 @@ export default class {
 
   update(dT, scroll) {
     if (!this.bounds) return
-    this.updateX({ dT, x: scroll.x })
-    this.updateY({ dT, y: scroll.y })
+    this.updateX({ dT, x: scroll.pixelX })
+    this.updateY({ dT, y: scroll.pixelY })
   }
 
   onResize({ sizes, screenAspectRatio, galleryDimension }) {

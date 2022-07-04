@@ -25,24 +25,9 @@ export default class {
 
     this.group.setParent(scene)
 
-    this.x = {
-      current: 0,
-      target: 0,
-      lerp: 0.1
-    }
-    this.y = {
-      current: 0,
-      target: 0,
-      lerp: 0.1
-    }
-
-    this.scrollCurrent = {
-      x: 0,
-      y: 0
-    }
-    this.scroll = {
-      x: 0,
-      y: 0
+    this.direction = {
+      xAxis: null,
+      yAxis: null
     }
 
     this.onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio })
@@ -96,61 +81,39 @@ export default class {
   }
 
   onTouchDown({ x, y }) {
-    this.scrollCurrent.x = this.scroll.x
-    this.scrollCurrent.y = this.scroll.y
   }
   onTouchMove({ x, y }) {
-    const xDistance = x.end - x.start,
-      yDistance = y.end - y.start
-    this.x.target = this.scrollCurrent.x + xDistance
-    this.y.target = this.scrollCurrent.y + yDistance
   }
   onTouchUp({ x, y }) {
 
   }
 
   onWheel({ pixelX, pixelY }) {
-    this.x.target += pixelX;
-    this.y.target += pixelY;
   }
 
-  update(dT) {
-    this.x.current = N.Lerp(this.x.current, this.x.target, this.x.lerp)
-    this.y.current = N.Lerp(this.y.current, this.y.target, this.y.lerp)
-    if (Math.abs(this.x.current - this.x.target) < 0.01) {
-      this.x.current = this.x.target
-    }
-    if (Math.abs(this.y.current - this.y.target) < 0.01) {
-      this.y.current = this.y.target
-    }
+  update(dT, scroll) {
 
-    this.x.direction = this.scroll.x > this.x.current ? 'right' : this.scroll.x < this.x.current ? 'left' : null;
-    this.y.direction = this.scroll.y < this.y.current ? 'up' : this.scroll.y > this.y.current ? 'down' : null;
-
-    // console.log('direction', this.x.direction);
-    this.scroll.x = this.x.current
-    this.scroll.y = this.y.current
 
     for (let media of Object.values(this.medias)) {
 
       // console.log('object', media.mesh.position.x, this.sizes.width);
       const x = media.mesh.position.x + media.mesh.scale.x / 2;
       const y = media.mesh.position.y + media.mesh.scale.y / 2;
-      if (this.x.direction == 'right' && x < -this.sizes.width / 2) {
+      if (this.direction.xAxis == 'right' && x < -this.sizes.width / 2) {
         media.extra.xCounter++;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
-      } else if (this.x.direction == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
+      } else if (this.direction.xAxis == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
         media.extra.xCounter--;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       }
-      if (this.y.direction == 'up' && y < -this.sizes.height / 2) {
+      if (this.direction.yAxis == 'up' && y < -this.sizes.height / 2) {
         media.extra.yCounter--;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
-      } else if (this.y.direction == 'down' && y - media.mesh.scale.y > this.sizes.height / 2) {
+      } else if (this.direction.yAxis == 'down' && y - media.mesh.scale.y > this.sizes.height / 2) {
         media.extra.yCounter++;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       }
-      media.update(dT, this.scroll)
+      media.update(dT, scroll)
     }
   }
 

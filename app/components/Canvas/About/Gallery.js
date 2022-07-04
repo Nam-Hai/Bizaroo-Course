@@ -102,4 +102,13 @@ export default class {
       media.update(dT, this.scroll)
     }
   }
+
+  destroy() {
+    for (const media of this.medias) {
+      this.scene.removeChild(media.mesh)
+      media.mesh = null;
+      media = null
+    }
+    this.medias = null
+  }
 }
