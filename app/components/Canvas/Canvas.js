@@ -102,6 +102,7 @@ export default class Canvas {
     const height = 2 * Math.tan(fov / 2) * this.camera.position.z
     const width = height * this.camera.aspect
 
+    // taille du plan dans l'espace 3D
     this.sizes = {
       height,
       width
@@ -123,9 +124,6 @@ export default class Canvas {
   }
 
   onWheel({ pixelX, pixelY }) {
-    if (this[this.route]) {
-      this[this.route].onWheel({ pixelX, pixelY })
-    }
   }
 
   update(dT, scroll) {

@@ -55,7 +55,6 @@ export default class {
   onResize(event) {
 
     this.galleryBounds = this.element.getBoundingClientRect()
-
     this.sizes = event.sizes
     this.screenAspectRatio = event.screenAspectRatio
     if (this.galleryBounds) {
@@ -81,25 +80,19 @@ export default class {
 
   }
 
-  update(dT) {
-    this.scroll.current = N.Lerp(this.scroll.current, this.scroll.target, this.scroll.lerp)
-    if (Math.abs(this.scroll.current - this.scroll.target) < 0.01) {
-      this.scroll.current = this.scroll.target
-    }
-
-    this.direction = this.scroll.target > this.scroll.current ? 'right' : this.scroll.target < this.scroll.current ? 'left' : null;
-
+  update(dT, scroll) {
+    // console.log('gallery', scroll);
 
     for (let media of Object.values(this.medias)) {
-      const x = media.mesh.position.x + media.mesh.scale.x / 2;
-      if (this.direction == 'right' && x < -this.sizes.width / 2) {
-        media.extra.xCounter++;
-        media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
-      } else if (this.direction == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
-        media.extra.xCounter--;
-        media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
-      }
-      media.update(dT, this.scroll)
+      // const x = media.mesh.position.x + media.mesh.scale.x / 2;
+      // if (scroll.direction.xAxis == 'right' && x < -this.sizes.width / 2) {
+      //   media.extra.xCounter++;
+      //   media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
+      // } else if (scroll.direction.xAxis == 'left' && x - media.mesh.scale.x > this.sizes.width / 2) {
+      //   media.extra.xCounter--;
+      //   media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
+      // }
+      media.update(dT, scroll)
     }
   }
 

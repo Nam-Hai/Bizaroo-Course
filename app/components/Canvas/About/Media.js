@@ -28,7 +28,7 @@ export default class {
     this.createProgram()
     this.createMesh()
 
-
+    this.bounds = this.element.getBoundingClientRect()
     this.getBounds()
   }
 
@@ -70,8 +70,11 @@ export default class {
   }
 
   getBounds() {
-    this.bounds = this.element.getBoundingClientRect();
-
+    const bounds = this.element.getBoundingClientRect();
+    console.log('getbounds', bounds, this.bounds);
+    this.bounds.width = bounds.width;
+    this.bounds.height = bounds.height
+    this.bounds.x = bounds.x
     this.updateScale()
     this.updateX({ x: this.pos.x })
     this.updateY({ y: this.pos.y })
@@ -91,7 +94,7 @@ export default class {
     // (0,0) of the screen
     this.mesh.position.x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     // the actual x value + conversion pixel en [-1, 1]
-    this.mesh.position.x += ((this.bounds.left + x) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
+    this.mesh.position.x += ((this.bounds.x + x) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
     this.pos.x = x
   }
 
@@ -106,8 +109,8 @@ export default class {
 
   update(dT, scroll) {
     if (!this.bounds) return
-    this.updateX({ dT, x: scroll.x })
-    this.updateY({ dT, y: scroll.y })
+    this.updateX({ dT })
+    this.updateY({ dT })
   }
 
   onResize({ sizes, screenAspectRatio, galleryDimension }) {

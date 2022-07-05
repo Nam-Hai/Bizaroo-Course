@@ -155,8 +155,6 @@ export default class Page {
   }
 
   onWheel({ pixelY }) {
-    if (!this.scrollOn) return
-    this.scroll.targetY += pixelY
   }
 
   update(deltaT, scrollY) {

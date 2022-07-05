@@ -142,16 +142,19 @@ class App {
   }
 
   onTouchDown(event) {
+    if (this.template == 'about') return
     this.scroll.onTouchDown(event)
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
   }
 
   onTouchMove(event) {
+    if (this.template == 'about') return
     this.scroll.onTouchMove(event)
     if (this.canvas && this.canvas.onTouchMove) this.canvas.onTouchMove(event)
   }
 
   onTouchUp(event) {
+    if (this.template == 'about') return
     this.scroll.onTouchUp(event)
     if (this.canvas && this.canvas.onTouchUp) this.canvas.onTouchUp(event)
   }

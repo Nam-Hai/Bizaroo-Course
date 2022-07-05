@@ -9,7 +9,6 @@ export default class {
     this.scene = scene
     // this.group = new Transform()
     this.gl = gl
-
     this.galleries = N.get('.about__gallery')
 
     this.createGeometry()
@@ -40,6 +39,9 @@ export default class {
   }
 
   onResize(event) {
+    this.sizes = event.sizes
+    this.screenAspectRatio = event.screenAspectRatio
+
     for (const gallery of this.galleries) {
       gallery.onResize(event)
     }
@@ -62,13 +64,18 @@ export default class {
       gallery.onTouchUp(event)
     }
   }
-
   onWheel({ pixelX, pixelY }) {
+
   }
 
-  update(dT) {
+  update(dT, scroll) {
+    const scrollWebGL = {
+      x: this.sizes.width * scroll.pixelX / this.screenAspectRatio.width,
+      y: this.sizes.height * scroll.pixelY / this.screenAspectRatio.height
+    }
+    this.scene.position.y = scrollWebGL.y
     for (const gallery of this.galleries) {
-      gallery.update(dT)
+      gallery.update(dT, scroll)
     }
   }
 
