@@ -23,12 +23,14 @@ export default class {
       x: 0,
       y: 0
     }
-
+    this.scroll = {
+      pixelX: 0,
+      pixelY: 0
+    }
     this.createTexture()
     this.createProgram()
     this.createMesh()
 
-    this.bounds = this.element.getBoundingClientRect()
     this.getBounds()
   }
 
@@ -70,11 +72,8 @@ export default class {
   }
 
   getBounds() {
-    const bounds = this.element.getBoundingClientRect();
-    console.log('getbounds', bounds, this.bounds);
-    this.bounds.width = bounds.width;
-    this.bounds.height = bounds.height
-    this.bounds.x = bounds.x
+    this.bounds = this.element.getBoundingClientRect();
+    this.bounds.y = this.bounds.y + this.scroll.pixelY
     this.updateScale()
     this.updateX({ x: this.pos.x })
     this.updateY({ y: this.pos.y })
@@ -90,27 +89,29 @@ export default class {
     this.mesh.scale.y = this.sizes.height * this.height
   }
 
-  updateX({ dT, x = 0 }) {
+  updateX({ dT, scrollX = 0 }) {
     // (0,0) of the screen
     this.mesh.position.x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     // the actual x value + conversion pixel en [-1, 1]
-    this.mesh.position.x += ((this.bounds.x + x) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
-    this.pos.x = x
+    this.mesh.position.x += ((this.bounds.x + scrollX) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
+    this.pos.x = scrollX
   }
 
-  updateY({ dT, y = 0 }) {
+  updateY({ dT, scrollY = 0 }) {
     this.mesh.position.y = this.sizes.height / 2 - this.mesh.scale.y / 2
 
 
-    this.mesh.position.y -= ((this.bounds.top + y) / this.screenAspectRatio.height) * this.sizes.height + this.extra.yCounter * this.extra.height
+    this.mesh.position.y -= ((this.bounds.y + scrollY) / this.screenAspectRatio.height) * this.sizes.height + this.extra.yCounter * this.extra.height
 
-    this.pos.y = y
+    this.pos.y = scrollY
   }
 
   update(dT, scroll) {
+    this.scroll = scroll
     if (!this.bounds) return
     this.updateX({ dT })
     this.updateY({ dT })
+
   }
 
   onResize({ sizes, screenAspectRatio, galleryDimension }) {
