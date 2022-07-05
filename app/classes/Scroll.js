@@ -68,7 +68,6 @@ class Scroll {
 
   setLimit(value) {
     this.limit.yAxis = value ? value : 0
-    console.log('SWET LIMIT', value);
   }
 
 
