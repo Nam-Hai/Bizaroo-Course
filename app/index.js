@@ -94,7 +94,6 @@ class App {
   onResize() {
     if (this.page && this.page.onResize) {
       this.page.onResize()
-      console.log('this.template', this.template, this.page.scrollLimit, this.scroll, this.scroll.setLimit);
       if (this.template != 'home') this.scroll.setLimit(this.page.scrollLimit)
     }
     if (this.canvas && this.canvas.onResize) this.canvas.onResize()
@@ -124,6 +123,7 @@ class App {
       this.page = this.pages[this.template]
       this.page.create()
       this.page.createAnimationObserver()
+      this.scroll.resetScroll()
 
       await this.page.createLoader()
       this.canvas.onChange(this.template)
