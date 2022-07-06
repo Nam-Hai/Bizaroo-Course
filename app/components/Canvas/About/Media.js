@@ -4,6 +4,8 @@ import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import { galeryRotationBound } from '../../../utils/constant';
 
+const infinitOffsetSpeed = 1.5
+
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
     this.screenAspectRatio = screenAspectRatio
@@ -13,6 +15,7 @@ export default class {
     this.element = element
     this.scene = scene
     this.index = index
+    this.infinitOffset = 0;
     this.extra = {
       width: 0,
       height: 0,
@@ -20,8 +23,8 @@ export default class {
       yCounter: 0
     }
     this.pos = {
-      x: 0,
-      y: 0
+      pixelX: 0,
+      pixelY: 0
     }
     this.scroll = {
       pixelX: 0,
@@ -75,8 +78,8 @@ export default class {
     this.bounds = this.element.getBoundingClientRect();
     this.bounds.y = this.bounds.y + this.scroll.pixelY
     this.updateScale()
-    this.updateX({ x: this.pos.x })
-    this.updateY({ y: this.pos.y })
+    this.updateX({ x: this.pos.pixelX })
+    this.updateY({ y: this.pos.pixelY })
   }
 
   updateScale() {
@@ -90,28 +93,48 @@ export default class {
   }
 
   updateX({ dT, scrollX = 0 }) {
+    this.pos.pixelX = scrollX * 0.4 + this.infinitOffset
+    this.pos.x = this.pixelX * this.sizes.width / this.screenAspectRatio.width
     // (0,0) of the screen
-    this.mesh.position.x = -this.sizes.width / 2 + this.mesh.scale.x / 2
+    let x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     // the actual x value + conversion pixel en [-1, 1]
-    this.mesh.position.x += ((this.bounds.x + scrollX) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
-    this.pos.x = scrollX
+    x += ((this.bounds.x + this.pos.pixelX) / this.screenAspectRatio.width) * this.sizes.width + this.extra.xCounter * this.extra.width
+    return x
   }
 
   updateY({ dT, scrollY = 0 }) {
-    this.mesh.position.y = this.sizes.height / 2 - this.mesh.scale.y / 2
+    let y = this.sizes.height / 2 - this.mesh.scale.y / 2
+    y -= ((this.bounds.y + this.pos.pixelY) / this.screenAspectRatio.height) * this.sizes.height + this.extra.yCounter * this.extra.height
+    return y
+  }
 
-
-    this.mesh.position.y -= ((this.bounds.y + scrollY) / this.screenAspectRatio.height) * this.sizes.height + this.extra.yCounter * this.extra.height
-
-    this.pos.y = scrollY
+  updateRotation(theta) {
+    return theta - Math.PI / 2
+  }
+  lineToCircle(x) {
+    const theta = x * Math.PI / this.extra.width
+    return theta
   }
 
   update(dT, scroll) {
-    this.scroll = scroll
     if (!this.bounds) return
-    this.updateX({ dT })
-    this.updateY({ dT })
+    this.infinitOffset += infinitOffsetSpeed
+    this.scroll = scroll
+    this.offesting(scroll)
+    const x = this.updateX({ dT }),
+      y = this.updateY({})
+    const theta = this.lineToCircle(x)
+    const R = this.extra.width / Math.PI
+    this.mesh.position.x = R * Math.cos(theta)
+    this.mesh.position.y = y + R * Math.sin(theta) - R
+    this.mesh.rotation.z = this.updateRotation(theta)
+  }
 
+  offesting(scroll) {
+    const x = this.pos.x
+    if (x > this.extra.width / 2) {
+      this.extra.xCounter--
+    }
   }
 
   onResize({ sizes, screenAspectRatio, galleryDimension }) {

@@ -55,6 +55,7 @@ export default class {
   onResize(event) {
 
     this.galleryBounds = this.element.getBoundingClientRect()
+    console.log('galleryBounds', this.galleryBounds);
     this.sizes = event.sizes
     this.screenAspectRatio = event.screenAspectRatio
     if (this.galleryBounds) {

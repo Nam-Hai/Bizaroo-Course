@@ -1,5 +1,6 @@
 .about__gallery{
   height: 58.6rem;
+  width: fit-content;
   position: relative;
   display: flex;
   justify-content: center;
@@ -14,7 +15,7 @@
   display: flex;
   align-items: center;
 
-  column-gap: 8rem;
+  // column-gap: 8rem;
   opacity: 0;
 }
 
@@ -22,4 +23,9 @@
   position: relative;
   height: 43.7rem;
   width: 30.9rem;
+
+  margin-left: 8rem;
+  // &:first-child {
+  //   margin-left: 8rem;
+  // }
 }
