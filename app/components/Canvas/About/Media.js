@@ -4,7 +4,8 @@ import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import { galeryRotationBound } from '../../../utils/constant';
 
-const infinitOffsetSpeed = 1.5
+const infinitOffsetSpeed = 2
+// const infinitOffsetSpeed = 15
 
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
@@ -24,7 +25,9 @@ export default class {
     }
     this.pos = {
       pixelX: 0,
-      pixelY: 0
+      pixelY: 0,
+      x: 0,
+      y: 0,
     }
     this.scroll = {
       pixelX: 0,
@@ -93,8 +96,8 @@ export default class {
   }
 
   updateX({ dT, scrollX = 0 }) {
-    this.pos.pixelX = scrollX * 0.4 + this.infinitOffset
-    this.pos.x = this.pixelX * this.sizes.width / this.screenAspectRatio.width
+    this.pos.pixelX = scrollX * 0.6 + this.infinitOffset
+    this.pos.x = this.pos.pixelX * this.sizes.width / this.screenAspectRatio.width
     // (0,0) of the screen
     let x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     // the actual x value + conversion pixel en [-1, 1]
@@ -113,25 +116,24 @@ export default class {
   }
   lineToCircle(x) {
     const theta = x * Math.PI / this.extra.width
-    return theta
+    return - theta + Math.PI / 2
   }
 
   update(dT, scroll) {
     if (!this.bounds) return
     this.infinitOffset += infinitOffsetSpeed
     this.scroll = scroll
-    this.offesting(scroll)
-    const x = this.updateX({ dT }),
+    const x = this.updateX({ dT, scrollX: scroll.pixelY }),
       y = this.updateY({})
     const theta = this.lineToCircle(x)
     const R = this.extra.width / Math.PI
+    this.offesting(x)
     this.mesh.position.x = R * Math.cos(theta)
     this.mesh.position.y = y + R * Math.sin(theta) - R
     this.mesh.rotation.z = this.updateRotation(theta)
   }
 
-  offesting(scroll) {
-    const x = this.pos.x
+  offesting(x) {
     if (x > this.extra.width / 2) {
       this.extra.xCounter--
     }
