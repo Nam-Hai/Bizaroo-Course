@@ -136,6 +136,8 @@ export default class {
   offesting(x) {
     if (x > this.extra.width / 2) {
       this.extra.xCounter--
+    } else if (x < -this.extra.width / 2) {
+      this.extra.xCounter++
     }
   }
 
