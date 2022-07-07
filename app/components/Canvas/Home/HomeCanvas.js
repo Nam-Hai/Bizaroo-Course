@@ -59,8 +59,8 @@ export default class {
     }
 
     Object.values(this.medias).map(media => {
-      const x = media.mesh.position.x + media.mesh.scale.x / 2;
-      const y = media.mesh.position.y + media.mesh.scale.y / 2;
+      const x = media.position.x + media.mesh.scale.x / 2;
+      const y = media.position.y + media.mesh.scale.y / 2;
       if (x < -this.sizes.width / 2) {
         media.extra.xCounter++;
       } else if (x - media.mesh.scale.x > this.sizes.width / 2) {
@@ -71,7 +71,7 @@ export default class {
       } else if (y - media.mesh.scale.y > this.sizes.height / 2) {
         media.extra.yCounter++;
       }
-      media.onResize({ ...event, galleryDimension: this.galleryDimension })
+      media.onResize({ ...event, galleryDimension: this.galleryDimension, depth: event.depth })
     })
   }
 
@@ -90,8 +90,8 @@ export default class {
 
     for (let media of Object.values(this.medias)) {
 
-      const x = media.mesh.position.x + media.mesh.scale.x / 2;
-      const y = media.mesh.position.y + media.mesh.scale.y / 2;
+      const x = media.position.x + media.mesh.scale.x / 2;
+      const y = media.position.y + media.mesh.scale.y / 2;
       if (scroll.direction.xAxis == 'right' && x < -this.sizes.width / 2) {
         media.extra.xCounter++;
         media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
