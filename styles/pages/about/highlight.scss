@@ -63,6 +63,7 @@
   position: absolute;
   height: 76rem;
   width: 54rem;
+  overflow: hidden;
 
   .about__highlight:nth-child(4) & {
     height: 52.8rem;

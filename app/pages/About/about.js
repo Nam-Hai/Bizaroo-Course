@@ -13,7 +13,9 @@ export default class About extends Page {
         title: '.about__title',
         updatables: {
           leftText: '[data-animation="text--left"]',
-          rightText: '[data-animation="text--right"]'
+          rightText: '[data-animation="text--right"]',
+          parallax: '[data-parallax="parallax"]'
+
         }
       },
     })

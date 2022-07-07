@@ -108,16 +108,18 @@
   position: relative;
   // height: 43.7rem;
   // width: 30.9rem;
+  overflow: hidden;
+  > img {
 
-
+  }
 
   .about__content:nth-child(3) & {
     position: relative;
     height: 80.8rem;
     width: 53.8rem;
     margin-left: 17.8rem;
-
-
+    border-top-left-radius: 26.9rem;
+    border-top-right-radius: 26.9rem;
   }
   .about__content:nth-child(5) & {
     height: 60rem;

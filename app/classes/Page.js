@@ -6,6 +6,7 @@ import SideTextAnimation from '../animations/SideTextAnimation';
 import { ColorsManager } from './Colors';
 import AsyncLoad from './AsyncLoad';
 import ImgLoad from './ImgLoad';
+import ScrollParallax from '../animations/ScrollParallax.js';
 
 export default class Page {
   constructor({
@@ -94,6 +95,11 @@ export default class Page {
       this.animations.updatables.push(...Object.values(this.elements.updatables.rightText).map((element) => {
         return new SideTextAnimation({ element, side: 'right' })
       }))
+
+      if (this.elements.updatables.parallax instanceof window.HTMLElement) this.elements.updatables.parallax = [this.element.updatables.parallax]
+      this.animations.updatables.push(...Object.values(this.elements.updatables.parallax).map((element) => {
+        return new ScrollParallax({ element })
+      }))
     }
 
     let animationsConcat = []
@@ -160,7 +166,7 @@ export default class Page {
   update(deltaT, scrollY) {
     if (this.animations.updatables) {
       for (const updatable of this.animations.updatables) {
-        updatable.tick(deltaT)
+        updatable.tick({ dt: deltaT, scrollY })
       }
     }
 

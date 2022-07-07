@@ -19,7 +19,7 @@
             <p class="about__content__label"><%- section.primary.label %></p>
             <div class="about__content__description"><%- ctx.PrismicH.asHTML(section.primary.description) %></div>
           </div>
-          <figure class="about__content__media" data-animation="<%= section.primary.type === 'Left' ? 'text--right' : 'text--left' %>">
+          <figure class="about__content__media" data-animation="<%= section.primary.type === 'Left' ? 'text--right' : 'text--left' %>" data-parallax="parallax">
             <img data-src="<%= section.primary.image.url %>" alt="<%= section.primary.image.alt %>">
           </figure>
         </div>
@@ -34,7 +34,7 @@
 
           <div class="about__highlight__medias">
             <% section.items.forEach(image => { %>
-              <figure class="about__highlight__media">
+              <figure class="about__highlight__media" data-parallax="parallax">
                 <img data-src="<%= image.image.url %>" alt="<% image.image.alt %>">
               </figure>
             <% }) %>
