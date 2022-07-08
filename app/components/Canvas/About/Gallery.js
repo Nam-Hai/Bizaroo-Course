@@ -13,7 +13,6 @@ export default class {
     screenAspectRatio
   }) {
     this.element = element;
-    console.log('gallery', this.element);
     this.geometry = geometry;
     this.index = index;
     this.gl = gl;
@@ -41,7 +40,6 @@ export default class {
       height: 0
     }
     this.createMedias()
-    this.addEventListener()
   }
 
   createMedias() {
@@ -78,30 +76,16 @@ export default class {
   }
 
   onTouchDown(x, y) {
-    // this.slide.scroll.current = x
     this.touchMoveOn = y > this.galleryBounds.top && y < this.galleryBounds.bottom
     return this.touchMoveOn
   }
   onTouchMove(x) {
-    // const distance = x.end - x.start;
-    // this.slide.target = this.slide.current + distance
   }
   onTouchUp(x) {
-    // this.toggleTouchMove(false)
     this.touchMoveOn = false
   }
 
-  toggleTouchMove(b) {
-    this.touchMoveOn = b
-  }
-  addEventListener() {
-    // window.addEventListener('mousedown', this.toggleTouchMove(true))
-
-    // window.addEventListener('touchstart', this.toggleTouchMove(true))
-  }
-
   update(dT, scroll) {
-    // console.log('gallery', scroll);
     this.slide.current = N.Lerp(this.slide.current, this.slide.target, 0.1)
     for (let media of Object.values(this.medias)) {
       // const x = media.mesh.position.x + media.mesh.scale.x / 2;
