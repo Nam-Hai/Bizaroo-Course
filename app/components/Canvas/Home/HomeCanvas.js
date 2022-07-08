@@ -47,10 +47,6 @@ export default class {
     )
   }
 
-  show() {
-
-  }
-
   onResize(event) {
 
     this.galleryBounds = this.galleryElement.getBoundingClientRect()
@@ -112,6 +108,14 @@ export default class {
       }
       media.update(dT, scroll)
     }
+  }
+
+  show() {
+
+  }
+
+  hide() {
+
   }
 
   destroy() {

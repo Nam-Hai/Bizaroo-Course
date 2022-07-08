@@ -102,6 +102,7 @@ class App {
 
   async onChange({ url, button, push = true }) {
 
+    this.canvas.hide()
     await this.page.hide()
     if (button) N.pe(button, 'none')
     const request = await window.fetch(url)
@@ -139,8 +140,8 @@ class App {
       // faire une 404
     }
     console.log('onChange');
-    await this.page.show()
     this.canvas.show()
+    await this.page.show()
     if (button) N.pe(button, 'auto')
   }
 

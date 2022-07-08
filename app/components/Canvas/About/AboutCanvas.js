@@ -97,6 +97,14 @@ export default class {
       gallery.show()
     }
   }
+
+  hide() {
+    console.log('gallery hide');
+    for (const gallery of this.galleries) {
+      gallery.hide()
+    }
+  }
+
   destroy() {
     for (let gallery of this.galleries) {
       this.scene.removeChild(gallery.group)

@@ -66,14 +66,7 @@ export default class Canvas {
 
   onChange(route) {
     // destroy canvas before assign this.route, and creating new canvas
-    // for (const [key, route] of Object.entries(this.mapRouteObject)) {
-    //   console.log("this.route", route);
-    //   if (this[key]) {
-    //     this[key].destroy()
-    //     this[key] = null
-    //   }
-    // }
-    if (this[this.route]) {
+    if (this[this.route] && this[this.route].destroy) {
       this[this.route].destroy()
       this[this.route] = null
     }
@@ -85,10 +78,6 @@ export default class Canvas {
     }
   }
 
-  show() {
-    console.log('showCnvas');
-    if (this[this.route] && this[this.route].show) this[this.route].show()
-  }
 
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -117,15 +106,15 @@ export default class Canvas {
   }
 
   onTouchDown(event) {
-    this[this.route].onTouchDown(event)
+    if (this[this.route] && this[this.route].onTouchDown) this[this.route].onTouchDown(event)
   }
 
   onTouchMove(event) {
-    this[this.route].onTouchMove(event)
+    if (this[this.route] && this[this.route].onTouchMove) this[this.route].onTouchMove(event)
   }
 
   onTouchUp(event) {
-    this[this.route].onTouchUp(event)
+    if (this[this.route] && this[this.route].onTouchUp) this[this.route].onTouchUp(event)
   }
 
   onWheel({ pixelX, pixelY }) {
@@ -141,5 +130,13 @@ export default class Canvas {
       camera: this.camera,
       scene: this.scene,
     })
+  }
+
+  show() {
+    if (this[this.route] && this[this.route].show) this[this.route].show()
+  }
+
+  hide() {
+    if (this[this.route] && this[this.route].hide) this[this.route].hide()
   }
 }
