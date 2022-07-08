@@ -112,15 +112,15 @@ export default class Canvas {
   }
 
   onTouchDown(event) {
-
+    this[this.route].onTouchDown(event)
   }
 
   onTouchMove(event) {
-
+    this[this.route].onTouchMove(event)
   }
 
   onTouchUp(event) {
-
+    this[this.route].onTouchUp(event)
   }
 
   onWheel({ pixelX, pixelY }) {
