@@ -13,6 +13,7 @@ export default class {
     screenAspectRatio
   }) {
     this.element = element;
+    console.log('gallery', this.element);
     this.geometry = geometry;
     this.index = index;
     this.gl = gl;
@@ -21,8 +22,14 @@ export default class {
     this.group.setParent(scene)
     this.sizes = sizes;
     this.screenAspectRatio = screenAspectRatio
+    this.touchMoveOn = false
 
-    this.scroll = {
+    this.touch = {
+      start: 0,
+      end: 0,
+      currentOnStart: 0
+    }
+    this.slide = {
       current: 0,
       target: 0,
       last: 0,
@@ -34,6 +41,7 @@ export default class {
       height: 0
     }
     this.createMedias()
+    this.addEventListener()
   }
 
   createMedias() {
@@ -69,20 +77,33 @@ export default class {
     }
   }
 
-  onTouchDown(x) {
-    this.scroll.current = x
+  onTouchDown(x, y) {
+    // this.slide.scroll.current = x
+    this.touchMoveOn = y > this.galleryBounds.top && y < this.galleryBounds.bottom
+    return this.touchMoveOn
   }
   onTouchMove(x) {
-    const distance = x.end - x.start;
-    this.scroll.target = this.scroll.current + distance
+    // const distance = x.end - x.start;
+    // this.slide.target = this.slide.current + distance
   }
   onTouchUp(x) {
+    // this.toggleTouchMove(false)
+    this.touchMoveOn = false
+  }
 
+  toggleTouchMove(b) {
+    this.touchMoveOn = b
+  }
+  addEventListener() {
+    // window.addEventListener('mousedown', this.toggleTouchMove(true))
+
+    // window.addEventListener('touchstart', this.toggleTouchMove(true))
   }
 
   update(dT, scroll) {
     // console.log('gallery', scroll);
-
+    this.slide.current = N.Lerp(this.slide.current, this.slide.target, 0.1)
+    scroll.pixelY += this.slide.current
     for (let media of Object.values(this.medias)) {
       // const x = media.mesh.position.x + media.mesh.scale.x / 2;
       // if (scroll.direction.xAxis == 'right' && x < -this.sizes.width / 2) {

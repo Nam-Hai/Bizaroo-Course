@@ -49,13 +49,27 @@ export default class {
 
   onTouchDown(event) {
     for (const gallery of this.galleries) {
-      gallery.onTouchDown(event)
+      const clickX = event.touches ? event.touches[0].clientX : event.clientX,
+        clickY = event.touches ? event.touches[0].clientY : event.clientY,
+        moveOn = gallery.onTouchDown(clickX, clickY)
+      if (moveOn) {
+        gallery.touch.start = clickX
+        gallery.touch.end = clickX
+        gallery.touch.currentOnStart = gallery.slide.current
+      }
     }
   }
   onTouchMove(event) {
     for (const gallery of this.galleries) {
-      gallery.onTouchMove(event)
-
+      const clickX = event.touches ? event.touches[0].clientX : event.clientX,
+        clickY = event.touches ? event.touches[0].clientY : event.clientY
+      gallery.onTouchMove(clickX, clickY)
+      if (gallery.touchMoveOn) {
+        gallery.touch.end = clickX
+        const xDistance = gallery.touch.end - gallery.touch.start
+        gallery.slide.target = gallery.touch.currentOnStart + xDistance
+        console.log('ontouchmove', gallery.slide);
+      }
     }
   }
 
