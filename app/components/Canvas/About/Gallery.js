@@ -103,7 +103,6 @@ export default class {
   update(dT, scroll) {
     // console.log('gallery', scroll);
     this.slide.current = N.Lerp(this.slide.current, this.slide.target, 0.1)
-    scroll.pixelY += this.slide.current
     for (let media of Object.values(this.medias)) {
       // const x = media.mesh.position.x + media.mesh.scale.x / 2;
       // if (scroll.direction.xAxis == 'right' && x < -this.sizes.width / 2) {
@@ -113,7 +112,7 @@ export default class {
       //   media.extra.xCounter--;
       //   media.mesh.rotation.z = N.Rand.range(-galeryRotationBound, galeryRotationBound)
       // }
-      media.update(dT, scroll)
+      media.update(dT, scroll, this.slide.current)
     }
   }
 

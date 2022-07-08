@@ -119,11 +119,11 @@ export default class {
     return - theta + Math.PI / 2
   }
 
-  update(dT, scroll) {
+  update(dT, scroll, slide) {
     if (!this.bounds) return
     this.infinitOffset += infinitOffsetSpeed
     this.scroll = scroll
-    const x = this.updateX({ dT, scrollX: scroll.pixelY }),
+    const x = this.updateX({ dT, scrollX: scroll.pixelY + slide }),
       y = this.updateY({})
     const theta = this.lineToCircle(x)
     const R = this.extra.width / Math.PI
