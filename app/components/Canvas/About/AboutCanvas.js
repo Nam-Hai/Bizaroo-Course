@@ -92,6 +92,11 @@ export default class {
     }
   }
 
+  show() {
+    for (const gallery of this.galleries) {
+      gallery.show()
+    }
+  }
   destroy() {
     for (let gallery of this.galleries) {
       this.scene.removeChild(gallery.group)

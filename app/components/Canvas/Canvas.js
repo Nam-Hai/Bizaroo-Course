@@ -85,6 +85,11 @@ export default class Canvas {
     }
   }
 
+  show() {
+    console.log('showCnvas');
+    if (this[this.route] && this[this.route].show) this[this.route].show()
+  }
+
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
 

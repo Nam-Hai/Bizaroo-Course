@@ -48,6 +48,7 @@ class App {
 
     await this.preloader.hide()
     this.page.createAnimationObserver()
+    this.canvas.show()
 
     this.preloader.destroy()
     // garbage collection
@@ -137,7 +138,9 @@ class App {
 
       // faire une 404
     }
+    console.log('onChange');
     await this.page.show()
+    this.canvas.show()
     if (button) N.pe(button, 'auto')
   }
 

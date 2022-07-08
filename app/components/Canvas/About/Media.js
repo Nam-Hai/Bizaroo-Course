@@ -1,8 +1,9 @@
 import vertex from '../../../shaders/plane-vertex.glsl'
-import fragment from '../../../shaders/plane-fragment-no-opacity.glsl'
+import fragment from '../../../shaders/plane-fragment-About.glsl'
 import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import { galeryRotationBound } from '../../../utils/constant';
+import anime from 'animejs';
 
 const infinitOffsetSpeed = 2
 // const infinitOffsetSpeed = 15
@@ -59,7 +60,9 @@ export default class {
       fragment,
       vertex,
       uniforms: {
-        uResolution: resolution,
+        uAlpha: {
+          value: 0
+        },
         tMap: {
           value: this.texture
         }
@@ -147,5 +150,14 @@ export default class {
     this.extra.width = galleryDimension.width
     this.extra.height = galleryDimension.height
     this.getBounds()
+  }
+
+  show() {
+    anime({
+      targets: this.program.uniforms.uAlpha,
+      value: [0, 1],
+      duration: 700,
+      easing: 'linear'
+    })
   }
 }

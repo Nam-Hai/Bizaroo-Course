@@ -47,6 +47,10 @@ export default class {
     )
   }
 
+  show() {
+
+  }
+
   onResize(event) {
 
     this.galleryBounds = this.galleryElement.getBoundingClientRect()

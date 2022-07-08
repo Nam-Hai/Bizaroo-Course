@@ -110,6 +110,12 @@ export default class {
     }
   }
 
+  show() {
+    for (const media of this.medias) {
+      media.show()
+    }
+  }
+
   destroy() {
     for (const media of this.medias) {
       this.scene.removeChild(media.mesh)
