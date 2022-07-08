@@ -76,7 +76,6 @@ export default class {
 
   getBounds() {
     this.bounds = this.element.getBoundingClientRect();
-
     this.updateScale()
     this.updateX({ x: this.pos.x })
     this.updateY({ y: this.pos.y })
