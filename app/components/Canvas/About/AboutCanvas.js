@@ -68,7 +68,6 @@ export default class {
         gallery.touch.end = clickX
         const xDistance = gallery.touch.end - gallery.touch.start
         gallery.slide.target = gallery.touch.currentOnStart + xDistance
-        console.log('ontouchmove', gallery.slide);
       }
     }
   }

@@ -22,6 +22,10 @@ export default class {
     this.sizes = sizes;
     this.screenAspectRatio = screenAspectRatio
     this.touchMoveOn = false
+    this.scroll = {
+      pixelY: 0,
+      pixelX: 0
+    }
 
     this.touch = {
       start: 0,
@@ -61,6 +65,7 @@ export default class {
   onResize(event) {
 
     this.galleryBounds = this.element.getBoundingClientRect()
+    this.galleryBounds.y = this.galleryBounds.top + this.scroll.pixelY
     this.sizes = event.sizes
     this.screenAspectRatio = event.screenAspectRatio
     if (this.galleryBounds) {
@@ -76,7 +81,8 @@ export default class {
   }
 
   onTouchDown(x, y) {
-    this.touchMoveOn = y > this.galleryBounds.top && y < this.galleryBounds.bottom
+    // console.log(y, this.galleryBounds.y, this.scroll.pixelY);
+    this.touchMoveOn = y + this.scroll.pixelY > this.galleryBounds.y && y + this.scroll.pixelY < this.galleryBounds.y + this.galleryBounds.height
     return this.touchMoveOn
   }
   onTouchMove(x) {
@@ -86,6 +92,10 @@ export default class {
   }
 
   update(dT, scroll) {
+    this.scroll = {
+      pixelX: scroll.pixelX,
+      pixelY: scroll.pixelY
+    }
     this.slide.current = N.Lerp(this.slide.current, this.slide.target, 0.1)
     for (let media of Object.values(this.medias)) {
       // const x = media.mesh.position.x + media.mesh.scale.x / 2;
