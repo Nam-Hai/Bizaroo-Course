@@ -89,6 +89,7 @@ export default class {
     this.touch.end = clickX
     const xDistance = this.touch.end - this.touch.start
     this.slide.target = N.Clamp(this.touch.currentOnStart + xDistance + this.scroll, 0, this.galleryBounds.width)
+    console.log(this.slide);
   }
   onTouchUp(event) {
     this.onSlide = false

@@ -38,11 +38,14 @@ export default class {
   }
 
   onTouchDown(event) {
+    this.gallery.onTouchDown(event)
   }
   onTouchMove(event) {
+    this.gallery.onTouchMove(event)
   }
 
   onTouchUp(event) {
+    this.gallery.onTouchUp(event)
   }
 
   onWheel({ pixelX, pixelY }) {
