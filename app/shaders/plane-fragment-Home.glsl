@@ -1,4 +1,6 @@
 precision highp float;
+
+uniform float uAlpha;
 uniform sampler2D tMap;
 
 varying vec2 vUv;
@@ -46,5 +48,5 @@ vec4 fxaa(sampler2D tex, vec2 uv, vec2 resolution) {
 void main() {
   vec4 aa = fxaa(tMap, vUv, uResolution);
   gl_FragColor = aa;
-  gl_FragColor.a = 0.4;
+  gl_FragColor.a = uAlpha;
 }

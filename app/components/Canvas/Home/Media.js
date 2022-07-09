@@ -1,9 +1,11 @@
 import vertex from '../../../shaders/plane-vertex.glsl'
-import fragment from '../../../shaders/plane-fragment.glsl'
+import fragment from '../../../shaders/plane-fragment-Home.glsl'
 import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import { galeryRotationBound } from '../../../utils/constant';
+import anime from 'animejs';
 
+const OPACITY = 0.4
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
     this.screenAspectRatio = screenAspectRatio
@@ -56,6 +58,9 @@ export default class {
       vertex,
       uniforms: {
         uResolution: resolution,
+        uAlpha: {
+          value: 0
+        },
         tMap: {
           value: this.texture
         }
@@ -149,5 +154,23 @@ export default class {
     this.extra.width = galleryDimension.width
     this.extra.height = galleryDimension.height
     this.getBounds()
+  }
+
+  show() {
+    anime({
+      targets: this.program.uniforms.uAlpha,
+      value: [0, OPACITY],
+      duration: 700,
+      easing: 'linear'
+    })
+  }
+
+  hide() {
+    anime({
+      targets: this.program.uniforms.uAlpha,
+      value: [OPACITY, 0],
+      duration: 700,
+      easing: 'linear'
+    })
   }
 }

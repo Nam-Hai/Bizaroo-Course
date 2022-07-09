@@ -111,11 +111,15 @@ export default class {
   }
 
   show() {
-
+    for (const media of this.medias) {
+      media.show()
+    }
   }
 
   hide() {
-
+    for (const media of this.medias) {
+      media.hide()
+    }
   }
 
   destroy() {
