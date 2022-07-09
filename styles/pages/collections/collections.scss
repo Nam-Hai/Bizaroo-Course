@@ -14,8 +14,11 @@
   overflow: hidden;
 }
 .collections__titles{
-  @include vertical-title;
-
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: rotate(-90deg) translate(50%, -50%);
+  align-items: center;
   @include respond-to('<small'){
     display: none;
   }
@@ -42,8 +45,10 @@
 }
 .collections__gallery__link{}
 .collections__gallery__media{
-  height: 63.1rem;
-  width: 44.7rem;
+  // height: 63.1rem;
+  // width: 44.7rem;
+  height: 54rem;
+  width: 38.25rem;
   position: relative;
 
   // @include respond-to('>large'){

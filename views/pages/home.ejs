@@ -1,10 +1,18 @@
 <div class="home" data-background="#C97164" data-color="#F9F1E7">
   <div class="home__wrapper">
-    <div class="home__titles">
-      <% for (const vertical of  home.data.vertical_titles) { %>
-        <div class="home__titles__title"><%= vertical.collection_title %></div>
-        <div class="home__titles__label"><%= vertical.collection_label %></div>
-      <% } %>
+    <div class="home__titles__wrapper">
+      <div class="home__titles">
+        <% for (const vertical of  home.data.vertical_titles) { %>
+          <div class="home__titles__title"><%= vertical.collection_title %></div>
+          <div class="home__titles__label"><%= vertical.collection_label %></div>
+        <% } %>
+      &nbsp;
+        <% for (const vertical of  home.data.vertical_titles) { %>
+          <div class="home__titles__title"><%= vertical.collection_title %></div>
+          <div class="home__titles__label"><%= vertical.collection_label %></div>
+        <% } %>
+      &nbsp;
+      </div>
     </div>
 
     <div class="home__gallery">

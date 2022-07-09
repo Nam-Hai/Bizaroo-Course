@@ -42,9 +42,18 @@
   }
 }
 
+.home__titles__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateY(50%)
+}
+
 .home__titles{
   @include vertical-title;
   pointer-events: none;
+  // transform: rotate(-90deg) translate(0%, -50%);
+  animation: scrollText 25s infinite linear;
 }
 .home__titles__title{
   @include vertical-titles__title
@@ -194,4 +203,9 @@
 
 .home__link__icon {
   @include cover
+}
+
+@keyframes scrollText {
+  from { transform:rotate(-90deg) translateX(0%) translateY(-100%)  }
+  to { transform:rotate(-90deg) translateX(50%) translateY(-100%)}
 }
