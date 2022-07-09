@@ -60,6 +60,7 @@ export default class {
       fragment,
       vertex,
       uniforms: {
+        uResolution: resolution,
         uAlpha: {
           value: 0
         },

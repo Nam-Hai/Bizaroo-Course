@@ -1,10 +1,10 @@
 precision highp float;
 
-
 uniform sampler2D tMap;
 uniform float uAlpha;
 
 varying vec2 vUv;
+uniform vec2 uResolution;
 
 vec4 fxaa(sampler2D tex, vec2 uv, vec2 resolution) {
     vec2 pixel = vec2(1) / resolution;
@@ -37,9 +37,17 @@ vec4 fxaa(sampler2D tex, vec2 uv, vec2 resolution) {
 
     float lB = dot(rgbB, l);
 
+    return mix(
+        vec4(rgbB, 1),
+        vec4(rgbA, 1),
+        max(sign(lB - lMin), 0.0) * max(sign(lB - lMax), 0.0)
+    );
+}
+
 
 void main() {
   vec4 aa = fxaa(tMap, vUv, uResolution);
+  // gl_FragColor = texture2D(tMap,vUv);
   gl_FragColor = aa;
   gl_FragColor.a = uAlpha;
 }
