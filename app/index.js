@@ -73,6 +73,7 @@ class App {
     this.page.create()
     this.onResize()
     this.page.show()
+    this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
 
   }
 
@@ -126,6 +127,7 @@ class App {
       this.page.create()
       this.page.createAnimationObserver()
       this.scroll.resetScroll()
+      this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
 
       await this.page.createLoader()
       this.canvas.onChange(this.template)
@@ -147,7 +149,7 @@ class App {
 
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
-    if (this.template == 'about' || this.template == 'collections') return
+    if (this.template == 'about') return
     this.scroll.onTouchDown(event)
   }
 

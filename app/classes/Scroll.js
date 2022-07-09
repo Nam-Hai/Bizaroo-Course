@@ -2,6 +2,9 @@ import { N } from "../utils/namhai"
 
 class Scroll {
   constructor() {
+    this.slideInversion = false
+    this.xMode = 'x'
+    this.yMode = 'y'
     this.touchDown = false
     this.x = {
       current: 0,
@@ -77,8 +80,8 @@ class Scroll {
     this.y.touch.start = event.touches ? event.touches[0].clientY : event.clientY
     this.x.touch.end = event.touches ? event.touches[0].clientX : event.clientX
     this.y.touch.end = event.touches ? event.touches[0].clientY : event.clientY
-    this.x.touch.currentOnStart = this.x.current
-    this.y.touch.currentOnStart = this.y.current
+    this.x.touch.currentOnStart = this[this.xMode].current
+    this.y.touch.currentOnStart = this[this.yMode].current
   }
 
   onTouchMove(event) {
@@ -87,8 +90,12 @@ class Scroll {
     this.y.touch.end = event.touches ? event.touches[0].clientY : event.clientY
     const xDistance = this.x.touch.end - this.x.touch.start,
       yDistance = this.y.touch.end - this.y.touch.start
-    this.x.target = this.x.touch.currentOnStart + xDistance
-    this.y.target = this.y.touch.currentOnStart + yDistance
+    this[this.xMode].target = this.x.touch.currentOnStart + xDistance
+    this[this.yMode].target = this.y.touch.currentOnStart + yDistance
+    if (this.limit.yAxis) {
+      this[this.yMode].target = N.Clamp(this[this.yMode].target, 0, this.limit.yAxis)
+      this[this.xMode].target = N.Clamp(this[this.xMode].target, 0, this.limit.yAxis)
+    }
   }
 
   onTouchUp(event) {
@@ -103,6 +110,12 @@ class Scroll {
 
     if (this.limit.yAxis != 0)
       this.y.target = N.Clamp(this.y.target, 0, this.limit.yAxis)
+  }
+
+  slideMode(axisInvertion = false, slideInversion = false) {
+    this.xMode = axisInvertion ? 'y' : 'x'
+    this.yMode = axisInvertion ? 'x' : 'y'
+    this.slideInversion = slideInversion
   }
 
   update(dt) {

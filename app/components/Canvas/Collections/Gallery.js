@@ -11,7 +11,6 @@ export default class {
     sizes,
     screenAspectRatio
   }) {
-    console.log('gallery created');
     this.element = element;
     this.geometry = geometry;
     this.gl = gl;
@@ -21,18 +20,11 @@ export default class {
     this.sizes = sizes;
     this.screenAspectRatio = screenAspectRatio
     this.scroll = 0
-    this.onSlide = false
 
     this.touch = {
       start: 0,
       end: 0,
       currentOnStart: 0
-    }
-    this.slide = {
-      current: 0,
-      target: 0,
-      last: 0,
-      lerp: 0.1
     }
 
     this.galleryDimension = {
@@ -60,6 +52,7 @@ export default class {
 
   onResize(event) {
 
+    console.log('this.element', this.element);
     this.galleryBounds = this.element.getBoundingClientRect()
     this.galleryBounds.y = this.galleryBounds.x + this.scroll
     this.sizes = event.sizes
@@ -77,29 +70,17 @@ export default class {
   }
 
   onTouchDown(event) {
-    this.onSlide = true
-    const clickX = event.touches ? event.touches[0].clientX : event.clientX
-    this.touch.start = clickX
-    this.touch.end = clickX
-    this.touch.currentOnStart = this.slide.current
   }
   onTouchMove(event) {
-    if (!this.onSlide) return
-    const clickX = event.touches ? event.touches[0].clientX : event.clientX
-    this.touch.end = clickX
-    const xDistance = this.touch.end - this.touch.start
-    this.slide.target = N.Clamp(this.touch.currentOnStart + xDistance + this.scroll, 0, this.galleryBounds.width)
-    console.log(this.slide);
   }
+
   onTouchUp(event) {
-    this.onSlide = false
   }
 
   update(dT, scroll) {
     this.scroll = scroll
-    this.slide.current = N.Lerp(this.slide.current, this.slide.target, 0.1)
     for (let media of Object.values(this.medias)) {
-      media.update(dT, scroll, this.slide.current)
+      media.update(dT, scroll)
     }
   }
 

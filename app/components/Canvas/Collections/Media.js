@@ -107,9 +107,9 @@ export default class {
     return y
   }
 
-  update(dT, scroll, slide) {
-    this.scroll = scroll
-    const x = this.updateX({ dT, scrollX: scroll + slide })
+  update(dT, scroll) {
+    this.scroll = -scroll
+    const x = this.updateX({ dT, scrollX: this.scroll })
     const y = this.updateY({ dT })
 
     this.mesh.position.x = x;

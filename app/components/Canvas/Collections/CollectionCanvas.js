@@ -21,7 +21,7 @@ export default class {
 
   createGalleries() {
     this.gallery = new Gallery({
-      element: N.get('.collections__gallery'),
+      element: N.get('.collections__gallery__wrapper'),
       geometry: this.geometry,
       gl: this.gl,
       scene: this.scene,
@@ -58,7 +58,7 @@ export default class {
       y: this.sizes.height * scroll.pixelY / this.screenAspectRatio.height
     }
     // this.scene.position.y = scrollWebGL.y
-    this.gallery.update(dT, -scroll.pixelY)
+    this.gallery.update(dT, scroll.pixelY)
   }
 
   show() {
