@@ -1,6 +1,7 @@
 import { Camera, Renderer, Transform, Box, Program, Mesh } from 'ogl';
 import About from './About/AboutCanvas';
 import Home from './Home/HomeCanvas';
+import Collections from './Collections/CollectionCanvas'
 import { N } from '../../utils/namhai'
 
 
@@ -9,7 +10,8 @@ export default class Canvas {
     this.route = route
     this.mapRouteObject = {
       home: this.createHome,
-      about: this.createAbout
+      about: this.createAbout,
+      collections: this.createCollections
     };
     this.screenAspectRatio = {
       width: window.innerWidth,
@@ -57,6 +59,15 @@ export default class Canvas {
 
   createAbout() {
     this.about = new About({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes,
+      screenAspectRatio: this.screenAspectRatio
+    })
+  }
+
+  createCollections() {
+    this.collections = new Collections({
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes,

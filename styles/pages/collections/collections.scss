@@ -2,6 +2,9 @@
 @use '../../utils/variables.scss' as *;
 @use '../../utils/responsive.scss' as *;
 
+$media_height: 54rem;
+$media_width:38.25rem;
+
 .collections{
   @include page;
   @include cover;
@@ -19,6 +22,7 @@
   top: 50%;
   transform: rotate(-90deg) translate(50%, -50%);
   align-items: center;
+  user-select: none;
   @include respond-to('<small'){
     display: none;
   }
@@ -33,12 +37,14 @@
 
 .collections__gallery{
   @include cover;
+  visibility: hidden;
 }
 .collections__gallery__wrapper{
   display: flex;
   align-items: center;
   position: absolute;
   top: 50%;
+  left: calc(50% - $media_width / 2);
   transform: translateY(-50%);
 
   column-gap: 10.6rem;
@@ -47,14 +53,13 @@
 .collections__gallery__media{
   // height: 63.1rem;
   // width: 44.7rem;
-  height: 54rem;
-  width: 38.25rem;
+  height: $media_height;
+  width: $media_width;
   position: relative;
 
   // @include respond-to('>large'){
   //   height: 44rem;
   // }
-  // visibility: hidden;
   // width: 35.76rem;
   img{
     height: 100%;

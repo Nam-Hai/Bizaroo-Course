@@ -9,7 +9,7 @@ export default class {
     this.scene = scene
     // this.group = new Transform()
     this.gl = gl
-    this.galleries = N.get('.about__gallery')
+    // this.galleries = N.get('.about__gallery')
 
     this.createGeometry()
     this.createGalleries()

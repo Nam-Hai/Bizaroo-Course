@@ -147,7 +147,7 @@ class App {
 
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
-    if (this.template == 'about') return
+    if (this.template == 'about' || this.template == 'collections') return
     this.scroll.onTouchDown(event)
   }
 
