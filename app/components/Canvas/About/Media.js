@@ -129,11 +129,15 @@ export default class {
     const x = this.updateX({ dT, scrollX: scroll.pixelY + slide }),
       y = this.updateY({})
     const theta = this.lineToCircle(x)
-    const R = this.extra.width / Math.PI
+    const scale = N.map(N.Clamp(Math.abs(this.mesh.position.x), 0, 1.7), 0, 1.7, 1.12, 1)
+    const R = (this.extra.width / Math.PI)
     this.offesting(x)
     this.mesh.position.x = R * Math.cos(theta)
-    this.mesh.position.y = y + R * Math.sin(theta) - R
+    this.mesh.position.y = y + R * Math.sin(theta) - R * (1 - (scale * 0.15 - 0.15))
     this.mesh.rotation.z = this.updateRotation(theta)
+
+    this.mesh.scale.x = scale * this.sizes.width * this.width
+    this.mesh.scale.y = scale * this.sizes.height * this.height
   }
 
   offesting(x) {
