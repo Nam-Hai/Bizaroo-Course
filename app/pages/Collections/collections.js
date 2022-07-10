@@ -11,8 +11,8 @@ export default class Collections extends Page {
 
   onResize() {
     super.onResize()
-    // this.scrollLimit = this.elements.wrapper.clientHeight - window.innerHeight
     const bounds = N.get('.collections__gallery__wrapper').getBoundingClientRect()
-    this.scrollLimit = bounds.width
+    const childBounds = N.Select.el('.collections__gallery__media').getBoundingClientRect()
+    this.scrollLimit = bounds.width - childBounds.width
   }
 }
