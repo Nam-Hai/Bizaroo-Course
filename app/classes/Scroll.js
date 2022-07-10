@@ -88,8 +88,10 @@ class Scroll {
     if (!this.touchDown) return
     this.x.touch.end = event.touches ? event.touches[0].clientX : event.clientX
     this.y.touch.end = event.touches ? event.touches[0].clientY : event.clientY
-    const xDistance = this.x.touch.end - this.x.touch.start,
-      yDistance = this.y.touch.end - this.y.touch.start
+    const xDistance = (this.x.touch.end - this.x.touch.start) * (this.slideInversion ? -1 : 1),
+      yDistance = (this.y.touch.end - this.y.touch.start) * (this.slideInversion ? -1 : 1)
+
+    console.log('distance', xDistance, yDistance);
     this[this.xMode].target = this.x.touch.currentOnStart + xDistance
     this[this.yMode].target = this.y.touch.currentOnStart + yDistance
     if (this.limit.yAxis) {
@@ -113,8 +115,11 @@ class Scroll {
   }
 
   slideMode(axisInvertion = false, slideInversion = false) {
+    // axisInvertion : l'axe des slide est inverser avec le scroll (scroll horizontal mais avec scroll.pixelY)
     this.xMode = axisInvertion ? 'y' : 'x'
     this.yMode = axisInvertion ? 'x' : 'y'
+
+    // le sens dans lequel slide
     this.slideInversion = slideInversion
   }
 
