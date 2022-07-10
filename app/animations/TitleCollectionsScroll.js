@@ -14,7 +14,6 @@ export default class TitleCollectionsScroll extends Animation {
     Object.entries(articleMediaMap).forEach(([index, length]) => {
       this.articleMediaMap.push(this.articleMediaMap[index] + length)
     })
-    console.log('maLenghtp', this.articleMediaMap, this.collectionsArticleLength);
     this.animateOut()
   }
 

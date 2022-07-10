@@ -93,15 +93,15 @@ export default class {
     this.mesh.scale.y = this.sizes.height * this.height
   }
 
-  updateX({ dT, scrollX = 0 }) {
-    this.pos.pixelX = scrollX
+  updateX({ dT, scroll = 0 }) {
+    this.pos.pixelX = scroll
     this.pos.x = this.pos.pixelX * this.sizes.width / this.screenAspectRatio.width
     let x = -this.sizes.width / 2 + this.mesh.scale.x / 2
     x += ((this.bounds.x + this.pos.pixelX) / this.screenAspectRatio.width) * this.sizes.width
     return x
   }
 
-  updateY({ dT, scrollY = 0 }) {
+  updateY({ dT, scroll = 0 }) {
     let y = this.sizes.height / 2 - this.mesh.scale.y / 2
     y -= ((this.bounds.y + this.pos.pixelY) / this.screenAspectRatio.height) * this.sizes.height
     return y
@@ -109,8 +109,8 @@ export default class {
 
   update(dT, scroll) {
     this.scroll = -scroll
-    const x = this.updateX({ dT, scrollX: this.scroll })
-    const y = this.updateY({ dT })
+    const x = this.updateX({ dT, scroll: this.scroll })
+    const y = this.updateY({ dT, scroll: this.scroll })
 
     this.mesh.position.x = x;
     this.mesh.position.y = y

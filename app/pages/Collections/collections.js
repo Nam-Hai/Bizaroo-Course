@@ -60,7 +60,7 @@ export default class Collections extends Page {
     this.selectedCollection = +this.mediaArticleMap[this.index]
     // this.selectedCollection = this.elements.medias[this.index].getAttribute('data-index')
     Object.entries(this.elements.articles).forEach(([index, article]) => {
-      index === this.selectedCollection ? article.classList.add('collections__article-active') : article.classList.remove('collections__article-active')
+      +index === this.selectedCollection ? article.classList.add('collections__article-active') : article.classList.remove('collections__article-active')
     })
 
     this.animations.updatables.forEach(updatable => updatable.onCollectionChange(this.selectedCollection))
