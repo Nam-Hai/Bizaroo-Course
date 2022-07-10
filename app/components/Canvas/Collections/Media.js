@@ -77,7 +77,7 @@ export default class {
 
   getBounds() {
     this.bounds = this.element.getBoundingClientRect();
-    this.bounds.y = this.bounds.y + this.scroll
+    this.bounds.x = this.bounds.x
     this.updateScale()
     this.updateX({ x: this.pos.pixelX })
     this.updateY({ y: this.pos.pixelY })
