@@ -10,10 +10,10 @@
 
     <div class="collections__gallery">
       <div class="collections__gallery__wrapper">
-        <% collections.forEach(collection => { %>
+        <% Object.entries(collections).forEach(([index,collection]) => { %>
           <% collection.data.products.forEach(product => { %>
             <a href="<%= ctx.linkHandler(product.products_product) %>" class="collection__gallery__link">
-              <figure class="collections__gallery__media">
+              <figure class="collections__gallery__media" data-index="<%= index %>">
                 <img data-src="<%= product.products_product.data.product_image.url %>" alt="<%= product.products_product.data.product_image.alt %>">
               </figure>
             </a>

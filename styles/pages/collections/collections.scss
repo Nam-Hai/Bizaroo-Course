@@ -78,15 +78,20 @@ $media_width:38.25rem;
   }
 }
 .collections__article{
-  pointer-events: auto;
   position: absolute;
   bottom: 8.7rem;
   left: 8rem;
-  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 400ms linear, transform 400ms ease-out;
 }
 
 .collections__article-active {
-  visibility: visible
+  transform: translateY(0);
+  transition-delay: 200ms;
+  opacity: 1;
+  pointer-events: auto
 }
 .collections__article__title{
   @include title-60;

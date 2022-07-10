@@ -17,7 +17,6 @@ class App {
     this.resizeDelay = 50
     this.clock = new Clock()
     this.scroll = ScrollManager
-    this.update()
   }
 
   createNavigation() {
@@ -41,6 +40,7 @@ class App {
     this.createCanvas()
     this.createNavigation()
     this.createPages()
+    this.update()
 
     this.addLinkListener(N.get('header'))
     this.addLinkListener(this.content)
@@ -61,7 +61,7 @@ class App {
   }
 
 
-  async createPages() {
+  createPages() {
     this.pages = {
       'home': new Home(),
       'collections': new Collections(),
@@ -71,6 +71,7 @@ class App {
     this.page = this.pages[this.template]
 
     this.page.create()
+    this.page.createAnimations()
     this.onResize()
     this.page.show()
     this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
@@ -125,6 +126,7 @@ class App {
       this.navigation.onChange(this.template)
       this.page = this.pages[this.template]
       this.page.create()
+      this.page.createAnimations()
       this.page.createAnimationObserver()
       this.scroll.resetScroll()
       this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
