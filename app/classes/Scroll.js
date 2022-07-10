@@ -91,7 +91,6 @@ class Scroll {
     const xDistance = (this.x.touch.end - this.x.touch.start) * (this.slideInversion ? -1 : 1),
       yDistance = (this.y.touch.end - this.y.touch.start) * (this.slideInversion ? -1 : 1)
 
-    console.log('distance', xDistance, yDistance);
     this[this.xMode].target = this.x.touch.currentOnStart + xDistance
     this[this.yMode].target = this.y.touch.currentOnStart + yDistance
     if (this.limit.yAxis) {
