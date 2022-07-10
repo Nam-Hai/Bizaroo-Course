@@ -25,6 +25,7 @@ export default class Page {
     };
 
     this.id = id;
+    this.animations = {}
 
     this.scrollOn = false
   }
@@ -34,6 +35,7 @@ export default class Page {
     this.elements = {};
     this.elements = this.querySelectRec(this.selectorChildren)
 
+    console.log('this.elements', this.elements);
     this.createAnimations()
 
     // AsyncLoad
