@@ -4,7 +4,7 @@ import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import anime from 'animejs';
 
-
+const opacityCollectionMediaPassive = 0.4
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
     this.screenAspectRatio = screenAspectRatio
@@ -15,6 +15,7 @@ export default class {
     this.scene = scene
     this.index = index
     this.infinitOffset = 0;
+    this.isShow = false
     this.extra = {
       width: 0,
       height: 0,
@@ -79,8 +80,9 @@ export default class {
     this.bounds = this.element.getBoundingClientRect();
     this.bounds.x = this.bounds.x
     this.updateScale()
-    this.updateX({ x: this.pos.pixelX })
-    this.updateY({ y: this.pos.pixelY })
+    this.mesh.position.x = this.updateX({ x: this.pos.pixelX })
+    // this.mesh.position.y = this.updateY({ y: this.pos.pixelY })
+    this.createCosWave()
   }
 
   updateScale() {
@@ -102,18 +104,40 @@ export default class {
   }
 
   updateY({ dT, scroll = 0 }) {
-    let y = this.sizes.height / 2 - this.mesh.scale.y / 2
-    y -= ((this.bounds.y + this.pos.pixelY) / this.screenAspectRatio.height) * this.sizes.height
-    return y
+
   }
 
+  createCosWave() {
+    this.mesh.position.y = Math.cos(this.mesh.position.x * 0.6) * 0.4
+  }
   update(dT, scroll) {
     this.scroll = -scroll
     const x = this.updateX({ dT, scroll: this.scroll })
-    const y = this.updateY({ dT, scroll: this.scroll })
+    // const y = this.updateY({ dT, scroll: this.scroll })
 
     this.mesh.position.x = x;
-    this.mesh.position.y = y
+    if (!this.isShow) return
+    if (x < 0.5 && x > -0.5 && !this.inView) {
+      this.inView = true
+      anime({
+        targets: this.program.uniforms.uAlpha,
+        value: [opacityCollectionMediaPassive, 1],
+        duration: 500,
+        easing: 'linear'
+      })
+    } else if ((x > 0.5 || x < -0.5) && this.inView) {
+      this.inView = false
+      anime({
+        targets: this.program.uniforms.uAlpha,
+        value: opacityCollectionMediaPassive,
+        duration: 500,
+        easing: 'linear'
+      })
+
+    }
+
+
+    // this.mesh.position.y = y
   }
 
 
@@ -128,19 +152,19 @@ export default class {
   show() {
     anime({
       targets: this.program.uniforms.uAlpha,
-      value: [0, 1],
+      value: [0, opacityCollectionMediaPassive],
       duration: 700,
       easing: 'linear'
-    })
+    }).finished.then(() => this.isShow = true)
   }
 
   hide() {
     // this.program.uniforms.uAlpha = 1
-    anime({
-      targets: this.program.uniforms.uAlpha,
-      value: [1, 0],
-      duration: 700,
-      easing: 'linear'
-    })
+    // anime({
+    //   targets: this.program.uniforms.uAlpha,
+    //   value: [1, 0],
+    //   duration: 700,
+    //   easing: 'linear'
+    // })
   }
 }
