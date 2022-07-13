@@ -51,8 +51,6 @@ export default class {
 
 
   onResize(event) {
-
-    console.log('this.element', this.element);
     this.galleryBounds = this.element.getBoundingClientRect()
     this.galleryBounds.y = this.galleryBounds.x + this.scroll
     this.sizes = event.sizes

@@ -143,8 +143,8 @@ export default class {
     this.mesh.position.y = Math.cos(this.mesh.position.x * 0.6) * 0.4
   }
   update(dT, scroll) {
-    // this.mesh.program = this.pickingProgram
-    // this.mesh.onAfterRender(() => this.mesh.program = this.program)
+    this.mesh.program = this.pickingProgram
+    this.mesh.onAfterRender(() => this.mesh.program = this.program)
     this.scroll = -scroll
     const x = this.updateX({ dT, scroll: this.scroll })
     // const y = this.updateY({ dT, scroll: this.scroll })
