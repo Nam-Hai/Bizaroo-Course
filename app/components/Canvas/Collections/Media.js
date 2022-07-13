@@ -1,6 +1,10 @@
 import vertex from '../../../shaders/plane-vertex.glsl'
-import fragment from '../../../shaders/plane-fragment-About.glsl'
-import { Mesh, Program, Texture, Vec2 } from 'ogl'
+import fragment from '../../../shaders/plane-fragment-Collections.glsl'
+
+import pickingVertex from '../../../shaders/fameBuffer-vertex.glsl'
+import pickingFragment from '../../../shaders/frameBuffer-fragment.glsl'
+
+import { Mat4, Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
 import anime from 'animejs';
 
@@ -31,6 +35,7 @@ export default class {
     this.scroll = 0
     this.createTexture()
     this.createProgram()
+    this.createBufferProgram()
     this.createMesh()
 
     this.getBounds()
@@ -66,11 +71,38 @@ export default class {
     })
   }
 
+  createBufferProgram() {
+    this.pickingProgram = new Program(this.gl, {
+      vertex: pickingVertex,
+      fragment: pickingFragment,
+      uniforms: {
+        u_id: {
+          value: [1.0, 1.2, 1, 1],
+        },
+        u_matrix: {
+          value: new Mat4().identity(),
+        },
+        a_position: {
+          value: [0, 0, 0, 0]
+        }
+      }
+    })
+  }
+
   createMesh() {
+    // this.mesh = new Mesh(this.gl, {
+    // geometry: this.geometry,
+    // program: this.program
+    // })
     this.mesh = new Mesh(this.gl, {
       geometry: this.geometry,
-      program: this.program
+      program: this.pickingProgram
     })
+
+    const normalizedId = N.map(this.mesh.id, 0, 12, 0, 1)
+    this.pickingProgram.uniforms.u_id.value = [normalizedId, 0, 0, 1]
+
+
 
     this.mesh.setParent(this.scene)
 
@@ -111,6 +143,8 @@ export default class {
     this.mesh.position.y = Math.cos(this.mesh.position.x * 0.6) * 0.4
   }
   update(dT, scroll) {
+    // this.mesh.program = this.pickingProgram
+    // this.mesh.onAfterRender(() => this.mesh.program = this.program)
     this.scroll = -scroll
     const x = this.updateX({ dT, scroll: this.scroll })
     // const y = this.updateY({ dT, scroll: this.scroll })
