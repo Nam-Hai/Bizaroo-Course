@@ -35,10 +35,11 @@ export default class {
   }
 
   createMedias() {
-    const mediasElement = N.get('.collections__gallery__media img', this.element)
-    this.medias = Object.entries(mediasElement).map(([index, element]) =>
+    const linkElement = N.get('.collection__gallery__link', this.element)
+    this.medias = Object.entries(linkElement).map(([index, link]) =>
       new Media({
-        element,
+        element: N.get('img', link),
+        link,
         geometry: this.geometry,
         gl: this.gl,
         index,
@@ -64,6 +65,12 @@ export default class {
 
 
       media.onResize({ ...event, galleryDimension: this.galleryDimension })
+    }
+  }
+
+  onPicking(id) {
+    for (const media of this.medias) {
+      if (media.onPicking(id) == true) return
     }
   }
 

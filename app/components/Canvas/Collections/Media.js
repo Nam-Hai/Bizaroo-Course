@@ -10,12 +10,13 @@ import anime from 'animejs';
 
 const opacityCollectionMediaPassive = 0.4
 export default class {
-  constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio }) {
+  constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio, link }) {
     this.screenAspectRatio = screenAspectRatio
     this.sizes = sizes
     this.gl = gl
     this.geometry = geometry
     this.element = element
+    this.link = link
     this.scene = scene
     this.index = index
     this.infinitOffset = 0;
@@ -90,22 +91,15 @@ export default class {
   }
 
   createMesh() {
-    // this.mesh = new Mesh(this.gl, {
-    // geometry: this.geometry,
-    // program: this.program
-    // })
     this.mesh = new Mesh(this.gl, {
       geometry: this.geometry,
       program: this.pickingProgram
     })
 
-    const normalizedId = N.map(this.mesh.id, 0, 12, 0, 1)
+    const normalizedId = N.map(this.mesh.id, 0, 255, 0, 1)
     this.pickingProgram.uniforms.u_id.value = [normalizedId, 0, 0, 1]
 
-
-
     this.mesh.setParent(this.scene)
-
   }
 
   getBounds() {
@@ -181,6 +175,14 @@ export default class {
     this.extra.width = galleryDimension.width
     this.extra.height = galleryDimension.height
     this.getBounds()
+  }
+
+  onPicking(id) {
+    if (this.mesh.id === id) {
+      this.link.click()
+      return true
+    }
+    return
   }
 
   show() {

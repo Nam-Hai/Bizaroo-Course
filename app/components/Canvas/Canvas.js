@@ -69,14 +69,6 @@ export default class Canvas {
   }
 
   createCollections() {
-    // this.renderBuffer = new RenderTarget(this.gl)
-    // this.renderBuffer.setSize(window.innerWidth, window.innerHeight)
-    // this.pickingProgram = new Program(this.gl,
-    // {
-    //   vertex: pickingVertex,
-    //   fragment: pickingFragment,
-    // })
-
     this.collections = new Collections({
       gl: this.gl,
       scene: this.scene,
@@ -102,6 +94,20 @@ export default class Canvas {
     }
   }
 
+  onPicking() {
+    let data = new Uint8Array(4);
+    this.gl.readPixels(
+      this.pixelX,            // x
+      this.pixelY,            // y
+      1,
+      1,
+      this.gl.RGBA,           // format
+      this.gl.UNSIGNED_BYTE,  // type
+      data);             // typed array to hold result
+    this.clickTrigger = false
+    console.log('data', data);
+    if (this[this.route] && this[this.route].onPicking) this[this.route].onPicking(data[0])
+  }
 
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -150,24 +156,16 @@ export default class Canvas {
 
     if (this[this.route]) this[this.route].update(dT, scroll)
 
-    this.renderer.render({
-      camera: this.camera,
-      scene: this.scene,
-    })
+    // buffer rendering on collections page for picking
+    if (this.route == 'collections') {
+      this.renderer.render({
+        camera: this.camera,
+        scene: this.scene,
+      })
 
-    if (this.clickTrigger) {
-      let data = new Uint8Array(4);
-      this.gl.readPixels(
-        this.pixelX,            // x
-        this.pixelY,            // y
-        1,
-        1,
-        this.gl.RGBA,           // format
-        this.gl.UNSIGNED_BYTE,  // type
-        data);             // typed array to hold result
-      const id = data[0] + (data[1] << 8) + (data[2] << 16) + (data[3] << 2)
-      console.log(id, data);
-      this.clickTrigger = false
+      if (this.clickTrigger) {
+        this.onPicking()
+      }
     }
 
     this.renderer.render({
