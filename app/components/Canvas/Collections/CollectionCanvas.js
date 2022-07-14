@@ -38,7 +38,7 @@ export default class {
   }
 
   onPicking({ data, onClick }) {
-    this.gallery.onPicking({ data, onClick })
+    return this.gallery.onPicking({ data, onClick })
   }
 
   onTouchDown(event) {

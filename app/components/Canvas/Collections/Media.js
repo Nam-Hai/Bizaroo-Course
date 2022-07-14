@@ -97,7 +97,7 @@ export default class {
     })
 
     const normalizedId = N.map(this.mesh.id, 0, 255, 0, 1)
-    this.pickingProgram.uniforms.u_id.value = [normalizedId, 0, 0, 1]
+    this.pickingProgram.uniforms.u_id.value = [normalizedId, 1, 0, 1]
 
     this.mesh.setParent(this.scene)
   }
@@ -178,8 +178,8 @@ export default class {
   }
 
   onPicking({ data, onClick }) {
-    if (this.mesh.id !== data) return
-    if (onClick) this.link.click()
+    if (this.mesh.id !== data[0] || data[1] !== 255) return
+    // if (onClick) this.link.click()
     return true
   }
 

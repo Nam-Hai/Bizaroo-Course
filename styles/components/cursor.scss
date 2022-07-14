@@ -14,5 +14,13 @@
   top: -50%;
   border:2px solid #c31818;
   border-radius: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
+  transition: transform 400ms ease;
+}
+
+.cursor-active {
+  .cursor__wrapper {
+    transform: translate(-50%, -50%) scale(2);
+    // border-color: blue;
+  }
 }

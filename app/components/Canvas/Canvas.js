@@ -104,8 +104,9 @@ export default class Canvas {
       this.gl.RGBA,           // format
       this.gl.UNSIGNED_BYTE,  // type
       data);             // typed array to hold result
-    if (this[this.route] && this[this.route].onPicking) this[this.route].onPicking({ data: data[0], onClick: this.clickTrigger })
+    if (this[this.route] && this[this.route].onPicking) this.pickedFound = this[this.route].onPicking({ data: data, onClick: this.clickTrigger })
     this.clickTrigger = false
+    // console.log(this.pickedFound);
   }
 
   onResize() {
@@ -134,9 +135,10 @@ export default class Canvas {
     if (this[this.route] && this[this.route].onResize) this[this.route].onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, depth: this.camera.position.z })
   }
 
-  onMouseMove(mousePosition) {
-    this.pixelX = mousePosition.x;
-    this.pixelY = mousePosition.y
+  onMouseMove(e) {
+
+    this.pixelX = e.x * this.gl.canvas.width / this.gl.canvas.clientWidth;
+    this.pixelY = this.gl.canvas.height - e.y * this.gl.canvas.height / this.gl.canvas.clientHeight - 1;
   }
 
   onTouchDown(event) {

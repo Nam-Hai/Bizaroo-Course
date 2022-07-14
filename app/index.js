@@ -165,10 +165,12 @@ class App {
   }
   cursorCoord(event) {
     this.mousePosition = {
-      x: event.clientX,
-      y: event.clientY
+      x: event.x * this.canvas.gl.canvas.width / this.canvas.gl.canvas.clientWidth,
+      y: event.y * this.canvas.gl.canvas.height / this.canvas.gl.canvas.clientHeight
     }
-    if (this.template == 'collections') this.canvas.onMouseMove(this.mousePosition)
+
+    if (this.template == 'collections') this.canvas.onMouseMove(event)
+    this.cursor.updateState(this.canvas.pickedFound)
   }
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)

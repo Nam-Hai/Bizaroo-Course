@@ -13,8 +13,16 @@ export default class Cursor extends Components {
       y: 0
     }
 
+    this.active = false
+
   }
 
+  updateState(isPicked) {
+    // if (isPicked === this.active) return
+    this.active = isPicked
+    if (this.active) this.element.classList.add('cursor-active')
+    else this.element.classList.remove('cursor-active')
+  }
 
   onChange(template) {
   }
