@@ -179,7 +179,7 @@ export default class {
 
   onPicking({ data, onClick }) {
     if (this.mesh.id !== data[0] || data[1] !== 255) return
-    // if (onClick) this.link.click()
+    if (onClick) this.link.click()
     return true
   }
 
