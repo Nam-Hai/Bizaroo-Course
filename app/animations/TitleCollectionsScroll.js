@@ -18,6 +18,12 @@ export default class TitleCollectionsScroll extends Animation {
   }
 
   animateIn() {
+    // anime({
+    //   targets: this.element,
+    //   opacity: [0, 1],
+    //   duration: 700,
+    //   easing: 'linear'
+    // })
   }
 
   animateOut() {

@@ -15,7 +15,13 @@ export default class ScrollParallax extends Animation {
   }
 
   animateIn() {
-    N.O(this.element, 1)
+    // N.O(this.element, 1)
+    anime({
+      targets: this.element,
+      opacity: [0, 1],
+      duration: 700,
+      easing: 'linear'
+    })
   }
 
   animateOut() {

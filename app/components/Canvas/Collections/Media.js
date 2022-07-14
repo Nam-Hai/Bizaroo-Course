@@ -11,6 +11,7 @@ import anime from 'animejs';
 const opacityCollectionMediaPassive = 0.4
 export default class {
   constructor({ element, gl, geometry, scene, index, sizes, screenAspectRatio, link }) {
+    // this.t = 0
     this.screenAspectRatio = screenAspectRatio
     this.sizes = sizes
     this.gl = gl
@@ -132,6 +133,11 @@ export default class {
   updateY({ dT, scroll = 0 }) {
 
   }
+
+  // idleAnimation(dt) {
+  // this.t += dt
+  // return Math.cos(this.t * 0.2) * 0.001
+  // }
 
   createCosWave() {
     this.mesh.position.y = Math.cos(this.mesh.position.x * 0.6) * 0.4

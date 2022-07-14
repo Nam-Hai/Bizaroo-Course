@@ -22,7 +22,7 @@ export default class Title extends Animation {
       translateY: ['-30%', '-50%'],
       rotate: ['-90deg', '-90deg'],
       duration: 700,
-      easing: 'easeInExpo'
+      easing: 'linear'
     })
   }
 
