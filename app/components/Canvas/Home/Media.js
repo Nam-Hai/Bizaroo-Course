@@ -1,4 +1,4 @@
-import vertex from '../../../shaders/plane-vertex.glsl'
+import vertex from '../../../shaders/plane-vertex-Home.glsl'
 import fragment from '../../../shaders/plane-fragment-Home.glsl'
 import { Mesh, Program, Texture, Vec2 } from 'ogl'
 import { N } from '../../../utils/namhai'
@@ -29,6 +29,7 @@ export default class {
       x: 0,
       y: 0
     }
+    console.log(this.sizes);
 
     this.createTexture()
     this.createProgram()
@@ -57,6 +58,9 @@ export default class {
       fragment,
       vertex,
       uniforms: {
+        uViewportSizes: {
+          value: [this.sizes.width, this.sizes.height]
+        },
         uResolution: resolution,
         uAlpha: {
           value: 0
