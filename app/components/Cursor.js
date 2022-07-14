@@ -22,7 +22,6 @@ export default class Cursor extends Components {
     if (isHovered !== undefined) {
       this.activeHover = isHovered
     }
-    console.log(this.activeHover, this.active);
     if ((this.activeHover || isPicked) === this.active) return
     this.active = (isPicked || this.activeHover)
     if (this.active) {

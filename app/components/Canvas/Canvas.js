@@ -86,7 +86,7 @@ export default class Canvas {
       this[this.route] = null
     }
 
-    this.gl.canvas.style.zIndex = route === 'collections' ? 1 : 0
+    this.gl.canvas.style.zIndex = route === 'collections' ? 1 : -1
     this.route = route
     if (this.mapRouteObject.hasOwnProperty(route)) {
       const createNewObject = this.mapRouteObject[route].bind(this)
