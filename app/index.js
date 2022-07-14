@@ -144,6 +144,7 @@ class App {
       this.page.create()
       this.page.createAnimations()
       this.page.createAnimationObserver()
+      this.cursor.updateState(false, false)
       this.scroll.resetScroll()
       this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
 
