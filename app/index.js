@@ -159,9 +159,8 @@ class App {
 
       // faire une 404
     }
-    console.log('onChange');
-    this.canvas.show()
     await this.page.show()
+    this.canvas.show()
     this.cursor.updateState(false, false)
     if (button) N.pe(button, 'auto')
   }

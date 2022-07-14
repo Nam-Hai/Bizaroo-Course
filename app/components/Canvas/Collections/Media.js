@@ -195,11 +195,11 @@ export default class {
 
   hide() {
     // this.program.uniforms.uAlpha = 1
-    // anime({
-    //   targets: this.program.uniforms.uAlpha,
-    //   value: [1, 0],
-    //   duration: 700,
-    //   easing: 'linear'
-    // })
+    anime({
+      targets: this.program.uniforms.uAlpha,
+      value: [opacityCollectionMediaPassive, 0],
+      duration: 700,
+      easing: 'linear'
+    })
   }
 }

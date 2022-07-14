@@ -57,11 +57,6 @@ export default class {
   }
 
   update(dT, scroll) {
-    const scrollWebGL = {
-      x: this.sizes.width * scroll.pixelX / this.screenAspectRatio.width,
-      y: this.sizes.height * scroll.pixelY / this.screenAspectRatio.height
-    }
-    // this.scene.position.y = scrollWebGL.y
     this.gallery.update(dT, scroll.pixelY)
   }
 
