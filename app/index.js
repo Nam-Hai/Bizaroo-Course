@@ -96,6 +96,12 @@ class App {
     if (!links) return
     if (!(links instanceof window.NodeList)) links = [links]
     for (const link of links) {
+      link.addEventListener('mouseenter', (e) => {
+        this.cursor.updateState(false, true)
+      })
+      link.addEventListener('mouseleave', _ => {
+        this.cursor.updateState(false, false)
+      })
       link.addEventListener('click', (e) => {
         const href = link.href
         N.PD(e)
@@ -170,7 +176,7 @@ class App {
     }
 
     if (this.template == 'collections') this.canvas.onMouseMove(event)
-    this.cursor.updateState(this.canvas.pickedFound, this.mousePosition)
+    this.cursor.updateState(this.canvas.pickedFound, undefined)
   }
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)

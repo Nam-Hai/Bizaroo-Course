@@ -13,13 +13,18 @@ export default class Cursor extends Components {
       y: 0
     }
 
+    this.activeHover = false
     this.active = false
 
   }
 
-  updateState(isPicked, position) {
-    if (isPicked === this.active) return
-    this.active = isPicked
+  updateState(isPicked, isHovered) {
+    if (isHovered !== undefined) {
+      this.activeHover = isHovered
+    }
+    console.log(this.activeHover, this.active);
+    if ((this.activeHover || isPicked) === this.active) return
+    this.active = (isPicked || this.activeHover)
     if (this.active) {
       document.body.style.cursor = 'pointer'
       this.element.classList.add('cursor-active')
