@@ -7,6 +7,7 @@
 }
 
 html {
+  // cursor: none;
   font-size: calc((100vw / 1920) *10);
   @include cover;
   position: fixed;
