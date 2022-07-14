@@ -68,9 +68,9 @@ export default class {
     }
   }
 
-  onPicking(id) {
+  onPicking({ data, onClick }) {
     for (const media of this.medias) {
-      if (media.onPicking(id) == true) return
+      if (media.onPicking({ data, onClick }) == true) return
     }
   }
 

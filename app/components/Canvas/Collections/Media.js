@@ -177,12 +177,10 @@ export default class {
     this.getBounds()
   }
 
-  onPicking(id) {
-    if (this.mesh.id === id) {
-      this.link.click()
-      return true
-    }
-    return
+  onPicking({ data, onClick }) {
+    if (this.mesh.id !== data) return
+    if (onClick) this.link.click()
+    return true
   }
 
   show() {

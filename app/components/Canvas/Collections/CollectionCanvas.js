@@ -37,8 +37,8 @@ export default class {
     this.gallery.onResize(event)
   }
 
-  onPicking(id) {
-    this.gallery.onPicking(id)
+  onPicking({ data, onClick }) {
+    this.gallery.onPicking({ data, onClick })
   }
 
   onTouchDown(event) {

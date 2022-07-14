@@ -8,6 +8,7 @@ import { N, normalizeWheel } from 'utils/namhai.js'
 import Navigation from './components/navigation';
 import Canvas from './components/Canvas/Canvas';
 import { ScrollManager } from './classes/Scroll'
+import Cursor from './components/Cursor';
 
 class App {
   constructor() {
@@ -17,12 +18,20 @@ class App {
     this.resizeDelay = 50
     this.clock = new Clock()
     this.scroll = ScrollManager
+    this.mousePosition = {
+      x: 0,
+      y: 0
+    }
   }
 
   createNavigation() {
     this.navigation = new Navigation(
       { template: this.template }
     )
+  }
+
+  createCursor() {
+    this.cursor = new Cursor({ element: '.cursor' })
   }
 
   createPreloader() {
@@ -40,6 +49,7 @@ class App {
     this.createCanvas()
     this.createNavigation()
     this.createPages()
+    this.createCursor()
     this.update()
 
     this.addLinkListener(N.get('header'))
@@ -149,6 +159,17 @@ class App {
     if (button) N.pe(button, 'auto')
   }
 
+  onMouseMove(event) {
+    this.onTouchMove(event)
+    this.cursorCoord(event)
+  }
+  cursorCoord(event) {
+    this.mousePosition = {
+      x: event.clientX,
+      y: event.clientY
+    }
+    if (this.template == 'collections') this.canvas.onMouseMove(this.mousePosition)
+  }
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
     if (this.template == 'about') return
@@ -188,7 +209,7 @@ class App {
     window.addEventListener('wheel', this.onWheel.bind(this))
 
     window.addEventListener('mousedown', this.onTouchDown.bind(this))
-    window.addEventListener('mousemove', this.onTouchMove.bind(this))
+    window.addEventListener('mousemove', this.onMouseMove.bind(this))
     window.addEventListener('mouseup', this.onTouchUp.bind(this))
 
     window.addEventListener('touchstart', this.onTouchDown.bind(this))
@@ -213,6 +234,7 @@ class App {
     const deltaT = this.clock.getDelta()
 
     this.scroll.update(deltaT)
+    this.cursor.update(deltaT, { position: this.mousePosition })
 
     if (this.canvas && this.canvas.update) {
       this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current, direction: this.scroll.direction })
