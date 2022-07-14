@@ -88,6 +88,7 @@ export default class Canvas {
 
     this.gl.canvas.style.zIndex = route === 'collections' ? 1 : -1
     this.route = route
+    this.pickedFound = false
     if (this.mapRouteObject.hasOwnProperty(route)) {
       const createNewObject = this.mapRouteObject[route].bind(this)
       createNewObject()

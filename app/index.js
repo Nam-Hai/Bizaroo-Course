@@ -144,7 +144,6 @@ class App {
       this.page.create()
       this.page.createAnimations()
       this.page.createAnimationObserver()
-      this.cursor.updateState(false, false)
       this.scroll.resetScroll()
       this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
 
@@ -163,6 +162,7 @@ class App {
     console.log('onChange');
     this.canvas.show()
     await this.page.show()
+    this.cursor.updateState(false, false)
     if (button) N.pe(button, 'auto')
   }
 
