@@ -42,6 +42,7 @@ export default class Preloader extends Components {
         this.emit('completed')
       }
     }, 1000)
+    if (this.elements.images instanceof HTMLElement) this.elements.images = [this.elements.images]
     for (let el of this.elements.images) {
 
       el.onload = () => (this.onAssetsLoaded(), el.classList.add('loaded'))

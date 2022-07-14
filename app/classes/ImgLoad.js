@@ -13,6 +13,7 @@ export default class ImgLoad extends EventEmiter {
   }
 
   createLoader() {
+    if (this.elements instanceof HTMLElement) this.elements = [this.elements]
     for (let el of this.elements) {
       el.onload = () => (this.onAssetLoad(), el.classList.add('loaded'));
       el.src = el.getAttribute('data-src')
