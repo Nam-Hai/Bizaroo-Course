@@ -136,10 +136,22 @@ export default class Canvas {
     if (this[this.route] && this[this.route].onResize) this[this.route].onResize({ sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, depth: this.camera.position.z })
   }
 
-  onMouseMove(e) {
+  onMouseDown(e) {
+    this.clickAttempt = true
+  }
 
+  onMouseMove(e) {
     this.pixelX = e.x * this.gl.canvas.width / this.gl.canvas.clientWidth;
     this.pixelY = this.gl.canvas.height - e.y * this.gl.canvas.height / this.gl.canvas.clientHeight - 1;
+    this.clickAttempt = false
+  }
+
+  onMouseUp(e) {
+    this.pixelX = e.x * this.gl.canvas.width / this.gl.canvas.clientWidth;
+    this.pixelY = this.gl.canvas.height - e.y * this.gl.canvas.height / this.gl.canvas.clientHeight - 1;
+
+    this.clickTrigger = this.clickAttempt
+    this.clickAttempt = false
   }
 
   onTouchDown(event) {
@@ -181,16 +193,17 @@ export default class Canvas {
     })
   }
 
-  onCLick(e) {
-    this.pixelX = e.x * this.gl.canvas.width / this.gl.canvas.clientWidth;
-    this.pixelY = this.gl.canvas.height - e.y * this.gl.canvas.height / this.gl.canvas.clientHeight - 1;
+  // onCLick(e) {
+  //   this.pixelX = e.x * this.gl.canvas.width / this.gl.canvas.clientWidth;
+  //   this.pixelY = this.gl.canvas.height - e.y * this.gl.canvas.height / this.gl.canvas.clientHeight - 1;
 
-    this.clickTrigger = true
-  }
+  //   this.clickTrigger = true
+  // }
 
   addEventListener() {
 
-    this.gl.canvas.addEventListener('click', this.onCLick.bind(this))
+    // this.gl.canvas.addEventListener('mousedown', this.onCLick.bind(this))
+
   }
   show() {
     if (this[this.route] && this[this.route].show) this[this.route].show()

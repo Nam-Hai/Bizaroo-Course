@@ -166,9 +166,19 @@ class App {
     if (button) N.pe(button, 'auto')
   }
 
+  onMouseDown(event) {
+
+    if (this.template == 'collections') this.canvas.onMouseDown(event)
+    this.onTouchDown(event)
+  }
   onMouseMove(event) {
     this.onTouchMove(event)
     this.cursorCoord(event)
+  }
+  onMouseUp(event) {
+
+    if (this.template == 'collections') this.canvas.onMouseUp(event)
+    this.onTouchUp(event)
   }
   cursorCoord(event) {
     this.mousePosition = {
@@ -217,9 +227,9 @@ class App {
   addEventListener() {
     window.addEventListener('wheel', this.onWheel.bind(this))
 
-    window.addEventListener('mousedown', this.onTouchDown.bind(this))
+    window.addEventListener('mousedown', this.onMouseDown.bind(this))
     window.addEventListener('mousemove', this.onMouseMove.bind(this))
-    window.addEventListener('mouseup', this.onTouchUp.bind(this))
+    window.addEventListener('mouseup', this.onMouseUp.bind(this))
 
     window.addEventListener('touchstart', this.onTouchDown.bind(this))
     window.addEventListener('touchmove', this.onTouchMove.bind(this))
