@@ -170,7 +170,7 @@ class App {
     }
 
     if (this.template == 'collections') this.canvas.onMouseMove(event)
-    this.cursor.updateState(this.canvas.pickedFound)
+    this.cursor.updateState(this.canvas.pickedFound, this.mousePosition)
   }
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)

@@ -17,18 +17,23 @@ export default class Cursor extends Components {
 
   }
 
-  updateState(isPicked) {
-    // if (isPicked === this.active) return
+  updateState(isPicked, position) {
+    if (isPicked === this.active) return
     this.active = isPicked
-    if (this.active) this.element.classList.add('cursor-active')
-    else this.element.classList.remove('cursor-active')
+    if (this.active) {
+      document.body.style.cursor = 'pointer'
+      this.element.classList.add('cursor-active')
+    }
+    else {
+      this.element.classList.remove('cursor-active')
+      document.body.style.cursor = 'auto'
+    }
   }
 
   onChange(template) {
   }
 
   update(dt, { position }) {
-
     if (Math.abs(this.pos.x - position.x) < 1) this.pos.x = position.x
     else this.pos.x = N.Lerp(this.pos.x, position.x, 0.1)
     if (Math.abs(this.pos.y - position.y) < 1) this.pos.y = position.y
