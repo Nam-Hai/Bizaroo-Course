@@ -29,7 +29,6 @@ export default class {
       x: 0,
       y: 0
     }
-    console.log(this.sizes);
 
     this.createTexture()
     this.createProgram()
@@ -60,6 +59,9 @@ export default class {
       uniforms: {
         uViewportSizes: {
           value: [this.sizes.width, this.sizes.height]
+        },
+        uVelocity: {
+          value: [0, 0]
         },
         uResolution: resolution,
         uAlpha: {
@@ -149,6 +151,9 @@ export default class {
     // this.updateGlob()
     this.mesh.position.x = this.position.x
     this.mesh.position.y = this.position.y
+
+    this.program.uniforms.uVelocity.value = [scroll.velocity.x, scroll.velocity.y]
+    // this.mesh.uniforms.uVelocity.value[1] = scroll.velocity.y
   }
 
   onResize({ sizes, screenAspectRatio, galleryDimension, depth }) {

@@ -22,6 +22,10 @@ class App {
       x: 0,
       y: 0
     }
+    this.velocity = {
+      x: 0,
+      y: 0
+    }
   }
 
   createNavigation() {
@@ -255,7 +259,14 @@ class App {
     this.cursor.update(deltaT, { position: this.mousePosition })
 
     if (this.canvas && this.canvas.update) {
-      this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current, direction: this.scroll.direction })
+      let xVelo, yVelo;
+      if (this.template === 'home') {
+        xVelo = N.map(Math.abs(this.scroll.x.target - this.scroll.x.current), 0, 300, 0, 2)
+        yVelo = N.map(Math.abs(this.scroll.y.target - this.scroll.y.current), 0, 300, 0, 2)
+      }
+      this.velocity.x = N.Lerp(this.velocity.x, xVelo, 0.1)
+      this.velocity.y = N.Lerp(this.velocity.y, yVelo, 0.1)
+      this.canvas.update(deltaT, { pixelX: this.scroll.x.current, pixelY: this.scroll.y.current, direction: this.scroll.direction, velocity: xVelo !== undefined ? this.velocity : undefined })
     }
 
     if (this.page && this.page.update) {

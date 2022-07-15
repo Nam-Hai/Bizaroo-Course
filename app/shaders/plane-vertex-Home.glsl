@@ -4,6 +4,7 @@ attribute vec2 uv;
 attribute vec3 position;
 
 uniform vec2 uViewportSizes;
+uniform vec2 uVelocity;
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 
@@ -13,7 +14,7 @@ void main() {
   vUv = uv;
   vec4 newPosition = modelViewMatrix * vec4(position, 1.0);
 
-  newPosition.z -= (cos((newPosition.y / uViewportSizes.y) * PI) / 2.0 + cos((newPosition.x / uViewportSizes.x) * PI) / 2.0) * 2.0;
+  newPosition.z -= (cos((newPosition.y / uViewportSizes.y) * PI) * uVelocity.y / 2.0 + cos((newPosition.x / uViewportSizes.x) * PI) * uVelocity.x / 2.0) ;
 
   // newPosition.z -= (cos((newPosition.y / uViewportSizes.y) * PI) * cos((newPosition.x / uViewportSizes.x) * PI) ) * 3.0;
 
