@@ -161,6 +161,7 @@ export default class {
     this.depth = depth
     this.screenAspectRatio = screenAspectRatio
     this.sizes = sizes
+    this.program.uniforms.uViewportSizes.value = [this.sizes.width, this.sizes.height]
     this.extra.width = galleryDimension.width
     this.extra.height = galleryDimension.height
     this.getBounds()
