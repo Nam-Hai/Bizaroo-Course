@@ -179,10 +179,9 @@ export default class {
     this.getBounds()
   }
 
-  onPicking({ data, onClick }) {
+  onPicking({ data }) {
     if (this.mesh.id !== data[0] || data[1] !== 255) return
-    if (onClick) this.link.click()
-    return { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z } }
+    return { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z }, link: this.link }
   }
 
   show() {

@@ -77,6 +77,10 @@ export default class Canvas {
   }
 
   onTransition(route) {
+    if (this.transition && this.transition.mesh) {
+      this.scene.removeChild(this.transition.mesh)
+    }
+    this.transition = null
     this.isFromCollectionsToDetail = this.route == 'collections' && route == 'detail'
     this.isFromDetailToCollections = this.route == 'detail' && route == 'collections'
     // if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
@@ -86,6 +90,8 @@ export default class Canvas {
   }
 
   onChange(route) {
+    this.clickLaunched = false
+    this.pickedFound = false
 
     this.renderBuffer = null
     // destroy canvas before assign this.route, and creating new canvas
@@ -113,7 +119,13 @@ export default class Canvas {
       this.gl.RGBA,           // format
       this.gl.UNSIGNED_BYTE,  // type
       data);             // typed array to hold result
-    if (this[this.route] && this[this.route].onPicking) this.pickedFound = this[this.route].onPicking({ data: data, onClick: this.clickTrigger })
+    if (this[this.route] && this[this.route].onPicking && !this.clickLaunched) {
+      this.pickedFound = this[this.route].onPicking({ data: data })
+    }
+    if (this.clickTrigger && !!this.pickedFound) {
+      this.clickLaunched = true
+      this.pickedFound.link.click()
+    }
     this.clickTrigger = false
   }
 

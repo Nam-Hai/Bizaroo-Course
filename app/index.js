@@ -155,6 +155,7 @@ class App {
 
       await this.page.createLoader()
       this.canvas.onChange(this.template)
+      if (this.canvas.transition) this.canvas.transition.startTransition()
       this.addLinkListener(this.content)
       this.onResize()
       if (push) window.history.pushState(this.template, 'Floema - ' + this.template, url)

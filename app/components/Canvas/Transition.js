@@ -1,16 +1,20 @@
+import anime from 'animejs'
 import { Mesh, Plane, Program, Texture, Vec2 } from 'ogl'
 import fragment from '../../shaders/plane-fragment.glsl'
 import vertex from '../../shaders/plane-vertex.glsl'
+import { N } from '../../utils/namhai'
 
 export default class {
   constructor({ fromRoute, toRoute, gl, scene, sizes, screenAspectRatio, image, scale, position, rotation }) {
     // this.t = 0
     this.route = { from: fromRoute, to: toRoute }
+    console.log('this.route', this.route);
     this.screenAspectRatio = screenAspectRatio
     this.scale = scale
     this.position = position
     this.rotation = rotation
     this.element = image
+    console.log('IMAGE TRANSITION', this.element)
     this.sizes = sizes
     this.gl = gl
     this.geometry = new Plane(this.gl)
@@ -55,7 +59,6 @@ export default class {
 
     this.mesh.setParent(this.scene)
 
-    console.log('create Mesh', this.mesh);
   }
 
   init() {
@@ -65,5 +68,35 @@ export default class {
     this.mesh.position.y = this.position.y
     this.mesh.rotation.z = this.rotation.z
   }
+  startTransition() {
+    if (this.route.to == 'detail') {
+      const target = N.get('.detail__media'),
+        bounds = target.getBoundingClientRect()
+      console.log(this.mesh.scale);
+      const heightRatio = this.sizes.height / this.screenAspectRatio.height,
+        widthRatio = this.sizes.width / this.screenAspectRatio.width
 
+
+      const newScaleX = bounds.width * widthRatio,
+        newScaleY = bounds.height * heightRatio,
+        newX = bounds.x * widthRatio - this.sizes.width / 2 + this.mesh.scale.x / 2,
+        newY = -(bounds.y * heightRatio) + this.sizes.height / 2 - this.mesh.scale.y / 2
+      anime({
+        targets: this.mesh.scale,
+        x: [this.scale.x, newScaleX],
+        duration: 700,
+        easing: 'linear'
+      })
+      anime({
+        targets: this.mesh.position,
+        x: [this.position.x, newX],
+        duration: 700,
+        easing: 'linear'
+      })
+    }
+  }
+
+  hide() {
+    this.program.uniforms.uAlpha.value = 0
+  }
 }
