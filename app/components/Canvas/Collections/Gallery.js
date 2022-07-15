@@ -69,8 +69,10 @@ export default class {
   }
 
   onPicking({ data, onClick }) {
+
     for (const media of this.medias) {
-      if (media.onPicking({ data, onClick }) == true) return true
+      let pick = media.onPicking({ data, onClick })
+      if (!!pick) return pick
     }
     return false
   }

@@ -65,7 +65,6 @@ export default class {
   }
 
   hide() {
-    console.log('gallery hide');
     this.gallery.hide()
   }
 

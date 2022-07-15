@@ -134,11 +134,6 @@ export default class {
 
   }
 
-  // idleAnimation(dt) {
-  // this.t += dt
-  // return Math.cos(this.t * 0.2) * 0.001
-  // }
-
   createCosWave() {
     this.mesh.position.y = Math.cos(this.mesh.position.x * 0.6) * 0.4
     this.mesh.rotation.z = -Math.sin(this.mesh.position.x * 0.6) * 0.2
@@ -187,7 +182,7 @@ export default class {
   onPicking({ data, onClick }) {
     if (this.mesh.id !== data[0] || data[1] !== 255) return
     if (onClick) this.link.click()
-    return true
+    return { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z } }
   }
 
   show() {

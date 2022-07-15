@@ -1,10 +1,8 @@
-import { Camera, Renderer, Transform, Box, Program, Mesh, RenderTarget } from 'ogl';
+import { Camera, Renderer, Transform } from 'ogl';
 import About from './About/AboutCanvas';
 import Home from './Home/HomeCanvas';
 import Collections from './Collections/CollectionCanvas'
-import { N } from '../../utils/namhai'
-import pickingVertex from '../../shaders/fameBuffer-vertex.glsl'
-import pickingFragment from '../../shaders/frameBuffer-fragment.glsl'
+import Transition from './Transition'
 
 export default class Canvas {
   constructor({ route }) {
@@ -78,7 +76,17 @@ export default class Canvas {
 
   }
 
+  onTransition(route) {
+    this.isFromCollectionsToDetail = this.route == 'collections' && route == 'detail'
+    this.isFromDetailToCollections = this.route == 'detail' && route == 'collections'
+    // if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
+    if (this.isFromCollectionsToDetail) {
+      this.transition = new Transition({ fromRoute: this[this.route], toRoute: route, gl: this.gl, scene: this.scene, sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, image: this.pickedFound.image, scale: this.pickedFound.scale, position: this.pickedFound.position, rotation: this.pickedFound.rotation })
+    }
+  }
+
   onChange(route) {
+
     this.renderBuffer = null
     // destroy canvas before assign this.route, and creating new canvas
     if (this[this.route] && this[this.route].destroy) {
@@ -107,7 +115,6 @@ export default class Canvas {
       data);             // typed array to hold result
     if (this[this.route] && this[this.route].onPicking) this.pickedFound = this[this.route].onPicking({ data: data, onClick: this.clickTrigger })
     this.clickTrigger = false
-    // console.log(this.pickedFound);
   }
 
   onResize() {

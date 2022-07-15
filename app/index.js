@@ -124,21 +124,23 @@ class App {
 
   async onChange({ url, button, push = true }) {
 
-    this.canvas.hide()
-    await this.page.hide()
     if (button) N.pe(button, 'none')
     const request = await window.fetch(url)
 
     if (request.ok) {
       const html = await request['text']()
-
-
       // SPA IMPLEMENTATION
       const div = N.Cr('div')
       div.innerHTML = html
       const divContent = N.get('main', div)
-
       this.template = divContent.getAttribute('data-template')
+
+
+      this.canvas.onTransition(this.template)
+      this.canvas.hide()
+      await this.page.hide()
+
+
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
@@ -190,7 +192,7 @@ class App {
     }
 
     if (this.template == 'collections') this.canvas.onMouseMove(event)
-    this.cursor.updateState(this.canvas.pickedFound, undefined)
+    this.cursor.updateState(!!this.canvas.pickedFound, undefined)
   }
   onTouchDown(event) {
     if (this.canvas && this.canvas.onTouchDown) this.canvas.onTouchDown(event)
