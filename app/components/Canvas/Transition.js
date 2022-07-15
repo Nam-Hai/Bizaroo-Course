@@ -19,7 +19,6 @@ export default class {
     this.createProgram()
     this.createMesh()
 
-    // this.getBounds()
     this.init()
   }
 
@@ -67,13 +66,4 @@ export default class {
     this.mesh.rotation.z = this.rotation.z
   }
 
-  updateScale() {
-    // la nouvelle taille l'image
-
-    this.width = this.bounds.width / this.screenAspectRatio.width
-    this.height = this.bounds.height / this.screenAspectRatio.height
-
-    this.mesh.scale.x = this.sizes.width * this.width
-    this.mesh.scale.y = this.sizes.height * this.height
-  }
 }
