@@ -16,7 +16,5 @@ void main() {
 
   newPosition.z -= (cos((newPosition.y / uViewportSizes.y) * PI) * uVelocity.y / 2.0 + cos((newPosition.x / uViewportSizes.x) * PI) * uVelocity.x / 2.0) ;
 
-  // newPosition.z -= (cos((newPosition.y / uViewportSizes.y) * PI) * cos((newPosition.x / uViewportSizes.x) * PI) ) * 3.0;
-
   gl_Position = projectionMatrix * newPosition;
 }
