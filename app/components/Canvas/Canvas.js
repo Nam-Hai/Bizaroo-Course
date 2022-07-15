@@ -193,13 +193,6 @@ export default class Canvas {
     })
   }
 
-  // onCLick(e) {
-  //   this.pixelX = e.x * this.gl.canvas.width / this.gl.canvas.clientWidth;
-  //   this.pixelY = this.gl.canvas.height - e.y * this.gl.canvas.height / this.gl.canvas.clientHeight - 1;
-
-  //   this.clickTrigger = true
-  // }
-
   addEventListener() {
 
     // this.gl.canvas.addEventListener('mousedown', this.onCLick.bind(this))

@@ -129,6 +129,7 @@ export default class {
   }
 
   // pas ouf l'effet car les images sont des plan et donc les bord ne colle pas le "globe"
+  // shader + segmentSize de la geometry == meilleur resultat + moins gourmand
   updateGlob() {
     // console.log('x', this.mesh.position.x);
     const R = this.depth
@@ -145,6 +146,7 @@ export default class {
   }
 
   update(dT, scroll) {
+    if (!scroll.velocity) return
     if (!this.bounds) return
     this.updateX({ dT, x: scroll.pixelX })
     this.updateY({ dT, y: scroll.pixelY })
@@ -153,7 +155,6 @@ export default class {
     this.mesh.position.y = this.position.y
 
     this.program.uniforms.uVelocity.value = [scroll.velocity.x, scroll.velocity.y]
-    // this.mesh.uniforms.uVelocity.value[1] = scroll.velocity.y
   }
 
   onResize({ sizes, screenAspectRatio, galleryDimension, depth }) {
