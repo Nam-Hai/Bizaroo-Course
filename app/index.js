@@ -137,7 +137,7 @@ class App {
 
 
       this.canvas.onTransition(this.template)
-      this.canvas.hide()
+      // this.canvas.hide()
       await this.page.hide()
 
 
