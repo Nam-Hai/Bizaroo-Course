@@ -184,7 +184,7 @@ export default class {
 
   onPicking({ data }) {
     if (this.mesh.id !== data[0] || data[1] !== 255) return
-    return { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z }, link: this.link }
+    return { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z }, link: this.link, opacity: this.program.uniforms.uAlpha }
   }
 
   show() {

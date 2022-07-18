@@ -5,7 +5,8 @@ import Collections from './Collections/CollectionCanvas'
 import Transition from './Transition'
 
 export default class Canvas {
-  constructor({ route }) {
+  constructor({ route, scroll }) {
+    this.scroll = scroll
     this.route = route
     this.mapRouteObject = {
       home: this.createHome,
@@ -85,8 +86,9 @@ export default class Canvas {
     this.isFromDetailToCollections = this.route == 'detail' && route == 'collections'
     // if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
     if (this.isFromCollectionsToDetail) {
-      this.transition = new Transition({ fromRoute: this[this.route], toRoute: route, gl: this.gl, scene: this.scene, sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, image: this.pickedFound.image, scale: this.pickedFound.scale, position: this.pickedFound.position, rotation: this.pickedFound.rotation })
+      this.transition = new Transition({ fromRoute: this[this.route], toRoute: route, gl: this.gl, scene: this.scene, sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, image: this.pickedFound.image, scale: this.pickedFound.scale, position: this.pickedFound.position, rotation: this.pickedFound.rotation, opacity: this.pickedFound.opacity })
     }
+    return !!this.isFromCollectionsToDetail
   }
 
   onChange(route) {
@@ -122,6 +124,7 @@ export default class Canvas {
       this.pickedFound = this[this.route].onPicking({ data: data })
     }
     if (this.clickTrigger && !!this.pickedFound) {
+      this.scroll.resetScroll()
       this.clickLaunched = true
       this.pickedFound.link.click()
     }

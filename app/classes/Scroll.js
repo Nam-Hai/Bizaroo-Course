@@ -109,8 +109,7 @@ class Scroll {
     this.x.target += normalizeWheelValue.pixelX;
     this.y.target += normalizeWheelValue.pixelY;
 
-    if (this.limit.yAxis != 0)
-      this.y.target = N.Clamp(this.y.target, 0, this.limit.yAxis)
+    this.y.target = N.Clamp(this.y.target, 0, this.limit.yAxis)
   }
 
   slideMode(axisInvertion = false, slideInversion = false) {

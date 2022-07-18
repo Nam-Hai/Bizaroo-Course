@@ -44,7 +44,7 @@ class App {
   }
 
   createCanvas() {
-    this.canvas = new Canvas({ route: this.template })
+    this.canvas = new Canvas({ route: this.template, scroll: this.scroll })
 
   }
 
@@ -157,7 +157,6 @@ class App {
 
       await this.page.createLoader()
       this.addLinkListener(this.content)
-      this.onResize()
       if (push) window.history.pushState(this.template, 'Floema - ' + this.template, url)
 
 
@@ -167,6 +166,7 @@ class App {
       // faire une 404
     }
     await this.page.show()
+    this.onResize()
     this.canvas.show()
     this.cursor.updateState(false, false)
     if (button) N.pe(button, 'auto')

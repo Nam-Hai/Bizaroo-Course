@@ -5,8 +5,8 @@ import vertex from '../../shaders/plane-vertex.glsl'
 import { N } from '../../utils/namhai'
 
 export default class {
-  constructor({ fromRoute, toRoute, gl, scene, sizes, screenAspectRatio, image, scale, position, rotation }) {
-    // this.t = 0
+  constructor({ fromRoute, toRoute, gl, scene, sizes, screenAspectRatio, image, scale, position, rotation, opacity }) {
+    this.opacity = opacity
     this.route = { from: fromRoute, to: toRoute }
     this.screenAspectRatio = screenAspectRatio
     this.scale = scale
@@ -48,7 +48,7 @@ export default class {
           value: this.texture
         },
         uAlpha: {
-          value: 0
+          value: this.opacity
         }
       }
     })
@@ -70,10 +70,9 @@ export default class {
     this.mesh.position.x = this.position.x
     this.mesh.position.y = this.position.y
     this.mesh.rotation.z = this.rotation.z
-
     anime({
       targets: this.program.uniforms.uAlpha,
-      value: [0, 1],
+      value: [this.opacity, 1],
       duration: 400,
       easing: 'linear'
     })
