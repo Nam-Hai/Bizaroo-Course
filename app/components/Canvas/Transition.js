@@ -8,13 +8,11 @@ export default class {
   constructor({ fromRoute, toRoute, gl, scene, sizes, screenAspectRatio, image, scale, position, rotation }) {
     // this.t = 0
     this.route = { from: fromRoute, to: toRoute }
-    console.log('this.route', this.route);
     this.screenAspectRatio = screenAspectRatio
     this.scale = scale
     this.position = position
     this.rotation = rotation
     this.element = image
-    console.log('IMAGE TRANSITION', this.element)
     this.sizes = sizes
     this.gl = gl
     this.geometry = new Plane(this.gl)
@@ -41,11 +39,16 @@ export default class {
 
   createProgram() {
     this.program = new Program(this.gl, {
+      depthFunc: this.gl.ALWAYS,
+      transparent: true,
       fragment,
       vertex,
       uniforms: {
         tMap: {
           value: this.texture
+        },
+        uAlpha: {
+          value: 0
         }
       }
     })
@@ -67,31 +70,54 @@ export default class {
     this.mesh.position.x = this.position.x
     this.mesh.position.y = this.position.y
     this.mesh.rotation.z = this.rotation.z
+
+    anime({
+      targets: this.program.uniforms.uAlpha,
+      value: [0, 1],
+      duration: 400,
+      easing: 'linear'
+    })
+    // this.program.uniforms.uAlpha.value = 1
+    console.log('TRANSITION EMIT');
   }
   startTransition() {
     if (this.route.to == 'detail') {
-      const target = N.get('.detail__media'),
+      const target = N.get('.detail__media img'),
         bounds = target.getBoundingClientRect()
-      console.log(this.mesh.scale);
       const heightRatio = this.sizes.height / this.screenAspectRatio.height,
         widthRatio = this.sizes.width / this.screenAspectRatio.width
 
 
       const newScaleX = bounds.width * widthRatio,
         newScaleY = bounds.height * heightRatio,
-        newX = bounds.x * widthRatio - this.sizes.width / 2 + this.mesh.scale.x / 2,
-        newY = -(bounds.y * heightRatio) + this.sizes.height / 2 - this.mesh.scale.y / 2
+        newX = (bounds.x + (bounds.width / 2)) * widthRatio - (this.sizes.width / 2),
+        newY = -(bounds.y + bounds.height / 2) * heightRatio + (this.sizes.height / 2),
+        newRot = 0
+
+
+      let pos = {
+        scaleX: this.mesh.scale.x,
+        scaleY: this.mesh.scale.y,
+        x: this.mesh.position.x,
+        y: this.mesh.position.y,
+        rotZ: this.mesh.rotation.z
+      }
       anime({
-        targets: this.mesh.scale,
-        x: [this.scale.x, newScaleX],
-        duration: 700,
-        easing: 'linear'
-      })
-      anime({
-        targets: this.mesh.position,
-        x: [this.position.x, newX],
-        duration: 700,
-        easing: 'linear'
+        targets: pos,
+        scaleX: [pos.scaleX, newScaleX],
+        scaleY: [pos.scaleY, newScaleY],
+        x: [pos.x, newX],
+        y: [pos.y, newY],
+        rotZ: [pos.rotZ, newRot],
+        duration: 1200,
+        easing: 'easeInOutQuart',
+        update: () => {
+          this.mesh.position.x = pos.x
+          this.mesh.position.y = pos.y
+          this.mesh.scale.x = pos.scaleX
+          this.mesh.scale.y = pos.scaleY
+          this.mesh.rotation.z = pos.rotZ
+        }
       })
     }
   }

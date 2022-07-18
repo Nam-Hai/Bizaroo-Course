@@ -127,6 +127,8 @@ export default class Page {
 
       }).add({
         opacity: [0, 1],
+        duration: 700,
+        easing: 'linear',
         targets: this.element
       }).finished.then(() => {
         this.addEventListener();

@@ -59,6 +59,8 @@ export default class {
     const resolution = { value: new Vec2() }
     resolution.value.set(this.gl.canvas.width, this.gl.canvas.height)
     this.program = new Program(this.gl, {
+      // transparent: true,
+      // dephtTest: true,
       fragment,
       vertex,
       uniforms: {
@@ -75,6 +77,7 @@ export default class {
 
   createBufferProgram() {
     this.pickingProgram = new Program(this.gl, {
+      transparent: true,
       vertex: pickingVertex,
       fragment: pickingFragment,
       uniforms: {
@@ -194,7 +197,6 @@ export default class {
   }
 
   hide() {
-    // this.program.uniforms.uAlpha = 1
     anime({
       targets: this.program.uniforms.uAlpha,
       value: [opacityCollectionMediaPassive, 0],

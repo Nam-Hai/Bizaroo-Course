@@ -137,7 +137,7 @@ class App {
 
 
       this.canvas.onTransition(this.template)
-      // this.canvas.hide()
+      this.canvas.hide()
       await this.page.hide()
 
 
@@ -152,10 +152,10 @@ class App {
       this.page.createAnimationObserver()
       this.scroll.resetScroll()
       this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
-
-      await this.page.createLoader()
       this.canvas.onChange(this.template)
       if (this.canvas.transition) this.canvas.transition.startTransition()
+
+      await this.page.createLoader()
       this.addLinkListener(this.content)
       this.onResize()
       if (push) window.history.pushState(this.template, 'Floema - ' + this.template, url)

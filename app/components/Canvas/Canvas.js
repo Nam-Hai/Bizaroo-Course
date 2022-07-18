@@ -93,7 +93,6 @@ export default class Canvas {
     this.clickLaunched = false
     this.pickedFound = false
 
-    this.renderBuffer = null
     // destroy canvas before assign this.route, and creating new canvas
     if (this[this.route] && this[this.route].destroy) {
       this[this.route].destroy()
