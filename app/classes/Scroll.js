@@ -34,8 +34,21 @@ class Scroll {
 
     this.limit = {
       xAxis: 0,
-      yAxis: 0
+      yAxis: 0,
+      xAxisLow: 0,
+      yAxisLow: 0
     }
+  }
+
+  blockScroll() {
+    this.limit = {
+      xAxis: this.x.current,
+      yAxis: this.y.current,
+      xAxisLow: this.x.current,
+      yAxisLow: this.y.current
+    }
+    this.x.target = this.x.current
+    this.y.target = this.y.current
   }
 
   resetScroll() {
@@ -65,7 +78,9 @@ class Scroll {
     }
     this.limit = {
       yAxis: 0,
-      xAxis: 0
+      xAxis: 0,
+      xAxisLow: 0,
+      yAxisLow: 0
     }
   }
 
@@ -94,8 +109,8 @@ class Scroll {
     this[this.xMode].target = this.x.touch.currentOnStart + xDistance
     this[this.yMode].target = this.y.touch.currentOnStart + yDistance
     if (this.limit.yAxis) {
-      this[this.yMode].target = N.Clamp(this[this.yMode].target, 0, this.limit.yAxis)
-      this[this.xMode].target = N.Clamp(this[this.xMode].target, 0, this.limit.yAxis)
+      this[this.yMode].target = N.Clamp(this[this.yMode].target, this.limit.xAxisLow, this.limit.yAxis)
+      this[this.xMode].target = N.Clamp(this[this.xMode].target, this.limit.yAxisLow, this.limit.yAxis)
     }
   }
 
@@ -109,7 +124,7 @@ class Scroll {
     this.x.target += normalizeWheelValue.pixelX;
     this.y.target += normalizeWheelValue.pixelY;
 
-    this.y.target = N.Clamp(this.y.target, 0, this.limit.yAxis)
+    this.y.target = N.Clamp(this.y.target, this.limit.yAxisLow, this.limit.yAxis)
   }
 
   slideMode(axisInvertion = false, slideInversion = false) {

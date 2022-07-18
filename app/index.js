@@ -135,7 +135,6 @@ class App {
       const divContent = N.get('main', div)
       this.template = divContent.getAttribute('data-template')
 
-
       this.canvas.onTransition(this.template)
       this.canvas.hide()
       await this.page.hide()

@@ -124,7 +124,7 @@ export default class Canvas {
       this.pickedFound = this[this.route].onPicking({ data: data })
     }
     if (this.clickTrigger && !!this.pickedFound) {
-      this.scroll.resetScroll()
+      this.scroll.blockScroll()
       this.clickLaunched = true
       this.pickedFound.link.click()
     }
