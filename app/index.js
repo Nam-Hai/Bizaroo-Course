@@ -71,6 +71,7 @@ class App {
 
   createContent() {
     this.content = N.Select.el('main')
+    this.contentBuffer = N.Select.el('.buffer__main')
     this.template = this.content.getAttribute('data-template')
   }
 
@@ -135,13 +136,17 @@ class App {
       div.innerHTML = html
       const divContent = N.get('main', div)
       this.template = divContent.getAttribute('data-template')
+      this.content.setAttribute('data-template', this.template)
+      this.contentBuffer.innerHTML = divContent.innerHTML
 
       await this.canvas.onTransition(this.template)
       this.canvas.hide()
+      if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition().then(() => this.canvas.transition.hide()))
+
+      this.contentBuffer.innerHTML = ''
       await this.page.hide()
 
 
-      this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
 
@@ -153,7 +158,6 @@ class App {
       this.scroll.resetScroll()
       this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
       this.canvas.onChange(this.template)
-      if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition())
 
       await this.page.createLoader()
       this.addLinkListener(this.content)

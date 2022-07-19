@@ -92,8 +92,9 @@ export default class {
   }
   async startTransition() {
     if (this.route.to == 'detail') {
-      const target = N.get('.detail__media img'),
+      const target = N.get('.buffer__main .detail__media img'),
         bounds = target.getBoundingClientRect()
+
       const heightRatio = this.sizes.height / this.screenAspectRatio.height,
         widthRatio = this.sizes.width / this.screenAspectRatio.width
 

@@ -182,9 +182,13 @@ export default class {
     this.getBounds()
   }
 
-  onPicking({ data }) {
-    if (this.mesh.id !== data[0] || data[1] !== 255) return
-    return { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z }, link: this.link, opacity: this.program.uniforms.uAlpha.value }
+  onPicking(e) {
+    if (this.mesh.id !== e.data[0] || e.data[1] !== 255) return
+    let r = { image: this.image, scale: { x: this.mesh.scale.x, y: this.mesh.scale.y }, position: { x: this.mesh.position.x, y: this.mesh.position.y }, rotation: { z: this.mesh.rotation.z }, link: this.link, opacity: this.program.uniforms.uAlpha.value }
+    if (e.onClick) {
+      this.dirtyMedia = true
+    }
+    return r
   }
 
   show() {
@@ -197,6 +201,10 @@ export default class {
   }
 
   hide() {
+    if (this.dirtyMedia) {
+      this.program.uniforms.uAlpha.value = 0
+      return
+    }
     anime({
       targets: this.program.uniforms.uAlpha,
       value: [opacityCollectionMediaPassive, 0],

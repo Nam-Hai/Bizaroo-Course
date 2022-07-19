@@ -125,6 +125,7 @@ export default class Canvas {
       this.pickedFound = this[this.route].onPicking({ data: data })
     }
     if (this.clickTrigger && !!this.pickedFound) {
+      this.pickedFound = this[this.route].onPicking({ data: data, onClick: true })
       this.scroll.blockScroll()
       this.clickLaunched = true
       this.pickedFound.link.click()
@@ -192,8 +193,6 @@ export default class Canvas {
   }
 
   update(dT, scroll) {
-    // this.mesh.rotation.x += 0.7 * dT
-    // this.mesh.rotation.y += 1.9 * dT
 
     if (this[this.route]) this[this.route].update(dT, scroll)
 
@@ -204,9 +203,7 @@ export default class Canvas {
         scene: this.scene,
       })
 
-      // if (this.clickTrigger) {
       this.onPicking()
-      // }
     }
 
     this.renderer.render({

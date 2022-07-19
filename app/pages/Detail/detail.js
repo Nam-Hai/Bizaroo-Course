@@ -31,12 +31,15 @@ export default class Detail extends Page {
     super.show()
   }
 
-  afterTransition() {
-    anime({
-      targets: this.elements.media,
-      opacity: [0, 1],
-      duration: 700,
-      easing: 'linear'
+  async afterTransition() {
+    await new Promise(s => {
+      anime({
+        targets: this.elements.media,
+        opacity: [0, 1],
+        duration: 700,
+        easing: 'linear',
+        complete: () => s()
+      })
     })
   }
 }
