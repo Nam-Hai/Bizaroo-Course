@@ -10,6 +10,7 @@ export default class SideTextAnimation extends Animation {
     this.dX = 0
     this.X0 = side == 'left' ? -100 : 100
     this.animateOn = false
+    this.firstTime = false
     this.t = 0
 
     this.animationDuration = 1.25
@@ -18,11 +19,14 @@ export default class SideTextAnimation extends Animation {
     }
     N.O(this.element, 0)
     // this.onResize()
-    // this.createObserver()
+    this.createObserver()
     this.animateOut()
   }
 
   animateIn() {
+
+    if (this.firstTime) return
+    this.firstTime = true
 
     // N.O(this.element, 1)
     anime({

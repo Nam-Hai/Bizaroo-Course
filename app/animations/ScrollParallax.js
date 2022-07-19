@@ -16,6 +16,10 @@ export default class ScrollParallax extends Animation {
 
   animateIn() {
     // N.O(this.element, 1)
+
+    if (this.firstTime) return
+    this.firstTime = true
+
     anime({
       targets: this.element,
       opacity: [0, 1],
