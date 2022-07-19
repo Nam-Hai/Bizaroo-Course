@@ -31,7 +31,8 @@
   position: relative;
   height: 78.2rem;
   width: 55.4rem;
-  visibility: hidden;
+  // visibility: hidden;
+  opacity: 0;
 
   @include respond-to('<small'){
     margin: 0 auto 7.8rem;

@@ -1,5 +1,7 @@
+import anime from "animejs";
 import Page from "classes/Page";
 import Button from "../../classes/Button";
+import { N } from "../../utils/namhai";
 
 export default class Detail extends Page {
   constructor() {
@@ -7,7 +9,8 @@ export default class Detail extends Page {
       id: "detail",
       element: ".detail",
       elements: {
-        button: '.detail__button'
+        button: '.detail__button',
+        media: '.detail__media'
       }
     })
   }
@@ -24,5 +27,16 @@ export default class Detail extends Page {
     super.destroy()
     this.link.removeEventListener()
   }
+  show() {
+    super.show()
+  }
 
+  afterTransition() {
+    anime({
+      targets: this.elements.media,
+      opacity: [0, 1],
+      duration: 700,
+      easing: 'linear'
+    })
+  }
 }

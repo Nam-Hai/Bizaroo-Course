@@ -90,6 +90,7 @@ class App {
     this.page.show()
     this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
 
+    this.page.afterTransition()
   }
 
 
@@ -152,7 +153,7 @@ class App {
       this.scroll.resetScroll()
       this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
       this.canvas.onChange(this.template)
-      if (this.canvas.transition) this.canvas.transition.startTransition()
+      if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition())
 
       await this.page.createLoader()
       this.addLinkListener(this.content)
@@ -165,6 +166,7 @@ class App {
       // faire une 404
     }
     await this.page.show()
+
     this.onResize()
     this.canvas.show()
     this.cursor.updateState(false, false)

@@ -90,7 +90,7 @@ export default class {
     // this.program.uniforms.uAlpha.value = 1
     console.log('TRANSITION EMIT');
   }
-  startTransition() {
+  async startTransition() {
     if (this.route.to == 'detail') {
       const target = N.get('.detail__media img'),
         bounds = target.getBoundingClientRect()
@@ -112,22 +112,25 @@ export default class {
         y: this.mesh.position.y,
         rotZ: this.mesh.rotation.z
       }
-      anime({
-        targets: pos,
-        scaleX: [pos.scaleX, newScaleX],
-        scaleY: [pos.scaleY, newScaleY],
-        x: [pos.x, newX],
-        y: [pos.y, newY],
-        rotZ: [pos.rotZ, newRot],
-        duration: 1200,
-        easing: 'easeInOutQuart',
-        update: () => {
-          this.mesh.position.x = pos.x
-          this.mesh.position.y = pos.y
-          this.mesh.scale.x = pos.scaleX
-          this.mesh.scale.y = pos.scaleY
-          this.mesh.rotation.z = pos.rotZ
-        }
+      await new Promise(s => {
+        anime({
+          targets: pos,
+          scaleX: [pos.scaleX, newScaleX],
+          scaleY: [pos.scaleY, newScaleY],
+          x: [pos.x, newX],
+          y: [pos.y, newY],
+          rotZ: [pos.rotZ, newRot],
+          duration: 1200,
+          easing: 'easeInOutQuart',
+          update: () => {
+            this.mesh.position.x = pos.x
+            this.mesh.position.y = pos.y
+            this.mesh.scale.x = pos.scaleX
+            this.mesh.scale.y = pos.scaleY
+            this.mesh.rotation.z = pos.rotZ
+          },
+          complete: () => s()
+        })
       })
     }
   }

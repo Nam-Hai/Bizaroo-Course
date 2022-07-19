@@ -137,6 +137,10 @@ export default class Page {
     })
   }
 
+  afterTransition() {
+
+  }
+
   async hide() {
     return new Promise(resolve => {
       anime({
