@@ -91,6 +91,12 @@ class App {
     this.page.show()
     this.scroll.slideMode(this.template == 'collections', this.template == 'collections')
 
+    if (this.template == 'home') this.scroll.limit = {
+      xAxis: null,
+      yAxis: null,
+      xAxisLow: null,
+      yAxisLow: null,
+    }
     this.page.afterTransition()
   }
 
@@ -139,11 +145,12 @@ class App {
       this.content.setAttribute('data-template', this.template)
       this.contentBuffer.innerHTML = divContent.innerHTML
 
-      await this.canvas.onTransition(this.template)
+      this.canvas.onTransition(this.template).then(() => {
+        if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition().then(() => this.canvas.transition.hide()))
+        this.contentBuffer.innerHTML = ''
+      })
       this.canvas.hide()
-      if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition().then(() => this.canvas.transition.hide()))
 
-      this.contentBuffer.innerHTML = ''
       await this.page.hide()
 
 
