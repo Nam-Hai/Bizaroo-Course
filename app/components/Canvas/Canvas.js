@@ -77,7 +77,7 @@ export default class Canvas {
 
   }
 
-  onTransition(route) {
+  async onTransition(route) {
     if (this.transition && this.transition.mesh) {
       this.scene.removeChild(this.transition.mesh)
     }
@@ -87,6 +87,7 @@ export default class Canvas {
     // if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
     if (this.isFromCollectionsToDetail) {
       this.transition = new Transition({ fromRoute: this[this.route], toRoute: route, gl: this.gl, scene: this.scene, sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, image: this.pickedFound.image, scale: this.pickedFound.scale, position: this.pickedFound.position, rotation: this.pickedFound.rotation, opacity: this.pickedFound.opacity })
+      await this.transition.initMesh()
     }
     return !!this.isFromCollectionsToDetail
   }

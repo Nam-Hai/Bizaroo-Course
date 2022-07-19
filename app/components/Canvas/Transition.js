@@ -7,6 +7,7 @@ import { N } from '../../utils/namhai'
 export default class {
   constructor({ fromRoute, toRoute, gl, scene, sizes, screenAspectRatio, image, scale, position, rotation, opacity }) {
     this.opacity = opacity
+    console.log('opcaity', this.opacity);
     this.route = { from: fromRoute, to: toRoute }
     this.screenAspectRatio = screenAspectRatio
     this.scale = scale
@@ -17,30 +18,35 @@ export default class {
     this.gl = gl
     this.geometry = new Plane(this.gl)
     this.scene = scene
-    this.createTexture()
+  }
+
+  async initMesh() {
+    await this.createTexture()
     this.createProgram()
     this.createMesh()
 
     this.init()
   }
 
-  createTexture() {
-    this.texture = new Texture(this.gl)
-
-    this.image = new window.Image();
-    this.image.crossOrigin = 'anonymous'
-    this.image.onload = () => {
-      this.texture.image = this.image
-      console.log(this.texture, 'LOADED');
-    }
-    this.image.src = this.element.src
+  async createTexture() {
+    await new Promise(s => {
+      this.texture = new Texture(this.gl)
+      this.image = new window.Image();
+      this.image.crossOrigin = 'anonymous'
+      this.image.onload = () => {
+        this.texture.image = this.image
+        s()
+      }
+      this.image.src = this.element.src
+    })
+    //
 
   }
 
   createProgram() {
     this.program = new Program(this.gl, {
       depthFunc: this.gl.ALWAYS,
-      transparent: true,
+      // transparent: true,
       fragment,
       vertex,
       uniforms: {
@@ -70,10 +76,15 @@ export default class {
     this.mesh.position.x = this.position.x
     this.mesh.position.y = this.position.y
     this.mesh.rotation.z = this.rotation.z
+    if (this.opacity === 1) {
+      console.log('object');
+      this.program.uniforms.uAlpha.value = 1
+      return
+    }
     anime({
       targets: this.program.uniforms.uAlpha,
       value: [this.opacity, 1],
-      duration: 400,
+      duration: 700,
       easing: 'linear'
     })
     // this.program.uniforms.uAlpha.value = 1
