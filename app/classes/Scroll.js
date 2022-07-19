@@ -85,7 +85,11 @@ class Scroll {
   }
 
   setLimit(value) {
+    console.log('setLimit');
     this.limit.yAxis = value ? value : 0
+    this.limit.yAxisLow = 0
+    this.limit.xAxis = value ? value : 0
+    this.limit.xAxisLow = 0
   }
 
 
@@ -124,7 +128,9 @@ class Scroll {
     this.x.target += normalizeWheelValue.pixelX;
     this.y.target += normalizeWheelValue.pixelY;
 
-    this.y.target = N.Clamp(this.y.target, this.limit.yAxisLow, this.limit.yAxis)
+    if (this.limit.xAxis) {
+      this.y.target = N.Clamp(this.y.target, this.limit.yAxisLow, this.limit.yAxis)
+    }
   }
 
   slideMode(axisInvertion = false, slideInversion = false) {
