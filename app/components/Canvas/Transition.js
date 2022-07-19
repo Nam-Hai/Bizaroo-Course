@@ -18,7 +18,6 @@ export default class {
     this.gl = gl
     this.geometry = new Plane(this.gl, {
       heightSegments: 20,
-      widthSegments: 20
     })
     this.scene = scene
 
@@ -149,7 +148,6 @@ export default class {
               current: pos.y,
               velocity: pos.y - this.y.current
             }
-            console.log(this.x.velocity * 10);
             this.program.uniforms.uVelocity.value = [this.x.velocity, this.y.velocity]
             this.mesh.position.x = pos.x
             this.mesh.position.y = pos.y
