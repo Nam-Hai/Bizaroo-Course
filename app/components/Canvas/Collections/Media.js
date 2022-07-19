@@ -140,6 +140,7 @@ export default class {
   createCosWave() {
     this.mesh.position.y = Math.cos(this.mesh.position.x * 0.6) * 0.4
     this.mesh.rotation.z = -Math.sin(this.mesh.position.x * 0.6) * 0.2
+    console.log(this.mesh.rotation.z);
   }
   update(dT, scroll) {
     this.mesh.program = this.pickingProgram

@@ -1,7 +1,7 @@
 import anime from 'animejs'
 import { Mesh, Plane, Program, Texture, Vec2 } from 'ogl'
 import fragment from '../../shaders/plane-fragment.glsl'
-import vertex from '../../shaders/plane-vertex.glsl'
+import vertex from '../../shaders/plane-vertex-DetailTransition.glsl'
 import { N } from '../../utils/namhai'
 
 export default class {
@@ -16,8 +16,20 @@ export default class {
     this.element = image
     this.sizes = sizes
     this.gl = gl
-    this.geometry = new Plane(this.gl)
+    this.geometry = new Plane(this.gl, {
+      heightSegments: 20,
+      widthSegments: 20
+    })
     this.scene = scene
+
+    this.x = {
+      current: 0,
+      velocity: 0
+    }
+    this.y = {
+      current: 0,
+      velocity: 0
+    }
   }
 
   async initMesh() {
@@ -55,6 +67,9 @@ export default class {
         },
         uAlpha: {
           value: this.opacity
+        },
+        uVelocity: {
+          value: [0, 0]
         }
       }
     })
@@ -113,6 +128,8 @@ export default class {
         y: this.mesh.position.y,
         rotZ: this.mesh.rotation.z
       }
+      this.x.current = pos.x
+      this.y.current = pos.y
       await new Promise(s => {
         anime({
           targets: pos,
@@ -124,6 +141,16 @@ export default class {
           duration: 1200,
           easing: 'easeInOutQuart',
           update: () => {
+            this.x = {
+              current: pos.x,
+              velocity: pos.x - this.x.current
+            }
+            this.y = {
+              current: pos.y,
+              velocity: pos.y - this.y.current
+            }
+            console.log(this.x.velocity * 10);
+            this.program.uniforms.uVelocity.value = [this.x.velocity, this.y.velocity]
             this.mesh.position.x = pos.x
             this.mesh.position.y = pos.y
             this.mesh.scale.x = pos.scaleX
