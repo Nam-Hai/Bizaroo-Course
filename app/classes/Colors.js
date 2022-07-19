@@ -13,7 +13,7 @@ class Colors {
       targets: document.documentElement,
       color,
       backgroundColor,
-      duration: 1500,
+      duration: 700,
       easing: 'linear'
     })
   }
