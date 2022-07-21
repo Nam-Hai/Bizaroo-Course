@@ -168,20 +168,21 @@ export default class {
   }
 
   show() {
-    anime({
-      targets: this.program.uniforms.uAlpha,
-      value: [0, OPACITY],
-      duration: 700,
-      easing: 'linear'
-    })
+    // anime({
+    //   targets: this.program.uniforms.uAlpha,
+    //   value: [0, OPACITY],
+    //   duration: 700,
+    //   easing: 'linear'
+    // })
+    this.program.uniforms.uAlpha.value = OPACITY
   }
 
   hide() {
-    anime({
-      targets: this.program.uniforms.uAlpha,
-      value: [OPACITY, 0],
-      duration: 700,
-      easing: 'linear'
-    })
+    // anime({
+    //   targets: this.program.uniforms.uAlpha,
+    //   value: [OPACITY, 0],
+    //   duration: 700,
+    //   easing: 'linear'
+    // })
   }
 }

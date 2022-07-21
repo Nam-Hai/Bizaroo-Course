@@ -10,7 +10,8 @@ export default class Detail extends Page {
       element: ".detail",
       elements: {
         button: '.detail__button',
-        media: '.detail__media'
+        media: '.detail__media',
+        svg: '.svg path'
       }
     })
   }
@@ -29,6 +30,7 @@ export default class Detail extends Page {
   }
   show() {
     super.show()
+
   }
 
   async afterTransition() {
@@ -40,6 +42,20 @@ export default class Detail extends Page {
         easing: 'linear',
         complete: () => s()
       })
+    })
+  }
+
+  svgAnimation() {
+    anime({
+      targets: this.elements.svg,
+      d: [{
+        value: [
+          'M 0 0 L 0 -6 C 3 -6 4 -6 9 -6 C 14 -6 15 -6 18 -6 L 18 0',
+          'M 0 0 L 0  0 C 3  0 4 -6 9 -6 C 14 -6 15  0 18  0 L 18 0'
+        ]
+      }],
+      duration: 700,
+      easing: 'linear'
     })
   }
 }

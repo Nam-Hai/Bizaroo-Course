@@ -2,13 +2,14 @@ import About from 'pages/About/about';
 import Home from 'pages/Home/home.js';
 import Collections from 'pages/Collections/collections';
 import Detail from 'pages/Detail/detail.js';
-import Preloader from 'components/preloader';
+import Preloader from './components/preloader';
 import Clock from 'classes/Clock.js';
 import { N, normalizeWheel } from 'utils/namhai.js'
 import Navigation from './components/navigation';
 import Canvas from './components/Canvas/Canvas';
 import { ScrollManager } from './classes/Scroll'
 import Cursor from './components/Cursor';
+import TransitionSVG from './components/transitionSVG';
 
 class App {
   constructor() {
@@ -59,10 +60,10 @@ class App {
     this.addLinkListener(N.get('header'))
     this.addLinkListener(this.content)
     this.addEventListener()
+    this.canvas.show()
 
     await this.preloader.hide()
     this.page.createAnimationObserver()
-    this.canvas.show()
 
     this.preloader.destroy()
     // garbage collection
@@ -132,6 +133,8 @@ class App {
 
   async onChange({ url, button, push = true }) {
 
+    let transition = new TransitionSVG()
+
     if (button) N.pe(button, 'none')
     const request = await window.fetch(url)
 
@@ -144,6 +147,8 @@ class App {
       this.template = divContent.getAttribute('data-template')
       this.content.setAttribute('data-template', this.template)
       this.contentBuffer.innerHTML = divContent.innerHTML
+
+      transition.onTransition(this.template)
 
       this.canvas.onTransition(this.template).then(() => {
         if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition().then(() => this.canvas.transitionEnd()))
@@ -178,6 +183,7 @@ class App {
     }
     await this.page.show()
 
+    transition.endTransition()
     this.onResize()
     this.canvas.show()
     this.cursor.updateState(false, false)

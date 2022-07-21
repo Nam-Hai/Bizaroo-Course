@@ -192,12 +192,14 @@ export default class {
   }
 
   show() {
-    anime({
-      targets: this.program.uniforms.uAlpha,
-      value: [0, opacityCollectionMediaPassive],
-      duration: 700,
-      easing: 'linear'
-    }).finished.then(() => this.isShow = true)
+    // anime({
+    //   targets: this.program.uniforms.uAlpha,
+    //   value: [0, opacityCollectionMediaPassive],
+    //   duration: 700,
+    //   easing: 'linear'
+    // }).finished.then(() => this.isShow = true)
+    this.program.uniforms.uAlpha.value = opacityCollectionMediaPassive
+    this.isShow = true
   }
 
   hide() {
