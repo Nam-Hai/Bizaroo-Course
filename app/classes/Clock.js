@@ -8,6 +8,7 @@ export default class Clock {
     this.elaspedTime = 0;
 
     this.running = false;
+    if (this.autoStart && !this.running) this.start()
   }
 
   start() {
@@ -32,7 +33,6 @@ export default class Clock {
 
   getDelta() {
     let diff = 0;
-    if (this.autoStart && !this.running) return this.start() || 0
     if (this.running) {
       const newTime = performance.now();
       diff = (newTime - this.oldTime) / 1000;
