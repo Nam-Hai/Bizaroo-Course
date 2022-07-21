@@ -164,4 +164,10 @@ export default class {
   hide() {
     this.program.uniforms.uAlpha.value = 0
   }
+
+  destroy() {
+    if (this.mesh) {
+      this.scene.removeChild(this.mesh)
+    }
+  }
 }

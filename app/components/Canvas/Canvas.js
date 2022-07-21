@@ -78,10 +78,6 @@ export default class Canvas {
   }
 
   async onTransition(route) {
-    if (this.transition && this.transition.mesh) {
-      this.scene.removeChild(this.transition.mesh)
-    }
-    this.transition = null
     this.isFromCollectionsToDetail = this.route == 'collections' && route == 'detail'
     this.isFromDetailToCollections = this.route == 'detail' && route == 'collections'
     // if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
@@ -90,6 +86,11 @@ export default class Canvas {
       await this.transition.initMesh()
     }
     return !!this.isFromCollectionsToDetail
+  }
+  transitionEnd() {
+    this.transition.hide()
+    this.transition.destroy()
+    this.transition = null
   }
 
   onChange(route) {
