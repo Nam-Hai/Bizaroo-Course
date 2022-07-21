@@ -2,7 +2,7 @@ import { Camera, Renderer, Transform } from 'ogl';
 import About from './About/AboutCanvas';
 import Home from './Home/HomeCanvas';
 import Collections from './Collections/CollectionCanvas'
-import Transition from './Transition'
+import TransitionDetail from './Transition'
 
 export default class Canvas {
   constructor({ route, scroll }) {
@@ -82,7 +82,7 @@ export default class Canvas {
     this.isFromDetailToCollections = this.route == 'detail' && route == 'collections'
     // if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
     if (this.isFromCollectionsToDetail) {
-      this.transition = new Transition({ fromRoute: this[this.route], toRoute: route, gl: this.gl, scene: this.scene, sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, image: this.pickedFound.image, scale: this.pickedFound.scale, position: this.pickedFound.position, rotation: this.pickedFound.rotation, opacity: this.pickedFound.opacity })
+      this.transition = new TransitionDetail({ fromRoute: this[this.route], toRoute: route, gl: this.gl, scene: this.scene, sizes: this.sizes, screenAspectRatio: this.screenAspectRatio, image: this.pickedFound.image, scale: this.pickedFound.scale, position: this.pickedFound.position, rotation: this.pickedFound.rotation, opacity: this.pickedFound.opacity })
       await this.transition.initMesh()
     }
     return !!this.isFromCollectionsToDetail
@@ -125,7 +125,7 @@ export default class Canvas {
     if (this[this.route] && this[this.route].onPicking && !this.clickLaunched) {
       this.pickedFound = this[this.route].onPicking({ data: data })
     }
-    if (this.clickTrigger && !!this.pickedFound) {
+    if (this.clickTrigger && !!this.pickedFound && !this.clickLaunched) {
       this.pickedFound = this[this.route].onPicking({ data: data, onClick: true })
       this.scroll.blockScroll()
       this.clickLaunched = true
