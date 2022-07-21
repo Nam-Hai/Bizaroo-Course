@@ -148,10 +148,10 @@ class App {
       this.canvas.onTransition(this.template).then(() => {
         if (this.canvas.transition) this.canvas.transition.startTransition().then(() => this.page.afterTransition().then(() => this.canvas.transition.hide()))
         this.contentBuffer.innerHTML = ''
+        this.canvas.hide()
       })
-      this.canvas.hide()
-
       await this.page.hide()
+
 
 
       this.content.innerHTML = divContent.innerHTML
