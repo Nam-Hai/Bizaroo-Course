@@ -2,7 +2,7 @@
   "name": "bizaroo-course",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "build": "webpack --progress --config webpack.config.build.js",
     "serve": "webpack serve --progress --config webpack.config.development.js",
