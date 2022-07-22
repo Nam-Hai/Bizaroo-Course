@@ -169,6 +169,6 @@ app.get('*', (req, res) => {
 })
 
 app.listen(PORT || 3000, () => {
-  const port = app.address().port
+  const port = PORT || 3000
   console.log(`Exemple port : ${port}`);
 })
