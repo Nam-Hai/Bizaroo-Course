@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const path = require('path')
 // const PORT = 3000
-const PORT = 8080
+const PORT = 8004
 const UAParser = require('ua-parser-js')
 
 // const bodyParser = require('body-parser')
