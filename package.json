@@ -2,12 +2,13 @@
   "name": "bizaroo-course",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "webpack --progress --config webpack.config.build.js",
     "serve": "webpack serve --progress --config webpack.config.development.js",
     "backend:build": "node app.js",
-    "backend:serve": "nodemon app.js"
+    "backend:serve": "nodemon app.js",
+    "preinstall": "rm -rf /dist"
   },
   "author": "Nam Hai",
   "devDependencies": {
