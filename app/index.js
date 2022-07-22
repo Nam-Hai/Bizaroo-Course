@@ -50,6 +50,8 @@ class App {
   }
 
   async onPreloaded() {
+    let transition = new TransitionSVG()
+    transition.onTransition()
     this.createContent();
     this.createCanvas()
     this.createNavigation()
@@ -62,8 +64,10 @@ class App {
     this.addEventListener()
     this.canvas.show()
 
-    await this.preloader.hide()
+    this.preloader.hide()
     this.page.createAnimationObserver()
+    transition.endTransition()
+    transition = null
 
     this.preloader.destroy()
     // garbage collection
