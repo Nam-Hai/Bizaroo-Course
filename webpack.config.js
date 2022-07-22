@@ -116,7 +116,8 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg|fnt|webp)$/,
         loader: 'file-loader',
         options: {
-          outputPath: 'http://localhost:3000/assets',
+          // outputPath: 'http://localhost:3000/assets',
+          outputPath: 'http://localhost:8080/assets',
           // outputPath: 'assets',
           name(file) {
             return '[hash].[ext]'
