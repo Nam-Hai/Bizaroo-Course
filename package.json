@@ -7,7 +7,8 @@
     "build": "webpack --progress --config webpack.config.build.js",
     "serve": "webpack serve --progress --config webpack.config.development.js",
     "backend:build": "node app.js",
-    "backend:serve": "nodemon app.js"
+    "backend:serve": "nodemon app.js",
+    "deploy": "npm run build && npm run backend:build"
   },
   "author": "Nam Hai",
   "devDependencies": {
