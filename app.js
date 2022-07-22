@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 const path = require('path')
-const port = 3000
+const PORT = 3000
 const UAParser = require('ua-parser-js')
 
 // const bodyParser = require('body-parser')
@@ -168,6 +168,7 @@ app.get('*', (req, res) => {
   })
 })
 
-app.listen(port, () => {
+app.listen(PORT || 3000, () => {
+  const port = app.address().port
   console.log(`Exemple port : ${port}`);
 })
