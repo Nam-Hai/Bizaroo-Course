@@ -69,15 +69,16 @@ export default class Preloader extends Components {
         easing: 'easeInOutExpo',
         duration: 700,
         delay: anime.stagger(200),
-      })
-      anime({
-        targets: this.element,
-        translateY: '-100%',
-        easing: 'easeInOutExpo',
-        delay: 900,
-        duration: 800,
         complete: resolve
       })
+      // anime({
+      //   targets: this.element,
+      //   translateY: '-100%',
+      //   easing: 'easeInOutExpo',
+      //   delay: 900,
+      //   duration: 800,
+      // complete: resolve
+      // })
     })
   }
 

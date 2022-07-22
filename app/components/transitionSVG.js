@@ -6,14 +6,16 @@ export default class TransitionSVG {
     this.element = N.get('.transition-SVG')
     this.path = N.get('path', this.element)
 
+    console.log(this.path);
+    this.path.d = 'm 9 0 c -5 0 -6 0 -9 0 l 0 0 c 3 0 4 0 9 0 c 5 0 6 0 9 0 l 0 0 c -3 0 -4 0 -9 0'
 
     this.transitionAllowed = false
   }
 
-  onTransition(route) {
+  async onTransition(route) {
     if (route == 'detail') return
     this.transitionAllowed = true
-    this.startTransition()
+    return new Promise(s => this.startTransition().then(_ => s()))
   }
 
   async startTransition() {
@@ -21,19 +23,19 @@ export default class TransitionSVG {
       let tl = anime.timeline({
         targets: this.path,
         duration: 300,
-        easing: 'easeInOutQuart'
+        easing: 'easeInOutQuart',
       })
       tl.add({
+
         d: [{
           value: ['m 9 0 c -5 0 -6 0 -9 0 l 0 0 c 3 0 4 0 9 0 c 5 0 6 0 9 0 l 0 0 c -3 0 -4 0 -9 0', 'm 9 0 c -5 0 -6 0 -9 0 l 0 0 c 3 0 4 -6 9 -6 c 5 0 6 6 9 6 l 0 0 c -3 0 -4 0 -9 0']
         }]
       }).add({
+
         d: [{
           value: ['m 9 0 c -5 0 -6 0 -9 0 l 0 0 c 3 0 4 -6 9 -6 c 5 0 6 6 9 6 l 0 0 c -3 0 -4 0 -9 0', 'm 9 0 c -5 0 -6 0 -9 0 l 0 -6 c 3 0 4 0 9 0 c 5 0 6 0 9 0 l 0 6 c -3 0 -4 0 -9 0']
         }]
-      })
-
-      tl.finished.then(s)
+      }).finished.then(() => { s() })
     })
 
   }
@@ -56,7 +58,7 @@ export default class TransitionSVG {
         }]
       })
 
-      tl.finished.then(s)
+      tl.finished.then(() => s())
     })
   }
 

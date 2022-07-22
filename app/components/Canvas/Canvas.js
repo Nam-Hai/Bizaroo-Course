@@ -94,6 +94,7 @@ export default class Canvas {
   }
 
   onChange(route) {
+    console.log(route);
     this.clickLaunched = false
     this.pickedFound = false
 
@@ -220,6 +221,10 @@ export default class Canvas {
   }
   show() {
     if (this[this.route] && this[this.route].show) this[this.route].show()
+    this.renderer.render({
+      camera: this.camera,
+      scene: this.scene,
+    })
   }
 
   hide() {

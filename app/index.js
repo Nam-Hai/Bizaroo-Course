@@ -51,27 +51,28 @@ class App {
 
   async onPreloaded() {
     let transition = new TransitionSVG()
-    transition.onTransition()
-    this.createContent();
-    this.createCanvas()
-    this.createNavigation()
-    this.createPages()
-    this.createCursor()
-    this.update()
-
-    this.addLinkListener(N.get('header'))
-    this.addLinkListener(this.content)
-    this.addEventListener()
-    this.canvas.show()
-
-    this.preloader.hide()
-    this.page.createAnimationObserver()
-    transition.endTransition()
-    transition = null
 
     this.preloader.destroy()
-    // garbage collection
     this.preloader = null
+    // await this.preloader.hide()
+
+    transition.onTransition('not detail').then(async () => {
+      this.createContent();
+      this.createCanvas()
+      this.createNavigation()
+      this.createPages()
+      this.createCursor()
+
+      this.addLinkListener(N.get('header'))
+      this.addLinkListener(this.content)
+      this.addEventListener()
+      this.page.createAnimationObserver()
+
+      // garbage collection
+      await transition.endTransition()
+      this.canvas.show()
+      this.update()
+    })
   }
 
   createContent() {

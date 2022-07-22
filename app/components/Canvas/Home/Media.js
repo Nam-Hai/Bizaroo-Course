@@ -90,6 +90,9 @@ export default class {
     this.updateScale()
     this.updateX({ x: this.pos.x })
     this.updateY({ y: this.pos.y })
+    this.mesh.position.x = this.position.x
+    this.mesh.position.y = this.position.y
+
   }
 
   updateScale() {
@@ -168,13 +171,13 @@ export default class {
   }
 
   show() {
-    // anime({
-    //   targets: this.program.uniforms.uAlpha,
-    //   value: [0, OPACITY],
-    //   duration: 700,
-    //   easing: 'linear'
-    // })
-    this.program.uniforms.uAlpha.value = OPACITY
+    anime({
+      targets: this.program.uniforms.uAlpha,
+      value: [0, OPACITY],
+      duration: 700,
+      easing: 'linear'
+    })
+    // this.program.uniforms.uAlpha.value = OPACITY
   }
 
   hide() {
