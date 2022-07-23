@@ -64,7 +64,7 @@ app.set('view engine', 'ejs')
 //   const navigation = await api.getSingle('navigation')
 //   return { preloader, navigation }
 // }
-app.use('/api/index.js', router)
+// app.use('/api/index.js', router)
 
 app.use(async (req, res, next) => {
   const ua = UAParser(req.headers['user-agent'])
