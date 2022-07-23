@@ -49,7 +49,7 @@ const linkHandler = (doc) => {
 
 const ejs = require('ejs')
 
-const router = require('./api/index')
+// const router = require('./api/index')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -61,34 +61,34 @@ app.set('view engine', 'ejs')
 // }
 app.use('/api/index.js', router)
 
-// app.use(async (req, res, next) => {
-//   const ua = UAParser(req.headers['user-agent'])
-//   res.locals.isDesktop = void 0 === ua.device.type
-//   res.locals.isPhone = ua.device.type === 'mobile'
-//   res.locals.isTablet = ua.device.type === 'tablet'
+app.use(async (req, res, next) => {
+  const ua = UAParser(req.headers['user-agent'])
+  res.locals.isDesktop = void 0 === ua.device.type
+  res.locals.isPhone = ua.device.type === 'mobile'
+  res.locals.isTablet = ua.device.type === 'tablet'
 
 
 
 
-//   const preloader = await client.getSingle('preload')
-//   const meta = await client.getSingle('meta')
-//   const navGraphQuery = `{
-//     navigation {
-//       list {
-//         ...listFields
-//       }
-//     }
-//   }`
-//   const navigation = await client.getSingle('navigation', { graphQuery: navGraphQuery })
-//   res.locals.ctx = {
-//     PrismicH,
-//     linkHandler,
-//     preloader,
-//     navigation,
-//     meta
-//   }
-//   next()
-// })
+  const preloader = await client.getSingle('preload')
+  const meta = await client.getSingle('meta')
+  const navGraphQuery = `{
+    navigation {
+      list {
+        ...listFields
+      }
+    }
+  }`
+  const navigation = await client.getSingle('navigation', { graphQuery: navGraphQuery })
+  res.locals.ctx = {
+    PrismicH,
+    linkHandler,
+    preloader,
+    navigation,
+    meta
+  }
+  next()
+})
 
 app.get('/', async (req, res) => {
   const home = await client.getSingle('home')
@@ -173,7 +173,7 @@ app.get('*', (req, res) => {
   })
 })
 
-app.listen(PORT, () => {
-  const port = PORT
+app.listen(process.env.PORT || PORT, () => {
+  const port = process.env.PORT || PORT
   console.log(`Exemple port : ${port}`);
 })
