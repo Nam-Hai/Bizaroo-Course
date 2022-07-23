@@ -1,10 +1,5 @@
 require('dotenv').config()
 const PORT = process.env.PORT || 3000
-export const config = {
-  server: {
-    port: PORT
-  }
-}
 
 const express = require('express');
 const app = express();
@@ -55,6 +50,7 @@ const linkHandler = (doc) => {
 const ejs = require('ejs')
 
 // const router = require('./api/index')
+// app.use('/api/index.js', router) // vercel
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -64,7 +60,6 @@ app.set('view engine', 'ejs')
 //   const navigation = await api.getSingle('navigation')
 //   return { preloader, navigation }
 // }
-// app.use('/api/index.js', router)
 
 app.use(async (req, res, next) => {
   const ua = UAParser(req.headers['user-agent'])
