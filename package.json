@@ -2,7 +2,7 @@
   "name": "bizaroo-course",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "public/index.js",
   "engines": {
     "node": ">=16.0.0"
   },
