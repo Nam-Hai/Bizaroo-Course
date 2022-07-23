@@ -30,7 +30,7 @@
     <meta name="twitter:description" content="<%= ctx.meta.description %>">
     <meta name="twitter:image" content="<%= ctx.meta.image ? ctx.meta.image.url : '' %>">
 
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./main.css">
 </head>
 <body class="<%= isDesktop ? 'desktop' : isTablet ? 'tablet' : isPhone ? 'phone' : ''%>">
     <%- include('./partials/preloader.ejs'); %>
@@ -43,6 +43,6 @@
     <div class="buffer__main"></div>
     <%- include('./partials/transitionSvg.ejs') %>
     <%- include('./partials/cursor.ejs') %>
-    <script src="index.js"></script>
+    <script src="./index.js"></script>
 </body>
 </html>
