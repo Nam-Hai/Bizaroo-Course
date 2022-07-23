@@ -1,9 +1,14 @@
 require('dotenv').config()
+const PORT = process.env.PORT || 3000
+export const config = {
+  server: {
+    port: PORT
+  }
+}
 
 const express = require('express');
 const app = express();
 const path = require('path')
-const PORT = 3000
 // const PORT = 8004
 const UAParser = require('ua-parser-js')
 
@@ -173,7 +178,7 @@ app.get('*', (req, res) => {
   })
 })
 
-app.listen(process.env.PORT || PORT, () => {
-  const port = process.env.PORT || PORT
-  console.log(`Exemple port : ${port}`);
+app.listen(PORT, () => {
+
+  console.log(`Exemple port : ${PORT}`);
 })
