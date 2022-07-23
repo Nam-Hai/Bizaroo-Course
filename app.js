@@ -18,7 +18,7 @@ const UAParser = require('ua-parser-js')
 // app.use(methodOverride());
 // app.use(errorHandler())
 
-app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 const Prismic = require('@prismicio/client')
 const PrismicH = require('@prismicio/helpers')
