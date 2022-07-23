@@ -1,6 +1,8 @@
 # Awwward Course 
 
-[Bizarro Course on webGL developement]https://www.awwwards.com/academy/course/building-an-immersive-creative-website-from-scratch-without-frameworks
+[The website](https://floema-nam-hai.herokuapp.com/)
+
+[Bizarro Course on webGL developement](https://www.awwwards.com/academy/course/building-an-immersive-creative-website-from-scratch-without-frameworks)
 ![screenshot](https://user-images.githubusercontent.com/76962312/180613590-b7d5145c-3d4c-4133-aa55-205190bf136f.png)
 
 ## Stack
